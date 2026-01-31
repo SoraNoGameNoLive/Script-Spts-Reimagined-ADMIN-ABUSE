@@ -442,7 +442,7 @@ FarmExpFrame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
 FarmExpFrame.BorderColor3 = Color3.new(0, 0, 0)
 FarmExpFrame.BackgroundTransparency = 0.2
 FarmExpFrame.Position = UDim2.new(0, 62.5, 0, 33)
-FarmExpFrame.Size = UDim2.new(0, 210, 0, 165)
+FarmExpFrame.Size = UDim2.new(0, 210, 0, 200)
 FarmExpFrame.Visible = false
 
 ShowLocation.Name = "ShowLocation"
