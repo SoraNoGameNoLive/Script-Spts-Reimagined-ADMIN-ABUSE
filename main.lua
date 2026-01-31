@@ -442,7 +442,7 @@ FarmExpFrame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
 FarmExpFrame.BorderColor3 = Color3.new(0, 0, 0)
 FarmExpFrame.BackgroundTransparency = 0.2
 FarmExpFrame.Position = UDim2.new(0, 62.5, 0, 33)
-FarmExpFrame.Size = UDim2.new(0, 210, 0, 200)
+FarmExpFrame.Size = UDim2.new(0, 210, 0, 165)
 FarmExpFrame.Visible = false
 
 ShowLocation.Name = "ShowLocation"
@@ -1166,7 +1166,7 @@ ExtrasFrame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
 ExtrasFrame.BorderColor3 = Color3.new(0, 0, 0)
 ExtrasFrame.BackgroundTransparency = 0.2
 ExtrasFrame.Position = UDim2.new(0, 435, 0, 33)
-ExtrasFrame.Size = UDim2.new(0, 160, 0, 155)
+ExtrasFrame.Size = UDim2.new(0, 160, 0, 185)
 ExtrasFrame.Visible = false
 
 AnnoyName.Name = "AnnoyName"
