@@ -1029,7 +1029,7 @@ TPLoopBtn.MouseButton1Click:Connect(function()
                 while tpActive do
                     teleportNPCs()
                     -- Використовуємо Heartbeat для максимальної швидкості оновлення фізики
-                    RunService.Heartbeat:Wait() 
+                    RunService.Heartbeat:Wait(2) 
                 end
                 isLoopRunning = false 
             end)
