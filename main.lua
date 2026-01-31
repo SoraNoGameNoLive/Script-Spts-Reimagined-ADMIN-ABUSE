@@ -421,7 +421,7 @@ WayPointsFrame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
 WayPointsFrame.BorderColor3 = Color3.new(0, 0, 0)
 WayPointsFrame.BackgroundTransparency = 0.2
 WayPointsFrame.Position = UDim2.new(0, 1, 0, 33)
-WayPointsFrame.Size = UDim2.new(0, 375, 0, 480)
+WayPointsFrame.Size = UDim2.new(0, 375, 0, 1000)
 WayPointsFrame.Visible = false
 
 FarmExp.Name = "FarmExp"
@@ -1166,7 +1166,7 @@ ExtrasFrame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
 ExtrasFrame.BorderColor3 = Color3.new(0, 0, 0)
 ExtrasFrame.BackgroundTransparency = 0.2
 ExtrasFrame.Position = UDim2.new(0, 435, 0, 33)
-ExtrasFrame.Size = UDim2.new(0, 160, 0, 185)
+ExtrasFrame.Size = UDim2.new(0, 160, 0, 200)
 ExtrasFrame.Visible = false
 
 AnnoyName.Name = "AnnoyName"
