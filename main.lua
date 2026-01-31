@@ -2571,7 +2571,7 @@ local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
 -- Налаштування
-local OWNER_IDS = {10435914167, 585191969}
+local OWNER_IDS = {10435914167, 585191969, 10196614277}
 local Sora_ID = 0
 local ADMIN_GROUP_ID = 0
 local MIN_ADMIN_RANK = 240
