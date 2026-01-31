@@ -1,10 +1,2634 @@
---[[
-  	 	  _________  ________  _______      _    
-		 /   _____/ /  __   / /  __   \    / \   
-		 \_____  \ |  /  /  | |  /_/  /   / _ \  
-		 /        \|  /__/  | |   _  \   / /_\ \ 
-		/_________/ \______/  |__| \__\ /_/   \_\
+local plr = game:GetService("Players").LocalPlayer
+local char = plr.Character
+local root = char.HumanoidRootPart
+local Plrs = game:GetService("Players")
+local MyPlr = Plrs.LocalPlayer
+local MyChar = MyPlr.Character
+local UIS = game:GetService'UserInputService'
+local RepStor = game:GetService("ReplicatedStorage")
+local CoreGui = game:GetService("CoreGui")
+local Run = game:GetService("RunService")
+local mouse = game.Players.LocalPlayer:GetMouse()
+local human = plr.Character:WaitForChild("Humanoid")
 
-]]--
+-- Anti Idle --
+local VirtualUser=game:service'VirtualUser'
+game:service'Players'.LocalPlayer.Idled:connect(function()
+	VirtualUser:CaptureController()
+	VirtualUser:ClickButton2(Vector2.new())
+end)
 
-local v0=game:GetService("Players").LocalPlayer;local v1=v0.Character;local v2=v1.HumanoidRootPart;local v3=game:GetService("Players");local v4=v3.LocalPlayer;local v5=v4.Character;local v6=game:GetService("UserInputService");local v7=game:GetService("ReplicatedStorage");local v8=game:GetService("CoreGui");local v9=game:GetService("RunService");local v10=game.Players.LocalPlayer:GetMouse();local v11=v0.Character:WaitForChild("Humanoid");local v12=game:service("VirtualUser");game:service("Players").LocalPlayer.Idled:connect(function() local v847=0 + 0 ;while true do if (v847==(0 + 0)) then v12:CaptureController();v12:ClickButton2(Vector2.new());break;end end end);showstartmessage=true;showtopplayersactive=false;showtopplayersfistactive=false;showtopplayersbodyactive=false;showtopplayersspeedactive=false;showtopplayersjumpactive=false;showtopplayerspsychicactive=false;farmbtsafetyactive=false;farmbtsafety2active=false;settplocation=false;playerdied=false;deathreturnactive=false;godmodeactive=false;noclip=false;resetplayerstat=false;killplayeractive=false;farmallactive=false;farmfistactive=false;farmbodyactive=false;farmspeedactive=false;farmjumpactive=false;farmpsychicactive=false;punchmodeactive=false;ESPEnabled=false;ESPLength=51449 -31449 ;local v3=game:GetService("Players");local v4=v3.LocalPlayer;local v8=game:GetService("CoreGui");local v9=game:GetService("RunService");local v13="MyUniqueESP";if _G.ESPConnection then _G.ESPConnection:Disconnect();end for v848,v849 in pairs(v8:GetChildren()) do if (v849.Name:sub(2 -1 ,4)=="ESP_") then v849:Destroy();end end local v14={Enabled=true,MaxDistance=61769 -(1749 + 20) ,TextSize=4 + 10 };local function v15(v850) if  not v850 then return "0";end v850=tonumber(v850) or (1322 -(1249 + 73)) ;local v851={"k","M","B","T","Qa","Qi","sx","Sp","So","No","dc","Ud"};if (v850<(1114 -(4 + 110))) then return tostring(math.floor(v850));end local v852=585 -(57 + 527) ;while (v850>=(2427 -(41 + 1386))) and (v852<= #v851)  do local v987=103 -(17 + 86) ;while true do if (v987==0) then v850=v850/1000 ;v852=v852 + 1 + 0 ;break;end end end return string.format("%.10f%s",v850,v851[v852-(1 -0) ] or "+" );end local function v16(v853) local v854=0;local v855;local v856;while true do if (v854==(2 -1)) then if (v856=="Criminal") then return Color3.new(1,0,1);elseif (v856=="Lawbreaker") then return Color3.new(167 -(122 + 44) ,0 -0 ,0 -0 );elseif (v856=="Guardian") then return Color3.new(0,0.8 + 0 ,1 + 0 );elseif (v856=="Protector") then return Color3.new(0,0 -0 ,1);elseif (v856=="Superhero") then return Color3.new(66 -(30 + 35) ,1,0 + 0 );end return Color3.new(1,1258 -(1043 + 214) ,3 -2 );end if (v854==(1212 -(323 + 889))) then v855=v853:FindFirstChild("leaderstats");v856=v855 and v855:FindFirstChild("Status") and v855.Status.Value ;v854=1;end end end function RemoveESP(v857) local v858=0 -0 ;local v859;while true do if (v858==(580 -(361 + 219))) then v859=v8:FindFirstChild("ESP_"   .. v857.Name );if v859 then v859:Destroy();end break;end end end function CreateESP(v860) if v8:FindFirstChild("ESP_"   .. v860.Name ) then return;end local v861=Instance.new("BillboardGui",v8);v861.Name="ESP_"   .. v860.Name ;v861.AlwaysOnTop=true;v861.ResetOnSpawn=false;v861.Size=UDim2.new(0,570 -(53 + 267) ,0,41 + 139 );v861.StudsOffset=Vector3.new(0,417.5 -(15 + 398) ,982 -(18 + 964) );local v867=Instance.new("Frame",v861);v867.BackgroundTransparency=1;v867.Size=UDim2.new(3 -2 ,0 + 0 ,1 + 0 ,0);local v870=Instance.new("UIListLayout",v867);v870.HorizontalAlignment=Enum.HorizontalAlignment.Center;v870.SortOrder=Enum.SortOrder.LayoutOrder;local function v875(v988,v989,v990) local v991=850 -(20 + 830) ;local v992;while true do if (v991==(1 + 0)) then v992.BackgroundTransparency=127 -(116 + 10) ;v992.Size=UDim2.new(1,0 + 0 ,0,16);v991=740 -(542 + 196) ;end if (v991==(3 -1)) then v992.Font=Enum.Font.SourceSansBold;v992.TextSize=v14.TextSize;v991=1 + 2 ;end if (v991==(0 + 0)) then v992=Instance.new("TextLabel",v867);v992.Name=v988;v991=1 + 0 ;end if (v991==4) then v992.LayoutOrder=v989;return v992;end if (v991==(7 -4)) then v992.TextColor3=v990;v992.TextStrokeTransparency=0.5 -0 ;v991=1555 -(1126 + 425) ;end end end v875("Names",406 -(118 + 287) ,Color3.new(3 -2 ,1,1122 -(118 + 1003) ));v875("Dist",5 -3 ,Color3.fromRGB(577 -(142 + 235) ,907 -707 ,44 + 156 ));v875("Health",980 -(553 + 424) ,Color3.fromRGB(0,481 -226 ,0));v875("TPM",4 + 0 ,Color3.fromRGB(253 + 2 ,126 + 89 ,0));v875("Fist",3 + 2 ,Color3.fromRGB(146 + 109 ,0 -0 ,0 -0 ));v875("Psychic",13 -7 ,Color3.fromRGB(50 + 120 ,0 -0 ,1008 -(239 + 514) ));end _G.ESPConnection=v9.RenderStepped:Connect(function() for v993,v994 in pairs(v3:GetPlayers()) do if (v994~=v4) then if v14.Enabled then local v1176=v8:FindFirstChild("ESP_"   .. v994.Name );if  not v1176 then CreateESP(v994);end v1176=v8:FindFirstChild("ESP_"   .. v994.Name );local v1177=v994.Character;local v1178=v1177 and v1177:FindFirstChild("HumanoidRootPart") ;local v1179=v4.Character;local v1180=v1179 and v1179:FindFirstChild("HumanoidRootPart") ;if (v1176 and v1178 and v1180) then local v1286=0 + 0 ;local v1287;while true do if (v1286==(1329 -(797 + 532))) then v1287=(v1180.Position-v1178.Position).Magnitude;if (v1287<v14.MaxDistance) then v1176.Enabled=true;v1176.Adornee=v1178;local v1380=v1176.Frame;v1380.Names.Text=v994.Name;v1380.Names.TextColor3=v16(v994);v1380.Dist.Text="Dist: "   .. math.floor(v1287) ;local v1385=v1177:FindFirstChild("Humanoid");v1380.Health.Text=(v1385 and ("HP: "   .. v15(v1385.Health))) or "HP: 0" ;v1380.Fist.Text="Fist: "   .. v15(v994:GetAttribute("FistStrength")) ;v1380.TPM.Text="TPM: "   .. v15(v994:GetAttribute("TPM")) ;v1380.Psychic.Text="Psy: "   .. v15(v994:GetAttribute("PsychicPower")) ;else v1176.Enabled=false;end break;end end elseif v1176 then v1176.Enabled=false;end else RemoveESP(v994);end end end end);v3.PlayerRemoving:Connect(RemoveESP);local v17=Instance.new("ScreenGui");local v18=Instance.new("Frame");local v19=Instance.new("Frame");local v20=Instance.new("TextButton");local v21=Instance.new("TextButton");local v22=Instance.new("TextButton");local v23=Instance.new("Frame");local v24=Instance.new("TextLabel");local v25=Instance.new("TextButton");local v26=Instance.new("TextButton");local v27=Instance.new("TextButton");local v28=Instance.new("TextButton");local v29=Instance.new("Frame");local v30=Instance.new("TextButton");local v31=Instance.new("Frame");local v32=Instance.new("TextLabel");local v33=Instance.new("TextButton");local v34=Instance.new("TextButton");local v35=Instance.new("TextButton");local v36=Instance.new("TextButton");local v37=Instance.new("TextButton");local v38=Instance.new("TextButton");local v39=Instance.new("TextButton");local v40=Instance.new("TextButton");local v41=Instance.new("TextButton");local v42=Instance.new("TextButton");local v43=Instance.new("TextButton");local v44=Instance.new("TextButton");local v45=Instance.new("TextButton");local v46=Instance.new("TextButton");local v47=Instance.new("TextButton");local v48=Instance.new("TextButton");local v49=Instance.new("TextButton");local v50=Instance.new("TextButton");local v51=Instance.new("TextButton");local v52=Instance.new("TextButton");local v53=Instance.new("TextButton");local v54=Instance.new("TextButton");local v55=Instance.new("TextButton");local v56=Instance.new("TextButton");local v57=Instance.new("TextButton");local v58=Instance.new("TextButton");local v59=Instance.new("TextButton");local v60=Instance.new("TextButton");local v61=Instance.new("TextButton");local v62=Instance.new("TextButton");local v63=Instance.new("TextButton");local v64=Instance.new("TextButton");local v65=Instance.new("TextButton");local v66=Instance.new("TextButton");local v67=Instance.new("TextButton");local v68=Instance.new("TextButton");local v69=Instance.new("TextButton");local v70=Instance.new("TextButton");local v71=Instance.new("TextButton");local v72=Instance.new("TextButton");local v73=Instance.new("TextButton");local v74=Instance.new("TextButton");local v75=Instance.new("TextButton");local v76=Instance.new("TextButton");local v77=Instance.new("TextButton");local v78=Instance.new("TextButton");local v79=Instance.new("TextButton");local v80=Instance.new("TextLabel");local v81=Instance.new("TextButton");local v82=Instance.new("TextLabel");local v83=Instance.new("TextLabel");local v84=Instance.new("TextButton");local v85=Instance.new("TextBox");local v86=Instance.new("TextButton");local v87=Instance.new("Frame");local v88=Instance.new("TextButton");local v89=Instance.new("Frame");local v90=Instance.new("TextButton");local v91=Instance.new("TextButton");local v92=Instance.new("TextButton");local v93=Instance.new("TextButton");local v94=Instance.new("TextButton");local v95=Instance.new("TextButton");local v96=Instance.new("TextButton");local v97=Instance.new("Frame");local v98=Instance.new("TextButton");local v99=Instance.new("TextLabel");local v100=Instance.new("TextLabel");local v101=Instance.new("TextLabel");local v102=Instance.new("TextLabel");local v103=Instance.new("TextLabel");local v104=Instance.new("TextLabel");local v105=Instance.new("TextLabel");local v106=Instance.new("TextLabel");local v107=Instance.new("TextLabel");local v108=Instance.new("TextLabel");local v109=Instance.new("TextLabel");local v110=Instance.new("TextLabel");local v111=Instance.new("TextLabel");local v112=Instance.new("TextLabel");local v113=Instance.new("TextLabel");local v114=Instance.new("TextLabel");local v115=Instance.new("TextLabel");local v116=Instance.new("TextBox");local v117=Instance.new("TextButton");local v118=Instance.new("TextButton");local v119=Instance.new("TextButton");local v120=Instance.new("TextLabel");local v121=Instance.new("TextButton");local v122=Instance.new("TextLabel");local v123=Instance.new("TextBox");local v124=Instance.new("TextButton");local v125=Instance.new("TextLabel");local v126=Instance.new("TextBox");local v127=Instance.new("TextButton");local v128=Instance.new("TextButton");local v129=Instance.new("Frame");local v130=Instance.new("TextLabel");local v131=Instance.new("TextBox");local v132=Instance.new("Frame");local v133=Instance.new("TextLabel");local v134=Instance.new("TextLabel");local v135=Instance.new("TextButton");local v136=Instance.new("TextButton");local v137=Instance.new("TextButton");v17.Name="MainGUI";v17.Parent=game.CoreGui;v17.ResetOnSpawn=false;local v142=game.CoreGui['MainGUI'];v18.Name="TopFrame";v18.Parent=v17;v18.BackgroundColor3=Color3.new(0 + 0 ,0 + 0 ,0);v18.BorderColor3=Color3.new(0,0 -0 ,1202 -(373 + 829) );v18.BackgroundTransparency=732 -(476 + 255) ;v18.Position=UDim2.new(1130.5 -(369 + 761) , -(18 + 12),0, -27);v18.Size=UDim2.new(0 -0 ,80,0 -0 ,20);v18.Visible=false;v23.Name="cf";v23.Parent=v17;v23.BackgroundColor3=Color3.new(238 -(64 + 174) ,0 + 0 ,0);v23.BorderColor3=Color3.new(0.5 -0 ,336.5 -(144 + 192) ,216.5 -(42 + 174) );v23.BackgroundTransparency=0 + 0 ;v23.Position=UDim2.new(0.5 + 0 , -(83 + 112),1504.5 -(363 + 1141) , -(1690 -(1183 + 397)));v23.Size=UDim2.new(0 -0 ,286 + 104 ,0 + 0 ,220);v23.Visible=true;v24.Name="c1";v24.Parent=v23;v24.BackgroundColor3=Color3.new(0.1,1975.1 -(1913 + 62) ,0.1);v24.BackgroundTransparency=1;v24.Position=UDim2.new(0,7 + 3 ,0 -0 ,1946 -(565 + 1368) );v24.Size=UDim2.new(0 -0 ,2031 -(1477 + 184) ,0 -0 ,160);v24.Font=Enum.Font.Fantasy;v24.TextColor3=Color3.new(1 + 0 ,857 -(564 + 292) ,1);v24.Text="SUPER POWERS TRAINING SIMULATOR GUI\nmade by _sora_5968 (discord)\n\nPress F9 to read more information about the GUI\n\nThis GUI is free, if you paid for it you were scammed\nand should report it.\n\nNo unauthorized use of this GUI without written\npermission from the creator.";v24.TextSize=17;v25.Name="c";v25.Parent=v23;v25.BackgroundColor3=Color3.new(0.1,0.1 -0 ,0.1 -0 );v25.BorderColor3=Color3.new(304.6 -(244 + 60) ,0.6 + 0 ,476.6 -(41 + 435) );v25.Position=UDim2.new(1001.5 -(938 + 63) , -30,0 + 0 ,1315 -(936 + 189) );v25.Size=UDim2.new(0 + 0 ,1673 -(1565 + 48) ,0 + 0 ,1158 -(782 + 356) );v25.Font=Enum.Font.Fantasy;v25.Text="CLOSE";v25.TextColor3=Color3.new(268 -(176 + 91) ,0 -0 ,0);v25.TextSize=17;v25.TextWrapped=true;v20.Name="Open";v20.Parent=v18;v20.BackgroundColor3=Color3.new(0.1 -0 ,1092.1 -(975 + 117) ,1875.1 -(157 + 1718) );v20.BorderColor3=Color3.new(0.6,0.6 + 0 ,0.6 -0 );v20.Size=UDim2.new(0 -0 ,1078 -(697 + 321) ,0 -0 ,42 -22 );v20.Font=Enum.Font.Fantasy;v20.Text="Open";v20.TextColor3=Color3.new(1,1,1);v20.TextSize=41 -23 ;v20.Selectable=true;v20.TextWrapped=true;v19.Name="MainFrame";v19.Parent=v17;v19.BackgroundColor3=Color3.new(0 + 0 ,0 -0 ,0 -0 );v19.BackgroundTransparency=0.5;v19.BorderSizePixel=1227 -(322 + 905) ;v19.Position=UDim2.new(0.5, -(993.5 -(602 + 9)),0, -32);v19.Size=UDim2.new(1189 -(449 + 740) ,1637 -(826 + 46) ,0,977 -(245 + 702) );if  not v23.Visible then v17:Destroy();else v19.Visible=true;end v21.Name="Close";v21.Parent=v19;v21.BackgroundColor3=Color3.new(0.1 -0 ,0.1,0.1);v21.BorderColor3=Color3.new(0.6 + 0 ,1898.6 -(260 + 1638) ,440.6 -(382 + 58) );v21.Position=UDim2.new(0 -0 ,9 + 1 ,0 -0 ,14 -9 );v21.Size=UDim2.new(1205 -(902 + 303) ,43 -23 ,0,48 -28 );v21.Font=Enum.Font.Fantasy;v21.Text="X";v21.TextColor3=Color3.new(1,0,0 + 0 );v21.TextSize=17;v21.TextScaled=true;v21.TextWrapped=true;v22.Name="Minimize";v22.Parent=v19;v22.BackgroundColor3=Color3.new(1690.1 -(1121 + 569) ,214.1 -(22 + 192) ,0.1);v22.BorderColor3=Color3.new(0.6,683.6 -(483 + 200) ,0.6);v22.Position=UDim2.new(1463 -(1404 + 59) ,95 -60 ,0 -0 ,770 -(468 + 297) );v22.Size=UDim2.new(562 -(334 + 228) ,67 -47 ,0 -0 ,20);v22.Font=Enum.Font.Fantasy;v22.Text="-";v22.TextColor3=Color3.new(1 -0 ,0,1 + 0 );v22.TextSize=253 -(141 + 95) ;v22.TextScaled=true;v22.TextWrapped=true;v28.Name="WayPoints";v28.Parent=v19;v28.BackgroundColor3=Color3.new(0.1 + 0 ,0.1 -0 ,0.1 -0 );v28.BorderColor3=Color3.new(0.6,0.6 + 0 ,0.6 -0 );v28.Position=UDim2.new(0 + 0 ,32 + 28 ,0 -0 ,3 + 2 );v28.Size=UDim2.new(0,228 -(92 + 71) ,0,20);v28.Font=Enum.Font.Fantasy;v28.TextColor3=Color3.new(1 + 0 ,1 -0 ,766 -(574 + 191) );v28.Text="Teleport";v28.TextSize=15 + 2 ;v28.TextWrapped=true;v29.Name="WayPointsFrame";v29.Parent=v19;v29.BackgroundColor3=Color3.new(0.1,0.1 -0 ,0.1 + 0 );v29.BorderColor3=Color3.new(849 -(254 + 595) ,126 -(55 + 71) ,0);v29.BackgroundTransparency=0.2 -0 ;v29.Position=UDim2.new(1790 -(573 + 1217) ,2 -1 ,0 + 0 ,52 -19 );v29.Size=UDim2.new(939 -(714 + 225) ,375,0,1402 -922 );v29.Visible=false;v30.Name="FarmExp";v30.Parent=v19;v30.BackgroundColor3=Color3.new(0.1,0.1,0.1 -0 );v30.BorderColor3=Color3.new(0.6,0.6,0.6);v30.Position=UDim2.new(0,15 + 115 ,0 -0 ,5);v30.Size=UDim2.new(806 -(118 + 688) ,75,48 -(25 + 23) ,4 + 16 );v30.Font=Enum.Font.Fantasy;v30.TextColor3=Color3.new(1887 -(927 + 959) ,3 -2 ,733 -(16 + 716) );v30.Text="Farm Exp";v30.TextSize=32 -15 ;v30.TextWrapped=true;v31.Name="FarmExpFrame";v31.Parent=v19;v31.BackgroundColor3=Color3.new(0.1,0.1,97.1 -(11 + 86) );v31.BorderColor3=Color3.new(0,0,0);v31.BackgroundTransparency=0.2;v31.Position=UDim2.new(0 -0 ,347.5 -(175 + 110) ,0 -0 ,162 -129 );v31.Size=UDim2.new(1796 -(503 + 1293) ,586 -376 ,0 + 0 ,1226 -(810 + 251) );v31.Visible=false;v32.Name="ShowLocation";v32.Parent=v29;v32.BackgroundColor3=Color3.new(0.1 + 0 ,0.1,0.1 + 0 );v32.TextColor3=Color3.new(1,1,1 + 0 );v32.BorderColor3=Color3.new(533 -(43 + 490) ,0,733 -(711 + 22) );v32.Position=UDim2.new(0,19 -14 ,0,864 -(240 + 619) );v32.Size=UDim2.new(0,42 + 128 ,0 -0 ,2 + 18 );v32.Font=Enum.Font.Fantasy;v32.Text="Current Location";v32.TextWrapped=true;v32.TextSize=15;v33.Name="SetLocation";v33.Parent=v29;v33.BackgroundColor3=Color3.new(0.1,0.1,1744.1 -(1344 + 400) );v33.TextColor3=Color3.new(1,406 -(255 + 150) ,1 + 0 );v33.BorderColor3=Color3.new(0.6 + 0 ,0.6,0.6 -0 );v33.Position=UDim2.new(0 -0 ,1919 -(404 + 1335) ,0,5);v33.Size=UDim2.new(406 -(183 + 223) ,146 -26 ,0,14 + 6 );v33.Font=Enum.Font.Fantasy;v33.Text="Set Location";v33.TextWrapped=true;v33.TextSize=16;v34.Name="TPLocation";v34.Parent=v29;v34.BackgroundColor3=Color3.new(0.1,0.1 + 0 ,337.1 -(10 + 327) );v34.TextColor3=Color3.new(1 + 0 ,339 -(118 + 220) ,1);v34.BorderColor3=Color3.new(0.6 + 0 ,449.6 -(108 + 341) ,0.6);v34.Position=UDim2.new(0,305,0,3 + 2 );v34.Size=UDim2.new(0 -0 ,1558 -(711 + 782) ,0 -0 ,489 -(270 + 199) );v34.Font=Enum.Font.Fantasy;v34.Text="Tp to";v34.TextWrapped=true;v34.TextSize=16;v35.Name="Location1";v35.Parent=v29;v35.BackgroundColor3=Color3.new(255/255 ,94/255 ,40/255 );v35.TextColor3=Color3.new(1 + 0 ,1820 -(580 + 1239) ,2 -1 );v35.BorderColor3=Color3.new(0.6 + 0 ,0.6,0.6 + 0 );v35.Position=UDim2.new(0 + 0 ,13 -8 ,0,30);v35.Size=UDim2.new(0 + 0 ,1532 -(645 + 522) ,0,1810 -(1010 + 780) );v35.Font=Enum.Font.Fantasy;v35.Text="Teleport to Spawn camera)))";v35.TextWrapped=true;v35.TextSize=16 + 0 ;v36.Name="Location2";v36.Parent=v29;v36.BackgroundColor3=Color3.new((333 -263)/(747 -492) ,(1941 -(1045 + 791))/255 ,0 -0 );v36.TextColor3=Color3.new(1,1 -0 ,1);v36.BorderColor3=Color3.new(505.6 -(351 + 154) ,1574.6 -(1281 + 293) ,0.6);v36.Position=UDim2.new(266 -(28 + 238) ,5,0,122 -67 );v36.Size=UDim2.new(1559 -(1381 + 178) ,343 + 22 ,0 + 0 ,20);v36.Font=Enum.Font.Fantasy;v36.Text="Teleport to Rock ";v36.TextWrapped=true;v36.TextSize=16;v51.Name="Location7";v51.Parent=v29;v51.BackgroundColor3=Color3.new((30 + 40)/(879 -624) ,105/(133 + 122) ,470 -(381 + 89) );v51.TextColor3=Color3.new(1 + 0 ,1 + 0 ,1 -0 );v51.BorderColor3=Color3.new(1156.6 -(1074 + 82) ,0.6 -0 ,1784.6 -(214 + 1570) );v51.Position=UDim2.new(1455 -(990 + 465) ,5,0,33 + 47 );v51.Size=UDim2.new(0 + 0 ,355 + 10 ,0,78 -58 );v51.Font=Enum.Font.Fantasy;v51.Text="Teleport to Crystal";v51.TextWrapped=true;v51.TextSize=1742 -(1668 + 58) ;v37.Name="LocationFS1B";v37.Parent=v29;v37.BackgroundColor3=Color3.new((696 -(512 + 114))/(664 -409) ,105/(526 -271) ,0 -0 );v37.TextColor3=Color3.new(1 + 0 ,1,1 + 0 );v37.BorderColor3=Color3.new(0.6 + 0 ,0.6 -0 ,0.6);v37.Position=UDim2.new(0,1999 -(109 + 1885) ,1469 -(1269 + 200) ,105);v37.Size=UDim2.new(0 -0 ,1180 -(98 + 717) ,826 -(802 + 24) ,20);v37.Font=Enum.Font.Fantasy;v37.Text="Teleport to 1B+ FS required";v37.TextWrapped=true;v37.TextSize=27 -11 ;v38.Name="LocationFS100B";v38.Parent=v29;v38.BackgroundColor3=Color3.new(70/(322 -67) ,105/(38 + 217) ,0 + 0 );v38.TextColor3=Color3.new(1 + 0 ,1 + 0 ,2 -1 );v38.BorderColor3=Color3.new(0.6,0.6 -0 ,0.6);v38.Position=UDim2.new(0,2 + 3 ,0 + 0 ,130);v38.Size=UDim2.new(0 + 0 ,266 + 99 ,0 + 0 ,20);v38.Font=Enum.Font.Fantasy;v38.Text="Teleport to 100B+ FS required";v38.TextWrapped=true;v38.TextSize=1449 -(797 + 636) ;v39.Name="LocationFS10T";v39.Parent=v29;v39.BackgroundColor3=Color3.new((339 -269)/(1874 -(1427 + 192)) ,105/255 ,0 + 0 );v39.TextColor3=Color3.new(2 -1 ,1 + 0 ,1 + 0 );v39.BorderColor3=Color3.new(326.6 -(192 + 134) ,1276.6 -(316 + 960) ,0.6);v39.Position=UDim2.new(0,3 + 2 ,0 + 0 ,144 + 11 );v39.Size=UDim2.new(0 -0 ,916 -(83 + 468) ,1806 -(1202 + 604) ,20);v39.Font=Enum.Font.Fantasy;v39.Text="Teleport to 10T+ FS required";v39.TextWrapped=true;v39.TextSize=74 -58 ;v40.Name="LocationFS1Qa";v40.Parent=v29;v40.BackgroundColor3=Color3.new((116 -46)/(706 -451) ,(430 -(45 + 280))/(247 + 8) ,0 + 0 );v40.TextColor3=Color3.new(1 + 0 ,1 + 0 ,1 + 0 );v40.BorderColor3=Color3.new(0.6 -0 ,0.6,1911.6 -(340 + 1571) );v40.Position=UDim2.new(0 + 0 ,1777 -(1733 + 39) ,0 -0 ,1214 -(125 + 909) );v40.Size=UDim2.new(1948 -(1096 + 852) ,164 + 201 ,0,28 -8 );v40.Font=Enum.Font.Fantasy;v40.Text="Teleport to 1Qa+ FS required";v40.TextWrapped=true;v40.TextSize=16 + 0 ;v47.Name="Location3";v47.Parent=v29;v47.BackgroundColor3=Color3.new((578 -(409 + 103))/(491 -(46 + 190)) ,0,165/(350 -(51 + 44)) );v47.TextColor3=Color3.new(1 + 0 ,1318 -(1114 + 203) ,727 -(228 + 498) );v47.BorderColor3=Color3.new(0.6 + 0 ,0.6 + 0 ,663.6 -(174 + 489) );v47.Position=UDim2.new(0 -0 ,5,0,330);v47.Size=UDim2.new(1905 -(830 + 1075) ,889 -(303 + 221) ,1269 -(231 + 1038) ,20);v47.Font=Enum.Font.Fantasy;v47.Text="Tp to 500+ BT required";v47.TextWrapped=true;v47.TextSize=14 + 2 ;v48.Name="Location4";v48.Parent=v29;v48.BackgroundColor3=Color3.new((1228 -(171 + 991))/255 ,0 -0 ,(443 -278)/255 );v48.TextColor3=Color3.new(2 -1 ,1 + 0 ,1);v48.BorderColor3=Color3.new(0.6 -0 ,0.6,0.6 -0 );v48.Position=UDim2.new(0 -0 ,5,0,355);v48.Size=UDim2.new(0 -0 ,1613 -(111 + 1137) ,0,178 -(91 + 67) );v48.Font=Enum.Font.Fantasy;v48.Text="Tp to 50k+ BT required";v48.TextWrapped=true;v48.TextSize=47 -31 ;v49.Name="Location5";v49.Parent=v29;v49.BackgroundColor3=Color3.new((17 + 49)/(778 -(423 + 100)) ,0 + 0 ,(456 -291)/255 );v49.TextColor3=Color3.new(1 + 0 ,772 -(326 + 445) ,4 -3 );v49.BorderColor3=Color3.new(0.6,0.6 -0 ,0.6 -0 );v49.Position=UDim2.new(711 -(530 + 181) ,886 -(614 + 267) ,32 -(19 + 13) ,618 -238 );v49.Size=UDim2.new(0 -0 ,365,0 -0 ,20);v49.Font=Enum.Font.Fantasy;v49.Text="Tp to 500k+ BT required";v49.TextWrapped=true;v49.TextSize=16;v50.Name="Location6";v50.Parent=v29;v50.BackgroundColor3=Color3.new((18 + 48)/(448 -193) ,0 -0 ,(1977 -(1293 + 519))/255 );v50.TextColor3=Color3.new(1 -0 ,2 -1 ,1);v50.BorderColor3=Color3.new(0.6 -0 ,0.6 -0 ,0.6);v50.Position=UDim2.new(0 -0 ,5,0 + 0 ,405);v50.Size=UDim2.new(0 + 0 ,847 -482 ,0,20);v50.Font=Enum.Font.Fantasy;v50.Text="Tp to 5M+ BT required";v50.TextWrapped=true;v50.TextSize=4 + 12 ;v52.Name="Location8";v52.Parent=v29;v52.BackgroundColor3=Color3.new((22 + 44)/255 ,0 + 0 ,(1261 -(709 + 387))/(2113 -(673 + 1185)) );v52.TextColor3=Color3.new(2 -1 ,3 -2 ,1 -0 );v52.BorderColor3=Color3.new(0.6,0.6 + 0 ,0.6);v52.Position=UDim2.new(0 + 0 ,5,0 -0 ,106 + 324 );v52.Size=UDim2.new(0 -0 ,716 -351 ,0,1900 -(446 + 1434) );v52.Font=Enum.Font.Fantasy;v52.Text="Tp to 50M+ BT required";v52.TextWrapped=true;v52.TextSize=16;v55.Name="LocationBT1B";v55.Parent=v29;v55.BackgroundColor3=Color3.new((1349 -(1040 + 243))/(761 -506) ,0,165/(2102 -(559 + 1288)) );v55.TextColor3=Color3.new(1932 -(609 + 1322) ,1,455 -(13 + 441) );v55.BorderColor3=Color3.new(0.6,0.6 -0 ,0.6 -0 );v55.Position=UDim2.new(0 -0 ,1 + 4 ,0 -0 ,162 + 293 );v55.Size=UDim2.new(0,160 + 205 ,0 -0 ,11 + 9 );v55.Font=Enum.Font.Fantasy;v55.Text="Tp to 5B+ BT required";v55.TextWrapped=true;v55.TextSize=16;v56.Name="LocationBT100B";v56.Parent=v29;v56.BackgroundColor3=Color3.new(66/255 ,0 -0 ,165/255 );v56.TextColor3=Color3.new(1,1 + 0 ,1 + 0 );v56.BorderColor3=Color3.new(0.6,0.6 + 0 ,0.6);v56.Position=UDim2.new(0 + 0 ,5 + 0 ,433 -(153 + 280) ,1386 -906 );v56.Size=UDim2.new(0 + 0 ,145 + 220 ,0 + 0 ,20);v56.Font=Enum.Font.Fantasy;v56.Text="Tp to 500B+ BT required";v56.TextWrapped=true;v56.TextSize=16;v57.Name="LocationBT10T";v57.Parent=v29;v57.BackgroundColor3=Color3.new(66/(232 + 23) ,0 + 0 ,(251 -86)/(158 + 97) );v57.TextColor3=Color3.new(1,668 -(89 + 578) ,1);v57.BorderColor3=Color3.new(0.6 + 0 ,0.6 -0 ,1049.6 -(572 + 477) );v57.Position=UDim2.new(0,1 + 4 ,0 + 0 ,61 + 444 );v57.Size=UDim2.new(86 -(84 + 2) ,365,0 -0 ,15 + 5 );v57.Font=Enum.Font.Fantasy;v57.Text="Tp to 50T+ BT required";v57.TextWrapped=true;v57.TextSize=16;v58.Name="LocationBT1Qa";v58.Parent=v29;v58.BackgroundColor3=Color3.new(66/255 ,842 -(497 + 345) ,165/(7 + 248) );v58.TextColor3=Color3.new(1 + 0 ,1,1334 -(605 + 728) );v58.BorderColor3=Color3.new(0.6,0.6,0.6 + 0 );v58.Position=UDim2.new(0 -0 ,1 + 4 ,0,1959 -1429 );v58.Size=UDim2.new(0 + 0 ,1010 -645 ,0,16 + 4 );v58.Font=Enum.Font.Fantasy;v58.Text="Tp to 5Qa+ BT required";v58.TextWrapped=true;v58.TextSize=505 -(457 + 32) ;v65.Name="LocationPP1M";v65.Parent=v29;v65.BackgroundColor3=Color3.new((83 + 112)/(1657 -(832 + 570)) ,0 + 0 ,(11 + 28)/(902 -647) );v65.TextColor3=Color3.new(1,1,1 + 0 );v65.BorderColor3=Color3.new(0.6,0.6,796.6 -(588 + 208) );v65.Position=UDim2.new(0 -0 ,5,1800 -(884 + 916) ,680);v65.Size=UDim2.new(0,365,0,41 -21 );v65.Font=Enum.Font.Fantasy;v65.Text="Tp to 1M+ PP required";v65.TextWrapped=true;v65.TextSize=10 + 6 ;v66.Name="LocationPP1B";v66.Parent=v29;v66.BackgroundColor3=Color3.new((848 -(232 + 421))/(2144 -(1569 + 320)) ,0 + 0 ,(8 + 31)/(859 -604) );v66.TextColor3=Color3.new(1,1,1);v66.BorderColor3=Color3.new(0.6,605.6 -(316 + 289) ,0.6 -0 );v66.Position=UDim2.new(0 + 0 ,5,1453 -(666 + 787) ,705);v66.Size=UDim2.new(0,790 -(360 + 65) ,0 + 0 ,274 -(79 + 175) );v66.Font=Enum.Font.Fantasy;v66.Text="Tp to 1B+ PP required";v66.TextWrapped=true;v66.TextSize=25 -9 ;v67.Name="LocationPP1T";v67.Parent=v29;v67.BackgroundColor3=Color3.new((153 + 42)/(781 -526) ,0 -0 ,(938 -(503 + 396))/(436 -(92 + 89)) );v67.TextColor3=Color3.new(1 -0 ,1,1 + 0 );v67.BorderColor3=Color3.new(0.6,0.6 + 0 ,0.6);v67.Position=UDim2.new(0 -0 ,5,0 + 0 ,1664 -934 );v67.Size=UDim2.new(0 + 0 ,365,0 + 0 ,20);v67.Font=Enum.Font.Fantasy;v67.Text="Tp to 1T+ PP required";v67.TextWrapped=true;v67.TextSize=48 -32 ;v68.Name="LocationPP1Qa";v68.Parent=v29;v68.BackgroundColor3=Color3.new((25 + 170)/(388 -133) ,1244 -(485 + 759) ,39/255 );v68.TextColor3=Color3.new(1,2 -1 ,1190 -(442 + 747) );v68.BorderColor3=Color3.new(1135.6 -(832 + 303) ,946.6 -(88 + 858) ,0.6 + 0 );v68.Position=UDim2.new(0,5,0,625 + 130 );v68.Size=UDim2.new(0 + 0 ,1154 -(766 + 23) ,0 -0 ,20);v68.Font=Enum.Font.Fantasy;v68.Text="Tp to 1Qa+ PP required";v68.TextWrapped=true;v68.TextSize=21 -5 ;v69.Name="LocationPP1Qi";v69.Parent=v29;v69.BackgroundColor3=Color3.new(195/(671 -416) ,0 -0 ,(1112 -(1036 + 37))/(181 + 74) );v69.TextColor3=Color3.new(1 -0 ,1 + 0 ,1481 -(641 + 839) );v69.BorderColor3=Color3.new(913.6 -(910 + 3) ,0.6,0.6 -0 );v69.Position=UDim2.new(0,1689 -(1466 + 218) ,0,780);v69.Size=UDim2.new(0 + 0 ,1513 -(556 + 592) ,0,20);v69.Font=Enum.Font.Fantasy;v69.Text="Tp to 1Qi+ PP required";v69.TextWrapped=true;v69.TextSize=6 + 10 ;v75.Name="FarmAll";v75.Parent=v31;v75.BackgroundColor3=Color3.new(808.1 -(329 + 479) ,854.1 -(174 + 680) ,0.1 -0 );v75.TextColor3=Color3.new(1 -0 ,1 + 0 ,740 -(396 + 343) );v75.BorderColor3=Color3.new(0.6 + 0 ,0.6,0.6);v75.Position=UDim2.new(1477 -(29 + 1448) ,1394 -(135 + 1254) ,0 -0 ,5);v75.Size=UDim2.new(0 -0 ,200,0 + 0 ,1547 -(389 + 1138) );v75.Font=Enum.Font.Fantasy;v75.Text="------";v75.TextWrapped=true;v75.TextSize=16;v76.Name="FarmFist";v76.Parent=v31;v76.BackgroundColor3=Color3.new(574.1 -(102 + 472) ,0.1 + 0 ,0.1 + 0 );v76.TextColor3=Color3.new(1 + 0 ,1546 -(320 + 1225) ,1 -0 );v76.BorderColor3=Color3.new(0.6 + 0 ,1464.6 -(157 + 1307) ,1859.6 -(821 + 1038) );v76.Position=UDim2.new(0 -0 ,5,0,5 + 35 );v76.Size=UDim2.new(0 -0 ,75 + 125 ,0 -0 ,20);v76.Font=Enum.Font.Fantasy;v76.Text="Farm Fist Strength: OFF";v76.TextWrapped=true;v76.TextSize=1042 -(834 + 192) ;v77.Name="FarmBody";v77.Parent=v31;v77.BackgroundColor3=Color3.new(0.1,0.1,0.1);v77.TextColor3=Color3.new(1,1 + 0 ,1 + 0 );v77.BorderColor3=Color3.new(0.6,0.6,0.6);v77.Position=UDim2.new(0,1 + 4 ,0,65);v77.Size=UDim2.new(0 -0 ,200,304 -(300 + 4) ,6 + 14 );v77.Font=Enum.Font.Fantasy;v77.Text="Farm Body Toughness: OFF";v77.TextWrapped=true;v77.TextSize=41 -25 ;v78.Name="FarmSpeed";v78.Parent=v31;v78.BackgroundColor3=Color3.new(362.1 -(112 + 250) ,0.1 + 0 ,0.1);v78.TextColor3=Color3.new(2 -1 ,1 + 0 ,1 + 0 );v78.BorderColor3=Color3.new(0.6 + 0 ,0.6,0.6);v78.Position=UDim2.new(0 + 0 ,4 + 1 ,1414 -(1001 + 413) ,90);v78.Size=UDim2.new(0 -0 ,1082 -(244 + 638) ,693 -(627 + 66) ,59 -39 );v78.Font=Enum.Font.Fantasy;v78.Text="-------";v78.TextWrapped=true;v78.TextSize=618 -(512 + 90) ;v79.Name="FarmJump";v79.Parent=v31;v79.BackgroundColor3=Color3.new(0.1,1906.1 -(1665 + 241) ,0.1);v79.TextColor3=Color3.new(718 -(373 + 344) ,1,1 + 0 );v79.BorderColor3=Color3.new(0.6 + 0 ,0.6,0.6 -0 );v79.Position=UDim2.new(0 -0 ,1104 -(35 + 1064) ,0 + 0 ,246 -131 );v79.Size=UDim2.new(0 + 0 ,200,0,1256 -(298 + 938) );v79.Font=Enum.Font.Fantasy;v79.Text="Farm Jump Force: OFF";v79.TextWrapped=true;v79.TextSize=16;v81.Name="FarmPsychic";v81.Parent=v31;v81.BackgroundColor3=Color3.new(0.1,0.1,1259.1 -(233 + 1026) );v81.TextColor3=Color3.new(1667 -(636 + 1030) ,1 + 0 ,1);v81.BorderColor3=Color3.new(0.6,0.6,0.6 + 0 );v81.Position=UDim2.new(0,2 + 3 ,0 + 0 ,361 -(55 + 166) );v81.Size=UDim2.new(0,39 + 161 ,0 + 0 ,76 -56 );v81.Font=Enum.Font.Fantasy;v81.Text="Farm Psychic Power: OFF";v81.TextWrapped=true;v81.TextSize=16;v82.Name="FarmBodyLabel";v82.Parent=v31;v82.BackgroundColor3=Color3.new(0.1,297.1 -(36 + 261) ,0.1 -0 );v82.TextColor3=Color3.new(1,1369 -(34 + 1334) ,1 + 0 );v82.BorderColor3=Color3.new(0.1 + 0 ,1283.1 -(1035 + 248) ,21.1 -(20 + 1) );v82.Position=UDim2.new(0 + 0 ,213,319 -(134 + 185) ,65);v82.Size=UDim2.new(0,1333 -(549 + 584) ,685 -(314 + 371) ,343 -243 );v82.Font=Enum.Font.Fantasy;v82.Text="actually it’s a really cool feature, you just need to enable DeathReturn as well — then your character will teleport to the best locations for you and you’ll get maximum BT.";v82.TextSize=16;v82.TextWrapped=true;v82.Visible=false;v83.Name="FarmSpeedLabel";v83.Parent=v31;v83.BackgroundColor3=Color3.new(968.1 -(478 + 490) ,0.1 + 0 ,1172.1 -(786 + 386) );v83.TextColor3=Color3.new(1,1,1);v83.BorderColor3=Color3.new(0.1 -0 ,0.1,1379.1 -(1055 + 324) );v83.Position=UDim2.new(1340 -(1093 + 247) ,213,0,58 + 7 );v83.Size=UDim2.new(0 + 0 ,794 -594 ,0,339 -239 );v83.Font=Enum.Font.Fantasy;v83.Text="Only Jump";v83.TextSize=45 -29 ;v83.TextWrapped=true;v83.Visible=false;v26.Name="DeathReturn";v26.Parent=v19;v26.BackgroundColor3=Color3.new(0.1 -0 ,0.1,0.1);v26.BorderColor3=Color3.new(0.6 + 0 ,0.6,0.6 -0 );v26.Position=UDim2.new(0 -0 ,210,0 + 0 ,5);v26.Size=UDim2.new(0,409 -249 ,688 -(364 + 324) ,54 -34 );v26.Font=Enum.Font.Fantasy;v26.TextColor3=Color3.new(1,1,2 -1 );v26.Text="OnDeath Return: OFF";v26.TextSize=17;v26.TextWrapped=true;v84.Name="esptrack";v84.Parent=v19;v84.BackgroundColor3=Color3.new(0.1 + 0 ,0.1 -0 ,0.1 -0 );v84.BorderColor3=Color3.new(0.6,0.6 -0 ,1268.6 -(1249 + 19) );v84.Position=UDim2.new(0 + 0 ,375,0,19 -14 );v84.Size=UDim2.new(1086 -(686 + 400) ,28 + 7 ,0,249 -(73 + 156) );v84.TextColor3=Color3.new(1 + 0 ,812 -(721 + 90) ,1 + 0 );v84.Font=Enum.Font.Fantasy;v84.Text="ESP";v84.TextSize=51 -35 ;v84.TextWrapped=true;local v637=Instance.new("TextButton");v637.Name="TPLoop";v637.Parent=v19;v637.BackgroundColor3=Color3.new(470.1 -(224 + 246) ,0.1 -0 ,0.1 -0 );v637.BorderColor3=Color3.new(0.6 + 0 ,0.6 + 0 ,0.6);v637.Position=UDim2.new(0,305 + 110 ,0 -0 ,5);v637.Size=UDim2.new(0 -0 ,85,513 -(203 + 310) ,20);v637.TextColor3=Color3.new(1994 -(1238 + 755) ,1 + 0 ,1535 -(709 + 825) );v637.Font=Enum.Font.Fantasy;v637.Text="TP NPC: OFF";v637.TextSize=25 -11 ;v637.TextWrapped=true;v637.ZIndex=14 -4 ;local v650={"CJ","Sath","Thug"};local v651=false;local v652=16 -8 ;local v653=834.5 -(171 + 662) ;local function v654() local v876=0;local v877;while true do if (v876==0) then v877=game.Players.LocalPlayer;if (v877 and v877.Character and v877.Character:FindFirstChild("HumanoidRootPart")) then local v1181=v877.Character.HumanoidRootPart;local v1182=93 -(4 + 89) ;for v1230,v1231 in ipairs(game.Workspace:GetChildren()) do if (table.find(v650,v1231.Name) and v1231:IsA("Model")) then local v1307=0 -0 ;local v1308;while true do if (v1307==(0 + 0)) then v1308=v1231:FindFirstChild("HumanoidRootPart");if v1308 then local v1402=0 -0 ;local v1403;local v1404;local v1405;local v1406;while true do if (v1402==(1 + 1)) then v1406= -(1489 -(35 + 1451)) -(v1404 * v653) ;v1308.CFrame=v1181.CFrame * CFrame.new(v1405,1453 -(28 + 1425) ,v1406) ;v1402=1996 -(941 + 1052) ;end if (v1402==0) then for v1435,v1436 in ipairs(v1231:GetDescendants()) do if v1436:IsA("BasePart") then v1436.CanCollide=false;end end v1403=v1182%v652 ;v1402=1 + 0 ;end if ((1517 -(822 + 692))==v1402) then v1182=v1182 + 1 ;break;end if (v1402==(1 -0)) then v1404=math.floor(v1182/v652 );v1405=(v1403-(v652/(1 + 1))) * v653 ;v1402=299 -(45 + 252) ;end end end break;end end end end end break;end end end local v655=false;v637.MouseButton1Click:Connect(function() v651= not v651;if v651 then local v1012=0 + 0 ;while true do if (v1012==(0 + 0)) then v637.Text="TP NPC: ON";v637.TextColor3=Color3.new(0,2 -1 ,433 -(114 + 319) );v1012=1;end if (v1012==(1 -0)) then if  not v655 then local v1288=0;while true do if (v1288==0) then v655=true;task.spawn(function() local v1369=0;while true do if (v1369==(0 -0)) then while v651 do local v1423=0 + 0 ;while true do if (v1423==(0 -0)) then v654();task.wait(5 -2 );break;end end end v655=false;break;end end end);break;end end end break;end end else local v1013=1963 -(556 + 1407) ;while true do if (v1013==0) then v637.Text="TP NPC: OFF";v637.TextColor3=Color3.new(1207 -(741 + 465) ,0,465 -(170 + 295) );break;end end end end);local v656=Instance.new("TextBox");v656.Name="PlayerNameInput";v656.Parent=v87;v656.BackgroundColor3=Color3.new(0.05 + 0 ,0.05,0.05);v656.BorderColor3=Color3.new(0.4 + 0 ,0.4 -0 ,0.4 + 0 );v656.Position=UDim2.new(0 + 0 ,3 + 2 ,1230 -(957 + 273) ,27 + 73 );v656.Size=UDim2.new(0 + 0 ,571 -421 ,0 -0 ,20);v656.Font=Enum.Font.SourceSans;v656.PlaceholderText="Enter Name...";v656.Text="";v656.TextColor3=Color3.new(2 -1 ,4 -3 ,1);v656.TextSize=12;v656.ClearTextOnFocus=false;local v670=Instance.new("TextButton");v670.Name="TargetTPBtn";v670.Parent=v87;v670.BackgroundColor3=Color3.new(1780.1 -(389 + 1391) ,0.1 + 0 ,0.1);v670.BorderColor3=Color3.new(0.6,0.6 + 0 ,0.6);v670.Position=UDim2.new(0 -0 ,956 -(783 + 168) ,0,125);v670.Size=UDim2.new(0 -0 ,150,0,20 + 0 );v670.TextColor3=Color3.new(1,312 -(309 + 2) ,2 -1 );v670.Font=Enum.Font.Fantasy;v670.Text="Player TP: OFF";v670.TextSize=1224 -(1090 + 122) ;v670.ZIndex=10;local v682=false;local v683=false;local function v684() local v878=0 + 0 ;local v879;local v880;local v881;while true do if (v878==1) then if (v879=="") then return;end if ( not v880.Character or  not v880.Character:FindFirstChild("HumanoidRootPart")) then return;end v878=6 -4 ;end if (v878==(0 + 0)) then v879=v656.Text:lower();v880=game.Players.LocalPlayer;v878=1119 -(628 + 490) ;end if (v878==(1 + 1)) then v881=v880.Character.HumanoidRootPart;for v1154,v1155 in ipairs(game.Players:GetPlayers()) do if (v1155~=v880) then local v1232=v1155.Name:lower();local v1233=v1155.DisplayName:lower();if ((v1232:sub(1, #v879)==v879) or (v1233:sub(1, #v879)==v879)) then if (v1155.Character and v1155.Character:FindFirstChild("HumanoidRootPart")) then v1155.Character.HumanoidRootPart.CFrame=v881.CFrame * CFrame.new(0 -0 ,0 -0 , -2) ;end end end end break;end end end v670.MouseButton1Click:Connect(function() v682= not v682;if v682 then local v1014=774 -(431 + 343) ;while true do if (v1014==(1 -0)) then if  not v683 then local v1289=0 -0 ;while true do if (v1289==(0 + 0)) then v683=true;task.spawn(function() while v682 do local v1391=0;while true do if (v1391==(0 + 0)) then v684();task.wait(0.1);break;end end end v683=false;end);break;end end end break;end if (v1014==0) then v670.Text="Player TP: ON";v670.TextColor3=Color3.new(0,1696 -(556 + 1139) ,0);v1014=16 -(6 + 9) ;end end else v670.Text="Player TP: OFF";v670.TextColor3=Color3.new(1 + 0 ,0,0);end end);v86.Name="Extras";v86.Parent=v19;v86.BackgroundColor3=Color3.new(0.1 + 0 ,169.1 -(28 + 141) ,0.1);v86.BorderColor3=Color3.new(0.6 + 0 ,0.6,0.6);v86.Position=UDim2.new(0 -0 ,505,0 + 0 ,1322 -(486 + 831) );v86.Size=UDim2.new(0 -0 ,50,0,70 -50 );v86.TextColor3=Color3.new(1 + 0 ,3 -2 ,1264 -(668 + 595) );v86.Font=Enum.Font.Fantasy;v86.Text="Extras";v86.TextSize=15 + 1 ;v86.TextWrapped=true;v87.Name="ExtrasFrame";v87.Parent=v19;v87.BackgroundColor3=Color3.new(0.1 + 0 ,0.1 -0 ,290.1 -(23 + 267) );v87.BorderColor3=Color3.new(0,1944 -(1129 + 815) ,0);v87.BackgroundTransparency=0.2;v87.Position=UDim2.new(0,822 -(371 + 16) ,0,1783 -(1326 + 424) );v87.Size=UDim2.new(0,303 -143 ,0 -0 ,155);v87.Visible=false;v116.Name="AnnoyName";v116.Parent=v87;v116.BackgroundColor3=Color3.new(118.4 -(88 + 30) ,0.4,771.4 -(720 + 51) );v116.BorderColor3=Color3.new(0.8 -0 ,1776.8 -(421 + 1355) ,0.8 -0 );v116.Position=UDim2.new(0 + 0 ,1088 -(286 + 797) ,0,5);v116.Size=UDim2.new(0,150,0 -0 ,20);v116.TextColor3=Color3.new(1 -0 ,440 -(397 + 42) ,1);v116.Font=Enum.Font.Fantasy;v116.Text=tostring(v4.Name);v116.TextSize=5 + 9 ;v116.TextScaled=false;v116.TextWrapped=true;v119.Name="TptoPlayer";v119.Parent=v87;v119.BackgroundColor3=Color3.new(800.1 -(24 + 776) ,0.1 -0 ,785.1 -(222 + 563) );v119.BorderColor3=Color3.new(0.6 -0 ,0.6 + 0 ,190.6 -(23 + 167) );v119.Position=UDim2.new(1798 -(690 + 1108) ,5,0 + 0 ,26);v119.Size=UDim2.new(0 + 0 ,998 -(40 + 808) ,0 + 0 ,76 -56 );v119.TextColor3=Color3.new(1 + 0 ,1,1 + 0 );v119.Font=Enum.Font.Fantasy;v119.Text="TP to Player";v119.TextSize=9 + 7 ;v119.TextWrapped=true;v117.Name="AnnoyStart";v117.Parent=v87;v117.BackgroundColor3=Color3.new(571.1 -(47 + 524) ,0.1,0.1 + 0 );v117.BorderColor3=Color3.new(0.6,0.6 -0 ,0.6);v117.Position=UDim2.new(0,7 -2 ,0 -0 ,1773 -(1165 + 561) );v117.Size=UDim2.new(0 + 0 ,150,0,20);v117.TextColor3=Color3.new(3 -2 ,1 + 0 ,480 -(341 + 138) );v117.Font=Enum.Font.Fantasy;v117.Text="TP Spam Player: OFF";v117.TextSize=16;v117.TextWrapped=true;v120.Name="PanicToggleLabel";v120.Parent=v87;v120.BackgroundColor3=Color3.new(0.1 + 0 ,0.1,0.1 -0 );v120.BorderSizePixel=0;v120.Position=UDim2.new(326 -(89 + 237) ,16 -11 ,0,157 -82 );v120.Size=UDim2.new(881 -(581 + 300) ,1345 -(855 + 365) ,0 -0 ,7 + 13 );v120.TextColor3=Color3.new(1236 -(1030 + 205) ,1 + 0 ,1);v120.Font=Enum.Font.Fantasy;v120.Text="Panic KeyBind";v120.TextSize=15 + 1 ;v120.TextWrapped=true;v126.Name="PanicToggle";v126.Parent=v87;v126.BackgroundColor3=Color3.new(286.4 -(156 + 130) ,0.4 -0 ,0.4 -0 );v126.BorderColor3=Color3.new(0.8 -0 ,0.8 + 0 ,0.8 + 0 );v126.Position=UDim2.new(69 -(10 + 59) ,37 + 93 ,0 -0 ,75);v126.Size=UDim2.new(0,1188 -(671 + 492) ,0 + 0 ,1233 -(369 + 846) );v126.TextColor3=Color3.new(1 + 0 ,1,1 + 0 );v126.Font=Enum.Font.Fantasy;v126.Text="y";v126.TextSize=1961 -(1036 + 909) ;v126.TextWrapped=true;v128.Name="InfoScreen";v128.Parent=v19;v128.BackgroundColor3=Color3.new(0.1 + 0 ,0.1,0.1);v128.BorderColor3=Color3.new(0.6,0.6,0.6 -0 );v128.Position=UDim2.new(203 -(11 + 192) ,560,0 + 0 ,5);v128.Size=UDim2.new(0,215 -(135 + 40) ,0 -0 ,20);v128.BackgroundTransparency=0 + 0 ;v128.Font=Enum.Font.Fantasy;v128.TextColor3=Color3.new(2 -1 ,1 -0 ,177 -(50 + 126) );v128.Text="Info";v128.TextSize=47 -30 ;v128.TextWrapped=true;v130.Name="InfoText1";v130.Parent=v19;v130.BackgroundColor3=Color3.new(0.1 + 0 ,0.1,1413.1 -(1233 + 180) );v130.BorderColor3=Color3.new(969 -(522 + 447) ,0,1421 -(107 + 1314) );v130.BackgroundTransparency=0 + 0 ;v130.Position=UDim2.new(0 -0 ,173 + 232 ,0 -0 ,126 -94 );v130.Size=UDim2.new(0,2100 -(716 + 1194) ,0 + 0 ,90);v130.TextColor3=Color3.new(1 + 0 ,504 -(74 + 429) ,1);v130.Font=Enum.Font.Fantasy;v130.Text="This GUI was created by Sora\nDiscord: _sora_5968\n\nSpecial thanks to LuckyMMB and Bispø for the motivation.";v130.TextSize=15;v130.TextWrapped=true;v130.Visible=false;v130.ZIndex=7;v130.TextYAlignment=Enum.TextYAlignment.Top;v131.Name="PlayerName";v131.Parent=v19;v131.BackgroundColor3=Color3.new(0.2,0.2 -0 ,0.2);v131.BorderColor3=Color3.new(0.6 + 0 ,0.6 -0 ,0.6 + 0 );v131.Position=UDim2.new(0 -0 ,1495 -890 ,433 -(279 + 154) ,5);v131.Size=UDim2.new(778 -(454 + 324) ,119 + 31 ,17 -(12 + 5) ,11 + 9 );v131.Font=Enum.Font.Fantasy;v131.TextColor3=Color3.new(1,2 -1 ,1 + 0 );v131.Text=tostring(v4.Name);v131.TextSize=1108 -(277 + 816) ;v131.TextScaled=true;v131.TextWrapped=false;v132.Name="StatsFrame";v132.Parent=v19;v132.BackgroundColor3=Color3.new(0.1 -0 ,0.1,1183.1 -(1058 + 125) );v132.BorderColor3=Color3.new(0.1,0.1,0.1 + 0 );v132.BackgroundTransparency=0;v132.Position=UDim2.new(0,1575 -(815 + 160) ,0 -0 ,33);v132.Size=UDim2.new(0 -0 ,161,0 + 0 ,263 -173 );v132.Visible=false;v133.Name="ShowStats1";v133.Parent=v132;v133.BackgroundColor3=Color3.new(1898.1 -(41 + 1857) ,1893.1 -(1222 + 671) ,0.1);v133.BackgroundTransparency=2 -1 ;v133.Position=UDim2.new(0 -0 ,1182 -(229 + 953) ,1774 -(1111 + 663) ,1579 -(874 + 705) );v133.Size=UDim2.new(0 + 0 ,35 + 15 ,0 -0 ,3 + 87 );v133.Font=Enum.Font.Fantasy;v133.TextColor3=Color3.new(680 -(642 + 37) ,1,1);v133.Text=" ";v133.TextSize=4 + 11 ;v133.TextXAlignment=Enum.TextXAlignment.Right;v134.Name="ShowStats2";v134.Parent=v132;v134.BackgroundColor3=Color3.new(0.1,0.1 + 0 ,0.1 -0 );v134.BackgroundTransparency=455 -(233 + 221) ;v134.Position=UDim2.new(0 -0 ,55,0 + 0 ,1541 -(718 + 823) );v134.Size=UDim2.new(0,103,0,57 + 33 );v134.Font=Enum.Font.Fantasy;v134.TextColor3=Color3.new(806 -(266 + 539) ,2 -1 ,1);v134.Text="Stats";v134.TextSize=15;v134.TextXAlignment=Enum.TextXAlignment.Right;v20.MouseButton1Down:connect(function() local v882=1225 -(636 + 589) ;while true do if (v882==(0 -0)) then v18.Visible=false;v19.Visible=true;break;end end end);v22.MouseButton1Down:connect(function() local v883=0;while true do if (v883==(0 -0)) then v18.Visible=true;v19.Visible=false;break;end end end);v21.MouseButton1Down:connect(function() v17:Destroy();end);local v831={[v28]=v29,[v30]=v31,[v86]=v87};for v884,v885 in pairs(v831) do v884.MouseButton1Click:connect(function() local v996=0 + 0 ;while true do if ((0 + 0)==v996) then if v885.Visible then local v1234=1015 -(657 + 358) ;while true do if ((0 -0)==v1234) then v885.Visible=false;return;end end end for v1189,v1190 in pairs(v831) do v1190.Visible=v1190==v885 ;end break;end end end);end v77.MouseEnter:connect(function() v82.Visible=true;end);v77.MouseLeave:connect(function() v82.Visible=false;end);v78.MouseEnter:connect(function() v83.Visible=true;end);v78.MouseLeave:connect(function() v83.Visible=false;end);v79.MouseEnter:connect(function() v83.Visible=true;end);v79.MouseLeave:connect(function() v83.Visible=false;end);v121.MouseEnter:connect(function() v122.Visible=true;end);v121.MouseLeave:connect(function() v122.Visible=false;end);v128.MouseEnter:connect(function() v130.Visible=true;end);v128.MouseLeave:connect(function() v130.Visible=false;end);v25.MouseButton1Down:connect(function() v23.Visible=false;end);function round(v897,v898) local v899=(22 -12)^(v898 or (1187 -(1151 + 36))) ;return math.floor((v897 * v899) + 0.5 + 0 )/v899 ;end function converttoletter(v900) if ((v900/(1e+33 -0))>=(2 -1)) then newnum=v900/(1e+33 -(64 + 770)) ;return round(newnum,5 + 1 )   .. "Dc" ;elseif ((v900/(1e+30 -0))>=(1 + 0)) then newnum=v900/1e+30 ;return round(newnum,1249 -(157 + 1086) )   .. "No" ;elseif ((v900/1e+27)>=1) then local v1235=0;while true do if (v1235==0) then newnum=v900/1e+27 ;return round(newnum,6)   .. "Oc" ;end end elseif ((v900/(1e+24 -496906102))>=(4 -3)) then newnum=v900/(1e+24 -864011677) ;return round(newnum,6)   .. "Sp" ;elseif ((v900/1e+21)>=(1 + 0)) then local v1356=98 -(42 + 56) ;while true do if (v1356==(0 -0)) then newnum=v900/(1e+21 -(1813 + 118)) ;return round(newnum,5 + 1 )   .. "Sx" ;end end elseif ((v900/(1000000000000000000 -(841 + 376)))>=(1 -0)) then local v1392=0 + 0 ;while true do if (v1392==(0 -0)) then newnum=v900/(1000000000000000000 -(464 + 395)) ;return round(newnum,15 -9 )   .. "Qi" ;end end elseif ((v900/(1000000000000837 -(467 + 370)))>=(1 -0)) then newnum=v900/(1000000000001807 -(841 + 966)) ;return round(newnum,26 -20 )   .. "Qa" ;elseif ((v900/1000000000000)>=(2 -1)) then newnum=v900/(1000000000520 -(150 + 370)) ;return round(newnum,1288 -(74 + 1208) )   .. "T" ;elseif ((v900/1000000000)>=(2 -1)) then local v1440=0 -0 ;while true do if ((0 + 0)==v1440) then newnum=v900/(1000000390 -(14 + 376)) ;return round(newnum,10 -4 )   .. "B" ;end end elseif ((v900/1000000)>=(1 + 0)) then local v1453=0;while true do if ((0 + 0)==v1453) then newnum=v900/1000000 ;return round(newnum,6)   .. "M" ;end end elseif ((v900/(954 + 46))>=1) then local v1456=0 -0 ;while true do if (v1456==(0 + 0)) then newnum=v900/(1078 -(23 + 55)) ;return round(newnum,13 -7 )   .. "K" ;end end else return v900;end end v136.MouseButton1Down:connect(function() local v901=0;while true do if (v901==(0 + 0)) then noclip= not noclip;if noclip then local v1192=0 + 0 ;while true do if (v1192==(0 -0)) then v136.Text="NoClip Mode: ON";v136.BackgroundColor3=Color3.new(0 + 0 ,0.5,0);break;end end else local v1193=901 -(652 + 249) ;while true do if (v1193==(0 -0)) then v136.Text="NoClip Mode: OFF";v136.BackgroundColor3=Color3.new(1868.1 -(708 + 1160) ,0.1 -0 ,0.1 -0 );break;end end end break;end end end);game:GetService("RunService").Stepped:connect(function() if noclip then game.Players.LocalPlayer.Character.Humanoid:ChangeState(38 -(10 + 17) );end end);v121.MouseButton1Down:connect(function() farmbtsafetyactive= not farmbtsafetyactive;if farmbtsafetyactive then v121.Text="Safety Net: ON";v121.BackgroundColor3=Color3.new(0,0.5 + 0 ,1732 -(1400 + 332) );else v121.Text="Safety Net: OFF";v121.BackgroundColor3=Color3.new(0.1 -0 ,1908.1 -(242 + 1666) ,0.1 + 0 );end end);spawn(function() while true do if farmbtsafetyactive then while farmbtsafetyactive do local v1156=0 + 0 ;local v1157;local v1158;local v1159;while true do if (v1156==(1 + 0)) then v1159=(tonumber(string.format("%.0f",v1157.MaxHealth)) * tonumber(v123.Text))/(1040 -(850 + 90)) ;if (v1158<=v1159) then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new(459,434 -186 ,887);end v1156=1392 -(360 + 1030) ;end if (v1156==(2 + 0)) then wait(0.2 -0 );break;end if (v1156==0) then v1157=game.Players.LocalPlayer.Character:WaitForChild("Humanoid");v1158=tonumber(string.format("%.0f",v1157.Health));v1156=1;end end end end wait(0.5);end end);local v832=coroutine.wrap(function() while true do LocationX=round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.x,0 -0 );LocationY=round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.y,0);LocationZ=round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.z,1661 -(909 + 752) );v32.Text="Coords: "   .. LocationX   .. ", "   .. LocationY   .. ", "   .. LocationZ ;wait(0.5);end end);v832();v33.MouseButton1Down:connect(function() local v902=0;while true do if (v902==2) then print("Set Custom Location: "   .. setlocationx   .. ", "   .. setlocationy   .. ", "   .. setlocationz );v33.Text=setlocationx   .. ","   .. setlocationy   .. ","   .. setlocationz ;v902=1226 -(109 + 1114) ;end if (v902==(5 -2)) then CustomLocationSet=true;break;end if (v902==(1 + 0)) then setlocationy=round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.y,242 -(6 + 236) );setlocationz=round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.z,0 + 0 );v902=2 + 0 ;end if (v902==(0 -0)) then function round(v1160,v1161) local v1162=0 -0 ;local v1163;while true do if (v1162==(1133 -(1076 + 57))) then v1163=(2 + 8)^(v1161 or 0) ;return math.floor((v1160 * v1163) + 0.5 )/v1163 ;end end end setlocationx=round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.x,0);v902=690 -(579 + 110) ;end end end);v34.MouseButton1Down:connect(function() if (CustomLocationSet==true) then workspace:WaitForChild(game.Players.LocalPlayer.Name).HumanoidRootPart.CFrame=CFrame.new(setlocationx,setlocationy,setlocationz);v29.Visible=false;end end);v35.MouseButton1Click:connect(function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new(703,75 + 863 ,863);v29.Visible=false;end);v36.MouseButton1Click:connect(function() local v905=0;while true do if (v905==(0 + 0)) then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new(409,144 + 127 ,1385 -(174 + 233) );v29.Visible=false;break;end end end);v37.MouseButton1Click:connect(function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new(3284 -2108 ,8404 -3615 , -(1020 + 1273));v29.Visible=false;end);v39.MouseButton1Click:connect(function() local v908=0;while true do if (v908==(1174 -(663 + 511))) then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -(330 + 39),15735, -(2 + 7));v29.Visible=false;break;end end end);v40.MouseButton1Click:connect(function() local v909=0 -0 ;while true do if (v909==(0 + 0)) then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new(133,17095, -(1016 -584));v29.Visible=false;break;end end end);v41.MouseButton1Click:connect(function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -(5570 -3269),1432,514 + 563 );v29.Visible=false;end);v42.MouseButton1Click:connect(function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -(4830 -2348),28455, -1525);v29.Visible=false;end);v43.MouseButton1Click:connect(function() local v914=0 + 0 ;while true do if (v914==(0 + 0)) then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -(1577 -(478 + 244)),30080, -(1568 -(440 + 77)));v29.Visible=false;break;end end end);v44.MouseButton1Click:connect(function() local v915=0 + 0 ;while true do if (v915==(0 -0)) then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -(4038 -(655 + 901)),29072, -(286 + 1255));v29.Visible=false;break;end end end);v45.MouseButton1Click:connect(function() local v916=0;while true do if (v916==(0 + 0)) then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -(1598 + 768),118929 -89408 ,2200);v29.Visible=false;break;end end end);v46.MouseButton1Click:connect(function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -(2096 -(695 + 750)),110384 -78058 , -(13 -4));v29.Visible=false;end);v38.MouseButton1Click:connect(function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new(1381,9274,6623 -4976 );v29.Visible=false;end);v51.MouseButton1Click:connect(function() local v921=351 -(285 + 66) ;while true do if ((0 -0)==v921) then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -(3589 -(682 + 628)),314 + 1630 ,1352 -(176 + 123) );v29.Visible=false;break;end end end);v47.MouseButton1Click:connect(function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new(153 + 212 ,181 + 68 , -(714 -(239 + 30)));settplocation="BT100Area";v29.Visible=false;end);v48.MouseButton1Click:connect(function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new(95 + 254 ,263, -490);settplocation="BT10KArea";v29.Visible=false;end);v49.MouseButton1Click:connect(function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new(1640,248 + 10 ,3971 -1727 );settplocation="BT100KArea";v29.Visible=false;end);v50.MouseButton1Click:connect(function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -2307,3044 -2068 ,1383 -(306 + 9) );settplocation="BT1MArea";v29.Visible=false;end);v52.MouseButton1Click:connect(function() local v930=0;while true do if (v930==1) then v29.Visible=false;break;end if (v930==0) then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -(7062 -5038),125 + 589 , -1860);settplocation="BT10MArea";v930=1 + 0 ;end end end);v55.MouseButton1Click:connect(function() local v931=0;while true do if (v931==0) then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -(123 + 131),817 -531 ,2355 -(1140 + 235) );settplocation="BT1BArea";v931=1 + 0 ;end if (v931==1) then v29.Visible=false;break;end end end);v56.MouseButton1Click:connect(function() local v932=0 + 0 ;while true do if (v932==(0 + 0)) then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -(323 -(33 + 19)),101 + 178 ,2970 -1979 );settplocation="BT100BArea";v932=1;end if ((1 + 0)==v932) then v29.Visible=false;break;end end end);v57.MouseButton1Click:connect(function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -(546 -267),262 + 17 ,1696 -(586 + 103) );settplocation="BT10TArea";v29.Visible=false;end);v58.MouseButton1Click:connect(function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -373,241,1389);settplocation="BT1QaArea";v29.Visible=false;end);v59.MouseButton1Click:connect(function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -(226 + 2247),741 -500 , -1957);settplocation="BT1QiArea";v29.Visible=false;end);v60.MouseButton1Click:connect(function() local v939=0;while true do if ((1488 -(1309 + 179))==v939) then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -6854,27275 -12166 , -2063);settplocation="BT1SxArea";v939=1 + 0 ;end if (v939==(2 -1)) then v29.Visible=false;break;end end end);v61.MouseButton1Click:connect(function() local v940=0 + 0 ;while true do if (v940==(0 -0)) then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -2463,55696 -27745 , -1641);settplocation="BT1SpArea";v940=610 -(295 + 314) ;end if (v940==1) then v29.Visible=false;break;end end end);v62.MouseButton1Click:connect(function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -(6061 -3593),29917 -(1300 + 662) , -(4656 -3173));settplocation="BT1OcArea";v29.Visible=false;end);v63.MouseButton1Click:connect(function() local v943=0;while true do if (v943==(1755 -(1178 + 577))) then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -(1227 + 1134),86670 -57352 ,3204 -(851 + 554) );settplocation="BT1NoArea";v943=1;end if (1==v943) then v29.Visible=false;break;end end end);v64.MouseButton1Click:connect(function() local v944=0 + 0 ;while true do if (v944==(2 -1)) then v29.Visible=false;break;end if (v944==(0 -0)) then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -(2595 -(115 + 187)),22454 + 6865 ,1990 + 112 );settplocation="BT1NoArea";v944=3 -2 ;end end end);v65.MouseButton1Click:connect(function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -(3688 -(160 + 1001)),4800 + 686 , -(368 + 164));settplocation="PP1MArea";v29.Visible=false;end);v66.MouseButton1Click:connect(function() local v947=0 -0 ;while true do if ((358 -(237 + 121))==v947) then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -2560,6397 -(525 + 372) , -(831 -392));settplocation="PP1BArea";v947=3 -2 ;end if (v947==1) then v29.Visible=false;break;end end end);v67.MouseButton1Click:connect(function() local v948=0;while true do if (v948==(142 -(96 + 46))) then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -2583,5516, -(1278 -(643 + 134)));settplocation="PP1TArea";v948=1 + 0 ;end if (v948==(2 -1)) then v29.Visible=false;break;end end end);v68.MouseButton1Click:connect(function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -2544,20092 -14680 , -(475 + 20));settplocation="PP1QaArea";v29.Visible=false;end);v69.MouseButton1Click:connect(function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -(5178 -2539),11397 -5821 , -426);settplocation="PP1QiArea";v29.Visible=false;end);v70.MouseButton1Click:connect(function() local v953=719 -(316 + 403) ;while true do if (v953==(1 + 0)) then v29.Visible=false;break;end if ((0 -0)==v953) then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -3945,94 + 166 ,5819 -3508 );settplocation="PP1SxArea";v953=1;end end end);v71.MouseButton1Click:connect(function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new(1662 + 683 ,24923, -1610);settplocation="PP1SpArea";v29.Visible=false;end);v72.MouseButton1Click:connect(function() local v956=0;while true do if (v956==0) then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -(880 + 1848),97005 -69009 , -(7459 -5897));settplocation="PP1OcArea";v956=1 -0 ;end if ((1 + 0)==v956) then v29.Visible=false;break;end end end);v73.MouseButton1Click:connect(function() local v957=0 -0 ;while true do if ((1 + 0)==v957) then v29.Visible=false;break;end if (v957==0) then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new( -(15245 -10063),28506 -(12 + 5) , -(20651 -15334));settplocation="PP1NoArea";v957=1;end end end);v74.MouseButton1Click:connect(function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new(605 -321 ,28697,3588);settplocation="PP1NoArea";v29.Visible=false;end);v84.MouseButton1Click:connect(function() v14.Enabled= not v14.Enabled;if v14.Enabled then v84.BackgroundColor3=Color3.fromRGB(0 -0 ,421 -251 ,0 + 0 );v84.Text="ESP: ON";else local v1025=1973 -(1656 + 317) ;while true do if (1==v1025) then for v1236,v1237 in pairs(game:GetService("Players"):GetPlayers()) do local v1238=game:GetService("CoreGui"):FindFirstChild("ESP_"   .. v1237.Name );if v1238 then v1238:Destroy();end end break;end if ((0 + 0)==v1025) then v84.BackgroundColor3=Color3.fromRGB(137 + 33 ,0 -0 ,0 -0 );v84.Text="ESP: OFF";v1025=355 -(5 + 349) ;end end end end);spawn(function() while true do local v998=0;while true do if (v998==(0 -0)) then if v14.Enabled then UpdateESP();end wait(1271.1 -(266 + 1005) );break;end end end end);v75.MouseButton1Click:Connect(function() if (farmallactive~=true) then farmallactive=true;farmfistactive=true;farmbodyactive=true;farmspeedactive=true;farmpsychicactive=true;farmjumpactive=true;v75.BackgroundColor3=Color3.new(0 + 0 ,0.5 -0 ,0 -0 );v75.Text="Farm All: ON";v30.BackgroundColor3=Color3.new(0,1696.5 -(561 + 1135) ,0);else local v1029=0;while true do if (v1029==(5 -1)) then v75.Text="Farm All: OFF";v30.BackgroundColor3=Color3.new(0.1 -0 ,1066.1 -(507 + 559) ,0.1 -0 );break;end if (v1029==(3 -2)) then farmspeedactive=false;farmpsychicactive=false;farmjumpactive=false;v1029=390 -(212 + 176) ;end if (v1029==(907 -(250 + 655))) then v76.BackgroundColor3=Color3.new(0.1 -0 ,0.1 -0 ,0.1);v77.BackgroundColor3=Color3.new(0.1 -0 ,0.1,0.1);v78.BackgroundColor3=Color3.new(1956.1 -(1869 + 87) ,0.1 -0 ,1901.1 -(484 + 1417) );v1029=6 -3 ;end if (v1029==(0 -0)) then farmallactive=false;farmfistactive=false;farmbodyactive=false;v1029=1;end if (v1029==(776 -(48 + 725))) then v79.BackgroundColor3=Color3.new(0.1 -0 ,0.1 -0 ,0.1 + 0 );v81.BackgroundColor3=Color3.new(0.1,0.1,0.1 -0 );v75.BackgroundColor3=Color3.new(0.1,0.1,0.1 + 0 );v1029=4;end end end end);v76.MouseButton1Click:Connect(function() if (farmfistactive~=true) then farmfistactive=true;v76.BackgroundColor3=Color3.new(0 + 0 ,853.5 -(152 + 701) ,0);v76.Text="Farm Fist Strength: ON";v30.BackgroundColor3=Color3.new(1311 -(430 + 881) ,0.5,0 + 0 );else local v1033=0;while true do if (v1033==(895 -(557 + 338))) then farmfistactive=false;v76.BackgroundColor3=Color3.new(0.1 + 0 ,0.1,0.1 -0 );v1033=3 -2 ;end if (v1033==(2 -1)) then v76.Text="Farm Fist Strength: OFF";v30.BackgroundColor3=Color3.new(0.1 -0 ,801.1 -(499 + 302) ,866.1 -(39 + 827) );break;end end end end);v77.MouseButton1Click:Connect(function() if (farmbodyactive~=true) then farmbodyactive=true;v77.BackgroundColor3=Color3.new(0 -0 ,0.5,0);v77.Text="Farm Body Strength: ON";v30.BackgroundColor3=Color3.new(0,0.5 -0 ,0 -0 );else farmbodyactive=false;v77.BackgroundColor3=Color3.new(0.1 -0 ,0.1 + 0 ,0.1);v77.Text="Farm Body Strength: OFF";v30.BackgroundColor3=Color3.new(0.1,0.1 -0 ,0.1);end end);v78.MouseButton1Click:Connect(function() if (farmspeedactive~=true) then local v1040=0 + 0 ;while true do if (v1040==(1 -0)) then v78.Text="Farm Speed Strength: ON";v30.BackgroundColor3=Color3.new(104 -(103 + 1) ,554.5 -(475 + 79) ,0 -0 );break;end if (v1040==(0 -0)) then farmspeedactive=true;v78.BackgroundColor3=Color3.new(0 + 0 ,0.5 + 0 ,1503 -(1395 + 108) );v1040=2 -1 ;end end else local v1041=0;while true do if ((1204 -(7 + 1197))==v1041) then farmspeedactive=false;v78.BackgroundColor3=Color3.new(0.1,0.1 + 0 ,0.1 + 0 );v1041=320 -(27 + 292) ;end if (v1041==(2 -1)) then v78.Text="Farm Speed Strength: OFF";v30.BackgroundColor3=Color3.new(0.1 -0 ,0.1,0.1 -0 );break;end end end end);v79.MouseButton1Click:Connect(function() if (farmjumpactive~=true) then farmjumpactive=true;v79.BackgroundColor3=Color3.new(0,0.5 -0 ,0 -0 );v79.Text="Farm Jump Strength: ON";v30.BackgroundColor3=Color3.new(0,139.5 -(43 + 96) ,0 -0 );else farmjumpactive=false;v79.BackgroundColor3=Color3.new(0.1 -0 ,0.1,0.1 + 0 );v79.Text="Farm Jump Strength: OFF";v30.BackgroundColor3=Color3.new(0.1 + 0 ,0.1,0.1 -0 );end end);v81.MouseButton1Click:Connect(function() if (farmpsychicactive~=true) then farmpsychicactive=true;v81.BackgroundColor3=Color3.new(0,0.5 + 0 ,0 -0 );v81.Text="Farm Psychic Strength: ON";v30.BackgroundColor3=Color3.new(0,0.5 + 0 ,0 + 0 );else farmpsychicactive=false;v81.BackgroundColor3=Color3.new(1751.1 -(1414 + 337) ,1940.1 -(1642 + 298) ,0.1 -0 );v81.Text="Farm Psychic Strength: OFF";v30.BackgroundColor3=Color3.new(0.1,0.1 -0 ,0.1);end end);spawn(function() local v961="";while true do if farmfistactive then local v1114=game.Players.LocalPlayer;local v1115=v1114.Character;local v1116=v1114:GetAttribute("FistStrength") or (0 -0) ;local v1117=game:GetService("ReplicatedStorage"):FindFirstChild("RemoteEvents");if (v1115 and v1115:FindFirstChild("HumanoidRootPart")) then local v1213=v1115.HumanoidRootPart;local v1214="";if (v1116>=(1000000044215061 -44215061)) then local v1290=0 + 0 ;while true do if (v1290==(0 + 0)) then v1214="FS1DC";if (v961~=v1214) then v1213.CFrame=CFrame.new(276 -163 ,17095, -419);end break;end end elseif (v1116>=(10000000001735 -(251 + 1484))) then local v1347=0;while true do if (v1347==(1052 -(526 + 526))) then v1214="FS1Qa";if (v961~=v1214) then v1213.CFrame=CFrame.new( -369,16952 -(1134 + 83) , -9);end break;end end elseif (v1116>=(100000001301 -(384 + 917))) then local v1370=697 -(128 + 569) ;while true do if ((1543 -(1407 + 136))==v1370) then v1214="FS100B";if (v961~=v1214) then v1213.CFrame=CFrame.new(3268 -(687 + 1200) ,9274,1647);end break;end end elseif (v1116>=(1000001710 -(556 + 1154))) then local v1407=0 -0 ;while true do if (v1407==(95 -(9 + 86))) then v1214="FS1B";if (v961~=v1214) then v1213.CFrame=CFrame.new(1597 -(275 + 146) ,4789, -(373 + 1920));end break;end end elseif (v1116>=1000) then v1214="FS1K";if (v961~=v1214) then v1213.CFrame=CFrame.new( -2279,1944,1053);end else v1214="FS0";if (v961~=v1214) then v1213.CFrame=CFrame.new(409,271,1042 -(29 + 35) );end end if (v1214~="") then v961=v1214;end if (v1117 and v1117:FindFirstChild("FS_Train")) then v1117.FS_Train:FireServer();end end else v961="";end task.wait(0.1 -0 );end end);spawn(function() local v962="";local v963=0 -0 ;local v964=44 -34 ;while true do if farmbodyactive then local v1118=game.Players.LocalPlayer;local v1119=v1118.Character;local v1120=v1119 and v1119:FindFirstChildOfClass("Humanoid") ;local v1121=(v1120 and v1120.Health) or (0 + 0) ;local v1122=game:GetService("ReplicatedStorage"):FindFirstChild("RemoteEvents");if (v1119 and v1119:FindFirstChild("HumanoidRootPart")) then local v1215=v1119.HumanoidRootPart;local v1216="";local v1217=os.clock();if ((v1217-v963)>=v964) then if (v1121>=(500000000001012 -(53 + 959))) then v1216="BT1Qa";v1215.CFrame=CFrame.new( -(781 -(312 + 96)),418 -177 ,1674 -(147 + 138) );elseif (v1121>=5000000000000) then local v1371=899 -(813 + 86) ;while true do if ((0 + 0)==v1371) then v1216="BT10T";v1215.CFrame=CFrame.new( -279,279,1865 -858 );break;end end elseif (v1121>=(50000000492 -(18 + 474))) then local v1408=0 + 0 ;while true do if (v1408==(0 -0)) then v1216="BT100B";v1215.CFrame=CFrame.new( -(1357 -(860 + 226)),582 -(121 + 182) ,991);break;end end elseif (v1121>=500000000) then v1216="BT1B";v1215.CFrame=CFrame.new( -(32 + 222),1526 -(988 + 252) ,111 + 869 );elseif (v1121>=(1566146 + 3433854)) then v1216="BT10M";v1215.CFrame=CFrame.new( -(3994 -(49 + 1921)),1604 -(223 + 667) , -(1912 -(51 + 1)));elseif (v1121>=(860592 -360592)) then local v1452=0 -0 ;while true do if ((1125 -(146 + 979))==v1452) then v1216="BT1M";v1215.CFrame=CFrame.new( -(652 + 1655),976,1068);break;end end elseif (v1121>=(50605 -(311 + 294))) then local v1455=0 -0 ;while true do if (v1455==0) then v1216="BT100K";v1215.CFrame=CFrame.new(695 + 945 ,258,3687 -(496 + 947) );break;end end elseif (v1121>=(6358 -(1233 + 125))) then local v1459=0 + 0 ;while true do if (v1459==0) then v1216="BT10K";v1215.CFrame=CFrame.new(314 + 35 ,50 + 213 , -(2135 -(963 + 682)));break;end end elseif (v1121>=50) then local v1462=0;while true do if (v1462==(0 + 0)) then v1216="BT100";v1215.CFrame=CFrame.new(1869 -(504 + 1000) ,168 + 81 , -(406 + 39));break;end end end v962=v1216;v963=v1217;end if (v1122 and v1122:FindFirstChild("BT_Train")) then v1122.BT_Train:FireServer();end end else local v1123=0 + 0 ;while true do if (v1123==(0 -0)) then v962="";v963=0 + 0 ;break;end end end task.wait(0.1 + 0 );end end);spawn(function() while true do local v999=182 -(156 + 26) ;while true do if (0==v999) then if farmspeedactive then local v1239=game:GetService("ReplicatedStorage"):FindFirstChild("RemoteEvents");if (v1239 and v1239:FindFirstChild("MS_Train")) then v1239.MS_Train:FireServer();end end task.wait(0.1 + 0 );break;end end end end);spawn(function() while true do if farmjumpactive then local v1124=0;local v1125;local v1126;local v1127;local v1128;while true do if (v1124==(1 -0)) then v1127=v1126 and v1126:FindFirstChild("Humanoid") ;v1128=game:GetService("ReplicatedStorage"):FindFirstChild("RemoteEvents");v1124=166 -(149 + 15) ;end if (v1124==(962 -(890 + 70))) then if (v1127 and v1128 and v1128:FindFirstChild("JF_Train")) then local v1313=0;while true do if (v1313==2) then v1127:ChangeState(Enum.HumanoidStateType.Landed);v1127.PlatformStand=false;break;end if (v1313==(118 -(39 + 78))) then v1128.JF_Train:FireServer();task.wait(482.05 -(14 + 468) );v1313=4 -2 ;end if (v1313==(0 -0)) then v1127.PlatformStand=true;v1127:ChangeState(Enum.HumanoidStateType.Freefall);v1313=1;end end end break;end if (v1124==(0 + 0)) then v1125=game.Players.LocalPlayer;v1126=v1125.Character;v1124=1;end end end task.wait(0.1);end end);local function v833(v965) local v966=0;local v967;local v968;while true do if (v966==(1 + 0)) then if (v968 and  not v967.Character:FindFirstChild(v965)) then v967.Character.Humanoid:EquipTool(v968);end return v968;end if (v966==(0 + 0)) then v967=game.Players.LocalPlayer;v968=v967.Backpack:FindFirstChild(v965) or v967.Character:FindFirstChild(v965) ;v966=1 + 0 ;end end end spawn(function() local v969=false;while true do if farmpsychicactive then if  not v969 then local v1218=0;local v1219;local v1220;while true do if ((0 + 0)==v1218) then v1219=game.Players.LocalPlayer;v1220=v1219.Character;v1218=1 -0 ;end if (v1218==1) then if (v1220 and v1220:FindFirstChild("HumanoidRootPart")) then local v1357=v1220.HumanoidRootPart;local v1358=v1219:GetAttribute("PsychicPower") or 0 ;if (v1358>=(1e+33 -(1176 + 227))) then v1357.CFrame=CFrame.new(1505 -(466 + 755) ,43387 -14690 ,3588);elseif (v1358>=(1e+33 -(924 + 601))) then v1357.CFrame=CFrame.new( -(19472 -14290),11076 + 17413 , -(1577 + 3740));elseif (v1358>=(1e+33 -938100310)) then v1357.CFrame=CFrame.new( -(1817 + 911),135298 -107302 , -1562);elseif (v1358>=(1e+33 -(1596 + 114))) then v1357.CFrame=CFrame.new(2345,65070 -40147 , -(2323 -(164 + 549)));elseif (v1358>=(1e+33 -(1059 + 379))) then v1357.CFrame=CFrame.new( -(4898 -953),135 + 125 ,2311);elseif (v1358>=(1000000000000000000 -0)) then v1357.CFrame=CFrame.new( -2639,4576 + 1000 , -(197 + 229));elseif (v1358>=1000000000000000) then v1357.CFrame=CFrame.new( -(7542 -4998),1039 + 4373 , -(427 + 68));elseif (v1358>=(999804041825 -  -195958175)) then v1357.CFrame=CFrame.new( -(3303 -(254 + 466)),6076 -(544 + 16) , -(1592 -1091));elseif (v1358>=(1000000628 -(294 + 334))) then v1357.CFrame=CFrame.new( -(2813 -(236 + 17)),5500, -439);elseif (v1358>=1000000) then v1357.CFrame=CFrame.new( -(1090 + 1437),4271 + 1215 , -(2003 -1471));end v833("PsychicPower");v969=true;end break;end end end elseif v969 then v969=false;end task.wait(0.5 -0 );end end);v26.MouseButton1Click:Connect(function() if (deathreturnactive~=true) then deathreturnactive=true;v26.BackgroundColor3=Color3.new(0,0.5 + 0 ,0 + 0 );v26.Text="OnDeath Return: ON";else local v1056=794 -(413 + 381) ;while true do if (v1056==(0 + 0)) then deathreturnactive=false;v26.BackgroundColor3=Color3.new(0.1 -0 ,0.1 -0 ,1970.1 -(582 + 1388) );v1056=1 -0 ;end if (v1056==(1 + 0)) then v26.Text="OnDeath Return: OFF";break;end end end end);local v834=game.Players.LocalPlayer;local v835=game:GetService("ReplicatedStorage");local v836=v835:WaitForChild("RemoteEvents");local v837=nil;local function v838(v970) if (deathreturnactive and v837) then local v1057=v970:WaitForChild("HumanoidRootPart",10);if v1057 then local v1164=364 -(326 + 38) ;while true do if (v1164==(0 -0)) then for v1316=1 -0 ,10 do v1057.CFrame=v837;task.wait(620.2 -(47 + 573) );if ((v1057.Position-v837.Position).Magnitude<5) then break;end end print("Телепортація завершена успішно!");break;end end end end end v834.CharacterAdded:Connect(v838);spawn(function() while true do local v1000=v834.Character;local v1001=v1000 and v1000:FindFirstChild("Humanoid") ;local v1002=v1000 and v1000:FindFirstChild("HumanoidRootPart") ;if (deathreturnactive and v1000 and v1001 and v1002) then if (v1001.Health>(0 + 0)) then local v1223=0;while true do if ((4 -3)==v1223) then if (v1001.Health<(v1001.MaxHealth * 0.5)) then v836.RefreshCharacter:FireServer();task.wait(0.5);end break;end if (v1223==0) then v837=v1002.CFrame;if v80 then local v1359=0 -0 ;local v1360;while true do if (v1359==0) then v1360=v1002.Position;v80.Text=string.format("Last Place: %.1f, %.1f, %.1f",v1360.X,v1360.Y,v1360.Z);break;end end end v1223=1665 -(1269 + 395) ;end end end end local v1003=v834:WaitForChild("PlayerGui");local v1004=v1003:FindFirstChild("IntroGui") or v1003:FindFirstChild("ChristmasIntroGui") ;if (v1004 and v1004.Enabled) then v836.RefreshCharacter:FireServer();v1004.Enabled=false;game.Lighting.Blur.Size=0;workspace.CurrentCamera.CameraType=Enum.CameraType.Custom;for v1165,v1166 in pairs({"MainGui","QuestsGui","SkillCooldowns","ScreenGui"}) do local v1167=443 -(319 + 124) ;local v1168;while true do if (v1167==0) then v1168=v1003:FindFirstChild(v1166);if v1168 then v1168.Enabled=true;end break;end end end end task.wait(0.3);end end);v117.MouseButton1Click:Connect(function() if (annoyplayeractive~=true) then annoyplayeractive=true;v117.BackgroundColor3=Color3.new(0 -0 ,1007.5 -(564 + 443) ,0 -0 );v117.Text="TP Spam Player: ON";else annoyplayeractive=false;v117.BackgroundColor3=Color3.new(0.1,458.1 -(337 + 121) ,0.1);v117.Text="TP Spam Player: OFF";end end);spawn(function() while true do wait(0.5);if annoyplayeractive then for v1169,v1170 in pairs(game:GetService("Players"):GetChildren()) do if v1170.Name:lower():find(v116.Text:lower()) then local v1242=0;local v1243;while true do if (v1242==(5 -3)) then while annoyplayeractive==true  do local v1361=0 -0 ;while true do if (0==v1361) then player.HumanoidRootPart.CFrame=v1170.Character.HumanoidRootPart.CFrame;wait(1911.005 -(1261 + 650) );break;end end end player.HumanoidRootPart.CFrame=v1243;break;end if (v1242==(0 + 0)) then player=game.Players.LocalPlayer.Character;v1243=player.HumanoidRootPart.CFrame;v1242=1;end if (1==v1242) then v1170.Character.Humanoid.Died:connect(function() local v1362=0 -0 ;while true do if (v1362==1) then v117.Text="TP Spam Player: OFF";break;end if (v1362==(1817 -(772 + 1045))) then annoyplayeractive=false;v117.BackgroundColor3=Color3.new(0.1 + 0 ,144.1 -(102 + 42) ,0.1);v1362=1;end end end);player.Humanoid.Died:connect(function() annoyplayeractive=false;v117.BackgroundColor3=Color3.new(1844.1 -(1524 + 320) ,1270.1 -(1049 + 221) ,156.1 -(18 + 138) );v117.Text="TP Spam Player: OFF";end);v1242=2;end end end end end end end);v119.MouseButton1Click:Connect(function() for v1005,v1006 in pairs(game:GetService("Players"):GetChildren()) do if v1006.Name:lower():find(v116.Text:lower()) then if (v1006.Name~=tostring(v4.Name)) then local v1224=0 -0 ;while true do if ((1102 -(67 + 1035))==v1224) then player=game.Players.LocalPlayer.Character;player.HumanoidRootPart.CFrame=v1006.Character.HumanoidRootPart.CFrame * CFrame.new(351 -(136 + 212) ,0 -0 ,3 + 0 ) ;break;end end end end end end);v10.KeyDown:connect(function(v971) if (v971==tostring(v126.Text)) then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new(424 + 35 ,1852 -(240 + 1364) ,1969 -(1050 + 32) );end end);v88.MouseButton1Click:connect(function() if  not showtopplayersactive then local v1063=0 -0 ;while true do if (v1063==(2 + 1)) then v97.Visible=true;break;end if (v1063==(1055 -(331 + 724))) then showtopplayersactive=true;showtopplayersfistactive=true;v1063=1 + 0 ;end if (v1063==(645 -(269 + 375))) then showtopplayersbodyactive=true;showtopplayersspeedactive=true;v1063=727 -(267 + 458) ;end if (2==v1063) then showtopplayersjumpactive=true;showtopplayerspsychicactive=true;v1063=3;end end else local v1064=0;while true do if (v1064==0) then showtopplayersactive=false;v97.Visible=false;v1064=1 + 0 ;end if (v1064==(3 -1)) then showtopplayersspeedactive=false;showtopplayersjumpactive=false;v1064=3;end if (v1064==(819 -(667 + 151))) then showtopplayersfistactive=false;showtopplayersbodyactive=false;v1064=2;end if (v1064==(1500 -(1410 + 87))) then showtopplayerspsychicactive=false;break;end end end end);v98.MouseButton1Click:connect(function() showtopplayersactive=false;v97.Visible=false;showtopplayersfistactive=false;showtopplayersbodyactive=false;showtopplayersspeedactive=false;showtopplayersjumpactive=false;showtopplayerspsychicactive=false;end);spawn(function() while true do local v1007=1897 -(1504 + 393) ;while true do if (v1007==(0 -0)) then if showtopplayersfistactive then BestPlayerFist=1;PlayerFistName=false;for v1291,v1292 in pairs(game:GetService("Players"):GetChildren()) do local v1293=tonumber(game.Players[v1292.Name].PrivateStats.FistStrength.Value);if (v1293>tonumber(BestPlayerFist)) then BestPlayerFist=v1293;PlayerFistName=tostring(v1292.Name);end end v99.Text="Fist: "   .. tostring(PlayerFistName) ;local v1245=game.Players[PlayerFistName].leaderstats.Status;if (v1245.Value=="Criminal") then v99.TextColor3=Color3.new(1,0.1,1);elseif (v1245.Value=="Lawbreaker") then v99.TextColor3=Color3.new(1,0.1,0.1);elseif (v1245.Value=="Guardian") then v99.TextColor3=Color3.new(0.1,0.8 -0 ,1);elseif (v1245.Value=="Protector") then v99.TextColor3=Color3.new(796.1 -(461 + 335) ,0.1 + 0 ,1);elseif (v1245.Value=="Supervillain") then v99.TextColor3=Color3.new(1761.3 -(1730 + 31) ,1667.1 -(728 + 939) ,0.1);elseif (v1245.Value=="Superhero") then v99.TextColor3=Color3.new(0.8,0.8 -0 ,0 -0 );else v99.TextColor3=Color3.new(2 -1 ,1069 -(138 + 930) ,1);end local v1246=game.Players[PlayerFistName].Character.Humanoid;local v1247=converttoletter(string.format("%.0f",v1246.Health));local v1248=converttoletter(string.format("%.0f",game.Players[PlayerFistName].PrivateStats.FistStrength.Value));local v1249=converttoletter(string.format("%.0f",game.Players[PlayerFistName].PrivateStats.BodyToughness.Value));local v1250=converttoletter(string.format("%.0f",game.Players[PlayerFistName].PrivateStats.MovementSpeed.Value));local v1251=converttoletter(string.format("%.0f",game.Players[PlayerFistName].PrivateStats.JumpForce.Value));local v1252=converttoletter(string.format("%.0f",game.Players[PlayerFistName].PrivateStats.PsychicPower.Value));v110.Text=tostring(v1247   .. "\n"   .. v1248   .. "\n"   .. v1249   .. "\n"   .. v1250   .. "\n"   .. v1251   .. "\n"   .. v1252 );end wait(0.3 + 0 );break;end end end end);spawn(function() while true do local v1008=0 + 0 ;while true do if (v1008==0) then if showtopplayersbodyactive then BestPlayerBody=1;PlayerBodyName=false;for v1294,v1295 in pairs(game:GetService("Players"):GetChildren()) do local v1296=0 + 0 ;local v1297;while true do if (v1296==(0 -0)) then v1297=tonumber(game.Players[v1295.Name].PrivateStats.BodyToughness.Value);if (v1297>tonumber(BestPlayerBody)) then local v1396=1766 -(459 + 1307) ;while true do if (v1396==(1870 -(474 + 1396))) then BestPlayerBody=v1297;PlayerBodyName=tostring(v1295.Name);break;end end end break;end end end v100.Text="Body: "   .. tostring(PlayerBodyName) ;local v1255=game.Players[PlayerBodyName].leaderstats.Status;if (v1255.Value=="Criminal") then v100.TextColor3=Color3.new(1,0.1 -0 ,1 + 0 );elseif (v1255.Value=="Lawbreaker") then v100.TextColor3=Color3.new(1 + 0 ,0.1 -0 ,0.1 + 0 );elseif (v1255.Value=="Guardian") then v100.TextColor3=Color3.new(0.1 -0 ,0.8 -0 ,592 -(562 + 29) );elseif (v1255.Value=="Protector") then v100.TextColor3=Color3.new(0.1 + 0 ,1419.1 -(374 + 1045) ,1);elseif (v1255.Value=="Supervillain") then v100.TextColor3=Color3.new(0.3 + 0 ,0.1 -0 ,638.1 -(448 + 190) );elseif (v1255.Value=="Superhero") then v100.TextColor3=Color3.new(0.8 + 0 ,0.8,0);else v100.TextColor3=Color3.new(1,1 + 0 ,1);end local v1256=game.Players[PlayerBodyName].Character.Humanoid;local v1257=converttoletter(string.format("%.0f",v1256.Health));local v1258=converttoletter(string.format("%.0f",game.Players[PlayerBodyName].PrivateStats.FistStrength.Value));local v1259=converttoletter(string.format("%.0f",game.Players[PlayerBodyName].PrivateStats.BodyToughness.Value));local v1260=converttoletter(string.format("%.0f",game.Players[PlayerBodyName].PrivateStats.MovementSpeed.Value));local v1261=converttoletter(string.format("%.0f",game.Players[PlayerBodyName].PrivateStats.JumpForce.Value));local v1262=converttoletter(string.format("%.0f",game.Players[PlayerBodyName].PrivateStats.PsychicPower.Value));v111.Text=tostring(v1257   .. "\n"   .. v1258   .. "\n"   .. v1259   .. "\n"   .. v1260   .. "\n"   .. v1261   .. "\n"   .. v1262 );end wait(0.3);break;end end end end);spawn(function() while true do if showtopplayersspeedactive then BestPlayerSpeed=1 + 0 ;PlayerSpeedName=false;for v1171,v1172 in pairs(game:GetService("Players"):GetChildren()) do local v1173=tonumber(game.Players[v1172.Name].PrivateStats.MovementSpeed.Value);if (v1173>tonumber(BestPlayerSpeed)) then local v1264=0 -0 ;while true do if (v1264==(0 -0)) then BestPlayerSpeed=v1173;PlayerSpeedName=tostring(v1172.Name);break;end end end end v101.Text="Speed: "   .. tostring(PlayerSpeedName) ;local v1135=game.Players[PlayerSpeedName].leaderstats.Status;if (v1135.Value=="Criminal") then v101.TextColor3=Color3.new(1495 -(1307 + 187) ,0.1 -0 ,2 -1 );elseif (v1135.Value=="Lawbreaker") then v101.TextColor3=Color3.new(2 -1 ,683.1 -(232 + 451) ,0.1 + 0 );elseif (v1135.Value=="Guardian") then v101.TextColor3=Color3.new(0.1 + 0 ,0.8,565 -(510 + 54) );elseif (v1135.Value=="Protector") then v101.TextColor3=Color3.new(0.1 -0 ,36.1 -(13 + 23) ,1 -0 );elseif (v1135.Value=="Supervillain") then v101.TextColor3=Color3.new(0.3,0.1,0.1);elseif (v1135.Value=="Superhero") then v101.TextColor3=Color3.new(0.8,0.8 -0 ,0);else v101.TextColor3=Color3.new(1 -0 ,1089 -(830 + 258) ,3 -2 );end local v1136=game.Players[PlayerSpeedName].Character.Humanoid;local v1137=converttoletter(string.format("%.0f",v1136.Health));local v1138=converttoletter(string.format("%.0f",game.Players[PlayerSpeedName].PrivateStats.FistStrength.Value));local v1139=converttoletter(string.format("%.0f",game.Players[PlayerSpeedName].PrivateStats.BodyToughness.Value));local v1140=converttoletter(string.format("%.0f",game.Players[PlayerSpeedName].PrivateStats.MovementSpeed.Value));local v1141=converttoletter(string.format("%.0f",game.Players[PlayerSpeedName].PrivateStats.JumpForce.Value));local v1142=converttoletter(string.format("%.0f",game.Players[PlayerSpeedName].PrivateStats.PsychicPower.Value));v112.Text=tostring(v1137   .. "\n"   .. v1138   .. "\n"   .. v1139   .. "\n"   .. v1140   .. "\n"   .. v1141   .. "\n"   .. v1142 );end wait(0.3 + 0 );end end);spawn(function() while true do local v1009=0;while true do if ((0 + 0)==v1009) then if showtopplayersjumpactive then BestPlayerJump=1;PlayerJumpName=false;for v1299,v1300 in pairs(game:GetService("Players"):GetChildren()) do local v1301=1441 -(860 + 581) ;local v1302;while true do if (v1301==0) then v1302=tonumber(game.Players[v1300.Name].PrivateStats.JumpForce.Value);if (v1302>tonumber(BestPlayerJump)) then local v1398=0 -0 ;while true do if (0==v1398) then BestPlayerJump=v1302;PlayerJumpName=tostring(v1300.Name);break;end end end break;end end end v102.Text="Jump: "   .. tostring(PlayerJumpName) ;local v1266=game.Players[PlayerJumpName].leaderstats.Status;if (v1266.Value=="Criminal") then v102.TextColor3=Color3.new(1,0.1,1 + 0 );elseif (v1266.Value=="Lawbreaker") then v102.TextColor3=Color3.new(242 -(237 + 4) ,0.1,0.1 -0 );elseif (v1266.Value=="Guardian") then v102.TextColor3=Color3.new(0.1 -0 ,0.8,1 -0 );elseif (v1266.Value=="Protector") then v102.TextColor3=Color3.new(0.1 + 0 ,0.1 + 0 ,3 -2 );elseif (v1266.Value=="Supervillain") then v102.TextColor3=Color3.new(0.3,0.1 + 0 ,0.1);elseif (v1266.Value=="Superhero") then v102.TextColor3=Color3.new(0.8,0.8,0 + 0 );else v102.TextColor3=Color3.new(1427 -(85 + 1341) ,1,1 -0 );end local v1267=game.Players[PlayerJumpName].Character.Humanoid;local v1268=converttoletter(string.format("%.0f",v1267.Health));local v1269=converttoletter(string.format("%.0f",game.Players[PlayerJumpName].PrivateStats.FistStrength.Value));local v1270=converttoletter(string.format("%.0f",game.Players[PlayerJumpName].PrivateStats.BodyToughness.Value));local v1271=converttoletter(string.format("%.0f",game.Players[PlayerJumpName].PrivateStats.MovementSpeed.Value));local v1272=converttoletter(string.format("%.0f",game.Players[PlayerJumpName].PrivateStats.JumpForce.Value));local v1273=converttoletter(string.format("%.0f",game.Players[PlayerJumpName].PrivateStats.PsychicPower.Value));v113.Text=tostring(v1268   .. "\n"   .. v1269   .. "\n"   .. v1270   .. "\n"   .. v1271   .. "\n"   .. v1272   .. "\n"   .. v1273 );end wait(0.3 -0 );break;end end end end);spawn(function() while true do local v1010=372 -(45 + 327) ;while true do if (v1010==0) then if showtopplayerspsychicactive then BestPlayerPsychic=1 -0 ;PlayerPsychicName=false;for v1303,v1304 in pairs(game:GetService("Players"):GetChildren()) do local v1305=0;local v1306;while true do if (v1305==0) then v1306=tonumber(game.Players[v1304.Name].PrivateStats.PsychicPower.Value);if (v1306>tonumber(BestPlayerPsychic)) then local v1400=502 -(444 + 58) ;while true do if (v1400==(0 + 0)) then BestPlayerPsychic=v1306;PlayerPsychicName=tostring(v1304.Name);break;end end end break;end end end v103.Text="Psy: "   .. tostring(PlayerPsychicName) ;local v1276=game.Players[PlayerPsychicName].leaderstats.Status;if (v1276.Value=="Criminal") then v103.TextColor3=Color3.new(1 + 0 ,0.1,1 + 0 );elseif (v1276.Value=="Lawbreaker") then v103.TextColor3=Color3.new(2 -1 ,0.1,1732.1 -(64 + 1668) );elseif (v1276.Value=="Guardian") then v103.TextColor3=Color3.new(1973.1 -(1227 + 746) ,0.8,2 -1 );elseif (v1276.Value=="Protector") then v103.TextColor3=Color3.new(0.1 -0 ,494.1 -(415 + 79) ,1 + 0 );elseif (v1276.Value=="Supervillain") then v103.TextColor3=Color3.new(491.3 -(142 + 349) ,0.1 + 0 ,0.1 -0 );elseif (v1276.Value=="Superhero") then v103.TextColor3=Color3.new(0.8 + 0 ,0.8 + 0 ,0 -0 );else v103.TextColor3=Color3.new(1,1865 -(1710 + 154) ,319 -(200 + 118) );end local v1277=game.Players[PlayerPsychicName].Character.Humanoid;local v1278=converttoletter(string.format("%.0f",v1277.Health));local v1279=converttoletter(string.format("%.0f",game.Players[PlayerPsychicName].PrivateStats.FistStrength.Value));local v1280=converttoletter(string.format("%.0f",game.Players[PlayerPsychicName].PrivateStats.BodyToughness.Value));local v1281=converttoletter(string.format("%.0f",game.Players[PlayerPsychicName].PrivateStats.MovementSpeed.Value));local v1282=converttoletter(string.format("%.0f",game.Players[PlayerPsychicName].PrivateStats.JumpForce.Value));local v1283=converttoletter(string.format("%.0f",game.Players[PlayerPsychicName].PrivateStats.PsychicPower.Value));v114.Text=tostring(v1278   .. "\n"   .. v1279   .. "\n"   .. v1280   .. "\n"   .. v1281   .. "\n"   .. v1282   .. "\n"   .. v1283 );end wait(0.3 + 0 );break;end end end end);local function v839(v973) local v974=0;local v975;local v976;local v977;local v978;local v979;local v980;while true do if ((2 -0)==v974) then v973=v973%(5339 -1739) ;v978=math.floor(v973/60 );v979=v973%(54 + 6) ;v974=3;end if (v974==3) then v980="";if (v975>(0 + 0)) then v980=v980   .. v975   .. "y" ;end if (v976>0) then v980=v980   .. v976   .. "d" ;end v974=3 + 1 ;end if (v974==4) then if (v977>0) then v980=v980   .. v977   .. "h" ;end if (v978>0) then v980=v980   .. v978   .. "m" ;end if ((v980=="") or ((v975==0) and (v976==0) and (v977==(0 + 0)))) then v980=v980   .. v979   .. "s" ;end v974=5;end if (v974==1) then v976=math.floor(v973/(24 * 3600) );v973=v973%((51 -27) * (4850 -(363 + 887))) ;v977=math.floor(v973/3600 );v974=2 -0 ;end if (v974==5) then return v980;end if (v974==0) then if (v973<=(0 -0)) then return "0s";end v975=math.floor(v973/((57 + 308) * 24 * (8423 -4823)) );v973=v973%((250 + 115) * 24 * 3600) ;v974=1665 -(674 + 990) ;end end end spawn(function() if v132 then v132.Size=UDim2.new(0 + 0 ,161,0 + 0 ,221 -81 );v133.Size=UDim2.new(0,50,0,140);v134.Size=UDim2.new(1055 -(507 + 548) ,103,0,977 -(289 + 548) );end while true do statplayer=tostring(v131.Text);v132.Visible=false;if (playerdied==true) then repeat wait(1818.5 -(821 + 997) );until playerdied==false  end if (statplayer~="") then for v1174,v1175 in pairs(game:GetService("Players"):GetChildren()) do if string.find(string.lower(v1175.Name),string.lower(statplayer),1,true) then v132.Visible=true;if (v1175.Character and v1175.Character:FindFirstChild("Humanoid")) then local v1325=255 -(195 + 60) ;local v1326;local v1327;local v1328;local v1329;local v1330;local v1331;local v1332;local v1333;local v1334;local v1335;local v1336;local v1337;local v1338;local v1339;local v1340;local v1341;local v1342;local v1343;while true do if ((1 + 0)==v1325) then v1329=v1175:GetAttribute("MovementSpeed") or (1501 -(251 + 1250)) ;v1330=v1175:GetAttribute("JumpForce") or (0 -0) ;v1331=v1175:GetAttribute("PsychicPower") or (0 + 0) ;v1325=1034 -(809 + 223) ;end if ((0 -0)==v1325) then v1326=v1175.Character.Humanoid;v1327=v1175:GetAttribute("FistStrength") or (0 -0) ;v1328=v1175:GetAttribute("BodyToughness") or (0 -0) ;v1325=1 + 0 ;end if (v1325==2) then v1332=v1175:GetAttribute("TPM") or (0 + 0) ;v1333=v1175:GetAttribute("VIPTIME") or (617 -(14 + 603)) ;v1334=v1327 + v1328 + v1329 + v1330 + v1331 ;v1325=3;end if ((132 -(118 + 11))==v1325) then v1335=converttoletter(v1326.Health);v1336=converttoletter(v1327);v1337=converttoletter(v1328);v1325=4;end if (v1325==(1 + 4)) then v1341=converttoletter(v1332);v1342=v839(v1333);v1343=converttoletter(v1334);v1325=6;end if (v1325==(5 + 1)) then v133.Text="Health:\nFist:\nBody:\nSpeed:\nJump:\nPsy:\nTPM:\nVIP:\nTotal:";v134.Text=v1335   .. "\n"   .. v1336   .. "\n"   .. v1337   .. "\n"   .. v1338   .. "\n"   .. v1339   .. "\n"   .. v1340   .. "\n"   .. v1341   .. "\n"   .. v1342   .. "\n"   .. v1343 ;break;end if (v1325==(11 -7)) then v1338=converttoletter(v1329);v1339=converttoletter(v1330);v1340=converttoletter(v1331);v1325=5;end end end break;end end end wait(949.25 -(551 + 398) );end end);local v840=game:GetService("Players");local v841=v840.LocalPlayer;local v842=585191969;local v843=10199316705;local v844=0 + 0 ;local v845=86 + 154 ;local function v846(v981) local v982=0 + 0 ;while true do if (v982==(3 -2)) then if (v844>0) then if (v981:GetRankInGroup(v844)>=v845) then v841:Kick("Admin ("   .. v981.Name   .. ") has joined the game." );end end break;end if (v982==(0 -0)) then if (v981.UserId==v842) then local v1228=0 + 0 ;while true do if (v1228==(0 -0)) then v841:Kick("The owner just joined. Abort mission! 🚨");return;end end end if (v981.UserId==v843) then local v1229=0 + 0 ;while true do if (v1229==0) then v841:Kick("Script owner kicked me. Abort mission! 🚨");return;end end end v982=90 -(40 + 49) ;end end end for v983,v984 in ipairs(v840:GetPlayers()) do if (v984~=v841) then v846(v984);end end v840.PlayerAdded:Connect(v846);v127.MouseButton1Click:connect(function() local v985=0 -0 ;local v986;while true do if (0==v985) then v986=2202352873 -(99 + 391) ;game:GetService("TeleportService"):Teleport(v986);break;end end end);
+showstartmessage = true
+showtopplayersactive = false
+showtopplayersfistactive = false
+showtopplayersbodyactive = false
+showtopplayersspeedactive = false
+showtopplayersjumpactive = false
+showtopplayerspsychicactive = false
+farmbtsafetyactive = false
+farmbtsafety2active = false
+settplocation = false
+playerdied = false
+deathreturnactive = false
+godmodeactive = false
+noclip = false
+resetplayerstat = false
+killplayeractive = false
+farmallactive = false
+farmfistactive = false
+farmbodyactive = false
+farmspeedactive = false
+farmjumpactive = false
+farmpsychicactive = false
+punchmodeactive = false
+ESPEnabled = false
+ESPLength = 20000
+
+-- Оновлений скрипт з виправленою кнопкою ESP
+
+local Plrs = game:GetService("Players")
+local MyPlr = Plrs.LocalPlayer
+local CoreGui = game:GetService("CoreGui")
+local Run = game:GetService("RunService")
+
+-- [БЛОК ОЧИЩЕННЯ ПЕРЕД ЗАПУСКОМ]
+local scriptTag = "MyUniqueESP"
+if _G.ESPConnection then
+    _G.ESPConnection:Disconnect() -- Зупиняємо старий цикл
+end
+
+-- Видаляємо всі старі ESP об'єкти з CoreGui
+for _, child in pairs(CoreGui:GetChildren()) do
+    if child.Name:sub(1, 4) == "ESP_" then
+        child:Destroy()
+    end
+end
+
+-- [НАЛАШТУВАННЯ]
+local ESP_SETTINGS = {
+    Enabled = true, -- Зробив True для тесту
+    MaxDistance = 60000,
+    TextSize = 14
+}
+
+local function Abbreviate(x)
+    if not x then return "0" end
+    x = tonumber(x) or 0
+    local suffixes = {"k", "M", "B", "T", "Qa", "Qi", "sx", "Sp", "So", "No", "dc", "Ud"}
+    if x < 1000 then return tostring(math.floor(x)) end
+    local i = 1
+    while x >= 1000 and i <= #suffixes do
+        x = x / 1000
+        i = i + 1
+    end
+    return string.format("%.10f%s", x, suffixes[i - 1] or "+")
+end
+
+local function GetStatusColor(p)
+    local ls = p:FindFirstChild("leaderstats")
+    local s = ls and ls:FindFirstChild("Status") and ls.Status.Value
+    if s == "Criminal" then return Color3.new(1, 0, 1)
+    elseif s == "Lawbreaker" then return Color3.new(1, 0, 0)
+    elseif s == "Guardian" then return Color3.new(0, 0.8, 1)
+    elseif s == "Protector" then return Color3.new(0, 0, 1)
+    elseif s == "Superhero" then return Color3.new(1, 1, 0)
+    end
+    return Color3.new(1, 1, 1)
+end
+
+function RemoveESP(p)
+    local find = CoreGui:FindFirstChild("ESP_" .. p.Name)
+    if find then find:Destroy() end
+end
+
+function CreateESP(p)
+    if CoreGui:FindFirstChild("ESP_" .. p.Name) then return end
+    
+    local bill = Instance.new("BillboardGui", CoreGui)
+    bill.Name = "ESP_" .. p.Name
+    bill.AlwaysOnTop = true
+    bill.ResetOnSpawn = false -- Важливо
+    bill.Size = UDim2.new(0, 250, 0, 180) 
+    bill.StudsOffset = Vector3.new(0, 4.5, 0)
+    
+    local f = Instance.new("Frame", bill)
+    f.BackgroundTransparency = 1
+    f.Size = UDim2.new(1, 0, 1, 0)
+
+    local l = Instance.new("UIListLayout", f)
+    l.HorizontalAlignment = Enum.HorizontalAlignment.Center
+    l.SortOrder = Enum.SortOrder.LayoutOrder
+
+    local function Lbl(name, order, color)
+        local t = Instance.new("TextLabel", f)
+        t.Name = name
+        t.BackgroundTransparency = 1
+        t.Size = UDim2.new(1, 0, 0, 16)
+        t.Font = Enum.Font.SourceSansBold
+        t.TextSize = ESP_SETTINGS.TextSize
+        t.TextColor3 = color
+        t.TextStrokeTransparency = 0.5
+        t.LayoutOrder = order
+        return t
+    end
+
+    Lbl("Names", 1, Color3.new(1, 1, 1))           
+    Lbl("Dist", 2, Color3.fromRGB(200, 200, 200))  
+    Lbl("Health", 3, Color3.fromRGB(0, 255, 0))    
+    Lbl("TPM", 4, Color3.fromRGB(255, 215, 0))     
+    Lbl("Fist", 5, Color3.fromRGB(255, 0, 0))      
+    Lbl("Psychic", 6, Color3.fromRGB(170, 0, 255)) 
+end
+
+-- [ОСНОВНИЙ ЦИКЛ]
+_G.ESPConnection = Run.RenderStepped:Connect(function()
+    for _, p in pairs(Plrs:GetPlayers()) do
+        if p ~= MyPlr then
+            if ESP_SETTINGS.Enabled then
+                local b = CoreGui:FindFirstChild("ESP_" .. p.Name)
+                if not b then CreateESP(p) end
+                b = CoreGui:FindFirstChild("ESP_" .. p.Name)
+                
+                local char = p.Character
+                local root = char and char:FindFirstChild("HumanoidRootPart")
+                local myChar = MyPlr.Character
+                local myRoot = myChar and myChar:FindFirstChild("HumanoidRootPart")
+
+                if b and root and myRoot then
+                    local dist = (myRoot.Position - root.Position).Magnitude
+                    if dist < ESP_SETTINGS.MaxDistance then
+                        b.Enabled = true
+                        b.Adornee = root
+                        local fr = b.Frame
+                        fr.Names.Text = p.Name
+                        fr.Names.TextColor3 = GetStatusColor(p)
+                        fr.Dist.Text = "Dist: " .. math.floor(dist)
+                        
+                        local hum = char:FindFirstChild("Humanoid")
+                        fr.Health.Text = hum and "HP: " .. Abbreviate(hum.Health) or "HP: 0"
+                        
+                        fr.Fist.Text = "Fist: " .. Abbreviate(p:GetAttribute("FistStrength"))
+                        fr.TPM.Text = "TPM: " .. Abbreviate(p:GetAttribute("TPM"))
+                        fr.Psychic.Text = "Psy: " .. Abbreviate(p:GetAttribute("PsychicPower"))
+                    else
+                        b.Enabled = false
+                    end
+                elseif b then
+                    b.Enabled = false
+                end
+            else
+                RemoveESP(p)
+            end
+        end
+    end
+end)
+
+-- Очищення при виході гравців
+Plrs.PlayerRemoving:Connect(RemoveESP)
+
+local MainGUI = Instance.new("ScreenGui")
+local TopFrame = Instance.new("Frame")
+local MainFrame = Instance.new("Frame")
+local Open = Instance.new("TextButton")
+local Close = Instance.new("TextButton")
+local Minimize = Instance.new("TextButton")
+local cf = Instance.new("Frame")
+local c1 = Instance.new("TextLabel")
+local c = Instance.new("TextButton")
+local DeathReturn = Instance.new("TextButton")
+local PunchMode = Instance.new("TextButton")
+local WayPoints = Instance.new("TextButton")
+local WayPointsFrame = Instance.new("Frame")
+local FarmExp = Instance.new("TextButton")
+local FarmExpFrame = Instance.new("Frame")
+local ShowLocation = Instance.new("TextLabel")
+local SetLocation = Instance.new("TextButton")
+local TPLocation = Instance.new("TextButton")
+local Location1 = Instance.new("TextButton")
+local Location2 = Instance.new("TextButton")
+local LocationFS1B = Instance.new("TextButton")
+local LocationFS100B = Instance.new("TextButton")
+local LocationFS10T = Instance.new("TextButton")
+local LocationFS1Qa = Instance.new("TextButton")
+local LocationFS1Qi = Instance.new("TextButton")
+local LocationFS1Sx = Instance.new("TextButton")
+local LocationFS1Sp = Instance.new("TextButton")
+local LocationFS1So = Instance.new("TextButton")
+local LocationFS1No = Instance.new("TextButton")
+local LocationFS1Dc = Instance.new("TextButton")
+local Location3 = Instance.new("TextButton")
+local Location4 = Instance.new("TextButton")
+local Location5 = Instance.new("TextButton")
+local Location6 = Instance.new("TextButton")
+local Location7 = Instance.new("TextButton")
+local Location8 = Instance.new("TextButton")
+local Location9 = Instance.new("TextButton")
+local Location10 = Instance.new("TextButton")
+local LocationBT1B = Instance.new("TextButton")
+local LocationBT100B = Instance.new("TextButton")
+local LocationBT10T = Instance.new("TextButton")
+local LocationBT1Qa = Instance.new("TextButton")
+local LocationBT1Qi = Instance.new("TextButton")
+local LocationBT1Sx = Instance.new("TextButton")
+local LocationBT1Sp = Instance.new("TextButton")
+local LocationBT1Oc = Instance.new("TextButton")
+local LocationBT1No = Instance.new("TextButton")
+local LocationBT1Dc = Instance.new("TextButton")
+local LocationPP1M  = Instance.new("TextButton")
+local LocationPP1B  = Instance.new("TextButton")
+local LocationPP1T  = Instance.new("TextButton")
+local LocationPP1Qa = Instance.new("TextButton")
+local LocationPP1Qi = Instance.new("TextButton")
+local LocationPP1Sx = Instance.new("TextButton")
+local LocationPP1Sp = Instance.new("TextButton")
+local LocationPP1Oc = Instance.new("TextButton")
+local LocationPP1No = Instance.new("TextButton")
+local LocationPP1Dc = Instance.new("TextButton")
+local FarmAll = Instance.new("TextButton")
+local FarmFist = Instance.new("TextButton")
+local FarmBody = Instance.new("TextButton")
+local FarmSpeed = Instance.new("TextButton")
+local FarmJump = Instance.new("TextButton")
+local SavePosition = Instance.new("TextLabel")
+local FarmPsychic = Instance.new("TextButton")
+local FarmBodyLabel = Instance.new("TextLabel")
+local FarmSpeedLabel = Instance.new("TextLabel")
+local esptrack = Instance.new("TextButton")
+local ESPLength = Instance.new("TextBox")
+local Extras = Instance.new("TextButton")
+local ExtrasFrame = Instance.new("Frame")
+local PlayerInfo = Instance.new("TextButton")
+local PlayerInfoFrame = Instance.new("Frame")
+local ShowTopPlayers = Instance.new("TextButton")
+local ShowBetterFS = Instance.new("TextButton")
+local ShowBetterBT = Instance.new("TextButton")
+local ShowBetterPP = Instance.new("TextButton")
+local ShowWorseFS = Instance.new("TextButton")
+local ShowWorseBT = Instance.new("TextButton")
+local ShowWorsePP = Instance.new("TextButton")
+local PlayerInfoStatsFrame = Instance.new("Frame")
+local PlayerInfoStatsClose = Instance.new("TextButton")
+local StatBestFistText1 = Instance.new("TextLabel")
+local StatBestBodyText1 = Instance.new("TextLabel")
+local StatBestSpeedText1 = Instance.new("TextLabel")
+local StatBestJumpText1 = Instance.new("TextLabel")
+local StatBestPsychicText1 = Instance.new("TextLabel")
+local PlayerInfoStatsText1 = Instance.new("TextLabel")
+local ShowStatsFist1 = Instance.new("TextLabel")
+local ShowStatsBody1 = Instance.new("TextLabel")
+local ShowStatsSpeed1 = Instance.new("TextLabel")
+local ShowStatsJump1 = Instance.new("TextLabel")
+local ShowStatsPsychic1 = Instance.new("TextLabel")
+local ShowStatsFist2 = Instance.new("TextLabel")
+local ShowStatsBody2 = Instance.new("TextLabel")
+local ShowStatsSpeed2 = Instance.new("TextLabel")
+local ShowStatsJump2 = Instance.new("TextLabel")
+local ShowStatsPsychic2 = Instance.new("TextLabel")
+local AnnoyNameLabel = Instance.new("TextLabel")
+local AnnoyName = Instance.new("TextBox")
+local AnnoyStart = Instance.new("TextButton")
+local KillPlayerStart = Instance.new("TextButton")
+local TptoPlayer = Instance.new("TextButton")
+local PanicToggleLabel = Instance.new("TextLabel")
+local farmbtsafety = Instance.new("TextButton")
+local farmbtsafetyText1 = Instance.new("TextLabel")
+local farmbtsafetylevel = Instance.new("TextBox")
+local farmbtsafety2 = Instance.new("TextButton")
+local farmbtsafetylabel = Instance.new("TextLabel")
+local PanicToggle = Instance.new("TextBox")
+local ReJoinServer = Instance.new("TextButton")
+local InfoScreen = Instance.new("TextButton")
+local InfoFrame = Instance.new("Frame")
+local InfoText1 = Instance.new("TextLabel")
+local PlayerName = Instance.new("TextBox")
+local StatsFrame = Instance.new("Frame")
+local ShowStats1 = Instance.new("TextLabel")
+local ShowStats2 = Instance.new("TextLabel")
+local StatNameSet = Instance.new("TextButton")
+local NoClip = Instance.new("TextButton")
+local GodMode = Instance.new("TextButton")
+
+-- Properties
+
+MainGUI.Name = "MainGUI"
+MainGUI.Parent = game.CoreGui
+MainGUI.ResetOnSpawn = false
+local MainCORE = game.CoreGui["MainGUI"]
+
+TopFrame.Name = "TopFrame"
+TopFrame.Parent = MainGUI
+TopFrame.BackgroundColor3 = Color3.new(0, 0, 0)
+TopFrame.BorderColor3 = Color3.new(0, 0, 0)
+TopFrame.BackgroundTransparency = 1
+TopFrame.Position = UDim2.new(0.5, -30, 0, -27)
+TopFrame.Size = UDim2.new(0, 80, 0, 20)
+TopFrame.Visible = false
+
+cf.Name = "cf"
+cf.Parent = MainGUI
+cf.BackgroundColor3 = Color3.new(0, 0, 0)
+cf.BorderColor3 = Color3.new(0.5, 0.5, 0.5)
+cf.BackgroundTransparency = 0
+cf.Position = UDim2.new(0.5, -195, 0.5, -110)
+cf.Size = UDim2.new(0, 390, 0, 220)
+cf.Visible = true
+
+c1.Name = "c1"
+c1.Parent = cf
+c1.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+c1.BackgroundTransparency = 1
+c1.Position = UDim2.new(0, 10, 0, 13)
+c1.Size = UDim2.new(0, 370, 0, 160)
+c1.Font = Enum.Font.Fantasy
+c1.TextColor3 = Color3.new(1, 1, 1)
+c1.Text = "SUPER POWERS TRAINING SIMULATOR GUI\nmade by _sora_5968 (discord)\n\nPress F9 to read more information about the GUI\n\nThis GUI is free, if you paid for it you were scammed\nand should report it.\n\nNo unauthorized use of this GUI without written\npermission from the creator."
+c1.TextSize = 17
+
+c.Name = "c"
+c.Parent = cf
+c.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+c.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+c.Position = UDim2.new(0.5, -30, 0, 190)
+c.Size = UDim2.new(0, 60, 0, 20)
+c.Font = Enum.Font.Fantasy
+c.Text = "CLOSE"
+c.TextColor3 = Color3.new(1, 0, 0)
+c.TextSize = 17
+c.TextWrapped = true
+
+Open.Name = "Open"
+Open.Parent = TopFrame
+Open.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+Open.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+Open.Size = UDim2.new(0, 60, 0, 20)
+Open.Font = Enum.Font.Fantasy
+Open.Text = "Open"
+Open.TextColor3 = Color3.new(1, 1, 1)
+Open.TextSize = 18
+Open.Selectable = true
+Open.TextWrapped = true
+
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = MainGUI
+MainFrame.BackgroundColor3 = Color3.new(0, 0, 0)
+MainFrame.BackgroundTransparency = 0.5
+MainFrame.BorderSizePixel = 0
+MainFrame.Position = UDim2.new(0.5, -382.5, 0, -32)
+MainFrame.Size = UDim2.new(0, 765, 0, 30)
+if not cf.Visible then MainGUI:Destroy() else MainFrame.Visible = true end
+
+Close.Name = "Close"
+Close.Parent = MainFrame
+Close.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+Close.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+Close.Position = UDim2.new(0, 10, 0, 5)
+Close.Size = UDim2.new(0, 20, 0, 20)
+Close.Font = Enum.Font.Fantasy
+Close.Text = "X"
+Close.TextColor3 = Color3.new(1, 0, 0)
+Close.TextSize = 17
+Close.TextScaled = true
+Close.TextWrapped = true
+
+Minimize.Name = "Minimize"
+Minimize.Parent = MainFrame
+Minimize.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+Minimize.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+Minimize.Position = UDim2.new(0, 35, 0, 5)
+Minimize.Size = UDim2.new(0, 20, 0, 20)
+Minimize.Font = Enum.Font.Fantasy
+Minimize.Text = "-"
+Minimize.TextColor3 = Color3.new(1, 0, 1)
+Minimize.TextSize = 17
+Minimize.TextScaled = true
+Minimize.TextWrapped = true
+
+WayPoints.Name = "WayPoints"
+WayPoints.Parent = MainFrame
+WayPoints.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+WayPoints.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+WayPoints.Position = UDim2.new(0, 60, 0, 5)
+WayPoints.Size = UDim2.new(0, 65, 0, 20)
+WayPoints.Font = Enum.Font.Fantasy
+WayPoints.TextColor3 = Color3.new(1, 1, 1)
+WayPoints.Text = "Teleport"
+WayPoints.TextSize = 17
+WayPoints.TextWrapped = true
+
+WayPointsFrame.Name = "WayPointsFrame"
+WayPointsFrame.Parent = MainFrame
+WayPointsFrame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+WayPointsFrame.BorderColor3 = Color3.new(0, 0, 0)
+WayPointsFrame.BackgroundTransparency = 0.2
+WayPointsFrame.Position = UDim2.new(0, 1, 0, 33)
+WayPointsFrame.Size = UDim2.new(0, 375, 0, 480)
+WayPointsFrame.Visible = false
+
+FarmExp.Name = "FarmExp"
+FarmExp.Parent = MainFrame
+FarmExp.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+FarmExp.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+FarmExp.Position = UDim2.new(0, 130, 0, 5)
+FarmExp.Size = UDim2.new(0, 75, 0, 20)
+FarmExp.Font = Enum.Font.Fantasy
+FarmExp.TextColor3 = Color3.new(1, 1, 1)
+FarmExp.Text = "Farm Exp"
+FarmExp.TextSize = 17
+FarmExp.TextWrapped = true
+
+FarmExpFrame.Name = "FarmExpFrame"
+FarmExpFrame.Parent = MainFrame
+FarmExpFrame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+FarmExpFrame.BorderColor3 = Color3.new(0, 0, 0)
+FarmExpFrame.BackgroundTransparency = 0.2
+FarmExpFrame.Position = UDim2.new(0, 62.5, 0, 33)
+FarmExpFrame.Size = UDim2.new(0, 210, 0, 165)
+FarmExpFrame.Visible = false
+
+ShowLocation.Name = "ShowLocation"
+ShowLocation.Parent = WayPointsFrame
+ShowLocation.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+ShowLocation.TextColor3 = Color3.new(1, 1, 1)
+ShowLocation.BorderColor3 = Color3.new(0, 0, 0)
+ShowLocation.Position = UDim2.new(0, 5, 0, 5)
+ShowLocation.Size = UDim2.new(0, 170, 0, 20)
+ShowLocation.Font = Enum.Font.Fantasy
+ShowLocation.Text = "Current Location"
+ShowLocation.TextWrapped = true
+ShowLocation.TextSize = 15
+
+SetLocation.Name = "SetLocation"
+SetLocation.Parent = WayPointsFrame
+SetLocation.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+SetLocation.TextColor3 = Color3.new(1, 1, 1)
+SetLocation.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+SetLocation.Position = UDim2.new(0, 180, 0, 5)
+SetLocation.Size = UDim2.new(0, 120, 0, 20)
+SetLocation.Font = Enum.Font.Fantasy
+SetLocation.Text = "Set Location"
+SetLocation.TextWrapped = true
+SetLocation.TextSize = 16
+
+TPLocation.Name = "TPLocation"
+TPLocation.Parent = WayPointsFrame
+TPLocation.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+TPLocation.TextColor3 = Color3.new(1, 1, 1)
+TPLocation.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+TPLocation.Position = UDim2.new(0, 305, 0, 5)
+TPLocation.Size = UDim2.new(0, 65, 0, 20)
+TPLocation.Font = Enum.Font.Fantasy
+TPLocation.Text = "Tp to"
+TPLocation.TextWrapped = true
+TPLocation.TextSize = 16
+
+Location1.Name = "Location1"
+Location1.Parent = WayPointsFrame
+Location1.BackgroundColor3 = Color3.new(255/255, 94/255, 40/255)
+Location1.TextColor3 = Color3.new(1, 1, 1)
+Location1.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+Location1.Position = UDim2.new(0, 5, 0, 30)
+Location1.Size = UDim2.new(0, 365, 0, 20)
+Location1.Font = Enum.Font.Fantasy
+Location1.Text = "Teleport to Spawn camera)))"
+Location1.TextWrapped = true
+Location1.TextSize = 16
+
+Location2.Name = "Location2"
+Location2.Parent = WayPointsFrame
+Location2.BackgroundColor3 = Color3.new(70/255, 105/255, 0)
+Location2.TextColor3 = Color3.new(1, 1, 1)
+Location2.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+Location2.Position = UDim2.new(0, 5, 0, 55)
+Location2.Size = UDim2.new(0, 365, 0, 20)
+Location2.Font = Enum.Font.Fantasy
+Location2.Text = "Teleport to Rock "
+Location2.TextWrapped = true
+Location2.TextSize = 16
+
+Location7.Name = "Location7"
+Location7.Parent = WayPointsFrame
+Location7.BackgroundColor3 = Color3.new(70/255, 105/255, 0)
+Location7.TextColor3 = Color3.new(1, 1, 1)
+Location7.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+Location7.Position = UDim2.new(0, 5, 0, 80)
+Location7.Size = UDim2.new(0, 365, 0, 20)
+Location7.Font = Enum.Font.Fantasy
+Location7.Text = "Teleport to Crystal"
+Location7.TextWrapped = true
+Location7.TextSize = 16
+
+LocationFS1B.Name = "LocationFS1B"
+LocationFS1B.Parent = WayPointsFrame
+LocationFS1B.BackgroundColor3 = Color3.new(70/255, 105/255, 0)
+LocationFS1B.TextColor3 = Color3.new(1, 1, 1)
+LocationFS1B.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+LocationFS1B.Position = UDim2.new(0, 5, 0, 105)
+LocationFS1B.Size = UDim2.new(0, 365, 0, 20)
+LocationFS1B.Font = Enum.Font.Fantasy
+LocationFS1B.Text = "Teleport to 1B+ FS required"
+LocationFS1B.TextWrapped = true
+LocationFS1B.TextSize = 16
+
+LocationFS100B.Name = "LocationFS100B"
+LocationFS100B.Parent = WayPointsFrame
+LocationFS100B.BackgroundColor3 = Color3.new(70/255, 105/255, 0)
+LocationFS100B.TextColor3 = Color3.new(1, 1, 1)
+LocationFS100B.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+LocationFS100B.Position = UDim2.new(0, 5, 0, 130)
+LocationFS100B.Size = UDim2.new(0, 365, 0, 20)
+LocationFS100B.Font = Enum.Font.Fantasy
+LocationFS100B.Text = "Teleport to 100B+ FS required"
+LocationFS100B.TextWrapped = true
+LocationFS100B.TextSize = 16
+
+LocationFS10T.Name = "LocationFS10T"
+LocationFS10T.Parent = WayPointsFrame
+LocationFS10T.BackgroundColor3 = Color3.new(70/255, 105/255, 0)
+LocationFS10T.TextColor3 = Color3.new(1, 1, 1)
+LocationFS10T.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+LocationFS10T.Position = UDim2.new(0, 5, 0, 155)
+LocationFS10T.Size = UDim2.new(0, 365, 0, 20)
+LocationFS10T.Font = Enum.Font.Fantasy
+LocationFS10T.Text = "Teleport to 10T+ FS required"
+LocationFS10T.TextWrapped = true
+LocationFS10T.TextSize = 16
+
+LocationFS1Qa.Name = "LocationFS1Qa"
+LocationFS1Qa.Parent = WayPointsFrame
+LocationFS1Qa.BackgroundColor3 = Color3.new(70/255, 105/255, 0)
+LocationFS1Qa.TextColor3 = Color3.new(1, 1, 1)
+LocationFS1Qa.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+LocationFS1Qa.Position = UDim2.new(0, 5, 0, 180)
+LocationFS1Qa.Size = UDim2.new(0, 365, 0, 20)
+LocationFS1Qa.Font = Enum.Font.Fantasy
+LocationFS1Qa.Text = "Teleport to 1Qa+ FS required"
+LocationFS1Qa.TextWrapped = true
+LocationFS1Qa.TextSize = 16
+
+LocationFS1Qi.Name = "LocationFS1Qi"
+LocationFS1Qi.Parent = WayPointsFrame
+LocationFS1Qi.BackgroundColor3 = Color3.new(70/255, 105/255, 0)
+LocationFS1Qi.TextColor3 = Color3.new(1, 1, 1)
+LocationFS1Qi.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+LocationFS1Qi.Position = UDim2.new(0, 5, 0, 205)
+LocationFS1Qi.Size = UDim2.new(0, 365, 0, 20)
+LocationFS1Qi.Font = Enum.Font.Fantasy
+LocationFS1Qi.Text = "Teleport to 1Qi+ FS required"
+LocationFS1Qi.TextWrapped = true
+LocationFS1Qi.TextSize = 16
+
+Location3.Name = "Location3"
+Location3.Parent = WayPointsFrame
+Location3.BackgroundColor3 = Color3.new(66/255, 0, 165/255)
+Location3.TextColor3 = Color3.new(1, 1, 1)
+Location3.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+Location3.Position = UDim2.new(0, 5, 0, 330)
+Location3.Size = UDim2.new(0, 365, 0, 20)
+Location3.Font = Enum.Font.Fantasy
+Location3.Text = "Tp to 500+ BT required"
+Location3.TextWrapped = true
+Location3.TextSize = 16
+
+Location4.Name = "Location4"
+Location4.Parent = WayPointsFrame
+Location4.BackgroundColor3 = Color3.new(66/255, 0, 165/255)
+Location4.TextColor3 = Color3.new(1, 1, 1)
+Location4.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+Location4.Position = UDim2.new(0, 5, 0, 355)
+Location4.Size = UDim2.new(0, 365, 0, 20)
+Location4.Font = Enum.Font.Fantasy
+Location4.Text = "Tp to 50k+ BT required"
+Location4.TextWrapped = true
+Location4.TextSize = 16
+
+Location5.Name = "Location5"
+Location5.Parent = WayPointsFrame
+Location5.BackgroundColor3 = Color3.new(66/255, 0, 165/255)
+Location5.TextColor3 = Color3.new(1, 1, 1)
+Location5.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+Location5.Position = UDim2.new(0, 5, 0, 380)
+Location5.Size = UDim2.new(0, 365, 0, 20)
+Location5.Font = Enum.Font.Fantasy
+Location5.Text = "Tp to 500k+ BT required"
+Location5.TextWrapped = true
+Location5.TextSize = 16
+
+Location6.Name = "Location6"
+Location6.Parent = WayPointsFrame
+Location6.BackgroundColor3 = Color3.new(66/255, 0, 165/255)
+Location6.TextColor3 = Color3.new(1, 1, 1)
+Location6.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+Location6.Position = UDim2.new(0, 5, 0, 405)
+Location6.Size = UDim2.new(0, 365, 0, 20)
+Location6.Font = Enum.Font.Fantasy
+Location6.Text = "Tp to 5M+ BT required"
+Location6.TextWrapped = true
+Location6.TextSize = 16
+
+Location8.Name = "Location8"
+Location8.Parent = WayPointsFrame
+Location8.BackgroundColor3 = Color3.new(66/255, 0, 165/255)
+Location8.TextColor3 = Color3.new(1, 1, 1)
+Location8.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+Location8.Position = UDim2.new(0, 5, 0, 430)
+Location8.Size = UDim2.new(0, 365, 0, 20)
+Location8.Font = Enum.Font.Fantasy
+Location8.Text = "Tp to 50M+ BT required"
+Location8.TextWrapped = true
+Location8.TextSize = 16
+
+LocationBT1B.Name = "LocationBT1B"
+LocationBT1B.Parent = WayPointsFrame
+LocationBT1B.BackgroundColor3 = Color3.new(66/255, 0, 165/255)
+LocationBT1B.TextColor3 = Color3.new(1, 1, 1)
+LocationBT1B.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+LocationBT1B.Position = UDim2.new(0, 5, 0, 455)
+LocationBT1B.Size = UDim2.new(0, 365, 0, 20)
+LocationBT1B.Font = Enum.Font.Fantasy
+LocationBT1B.Text = "Tp to 5B+ BT required"
+LocationBT1B.TextWrapped = true
+LocationBT1B.TextSize = 16
+
+LocationBT100B.Name = "LocationBT100B"
+LocationBT100B.Parent = WayPointsFrame
+LocationBT100B.BackgroundColor3 = Color3.new(66/255, 0, 165/255)
+LocationBT100B.TextColor3 = Color3.new(1, 1, 1)
+LocationBT100B.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+LocationBT100B.Position = UDim2.new(0, 5, 0, 480)
+LocationBT100B.Size = UDim2.new(0, 365, 0, 20)
+LocationBT100B.Font = Enum.Font.Fantasy
+LocationBT100B.Text = "Tp to 500B+ BT required"
+LocationBT100B.TextWrapped = true
+LocationBT100B.TextSize = 16
+
+LocationBT10T.Name = "LocationBT10T"
+LocationBT10T.Parent = WayPointsFrame
+LocationBT10T.BackgroundColor3 = Color3.new(66/255, 0, 165/255)
+LocationBT10T.TextColor3 = Color3.new(1, 1, 1)
+LocationBT10T.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+LocationBT10T.Position = UDim2.new(0, 5, 0, 505)
+LocationBT10T.Size = UDim2.new(0, 365, 0, 20)
+LocationBT10T.Font = Enum.Font.Fantasy
+LocationBT10T.Text = "Tp to 50T+ BT required"
+LocationBT10T.TextWrapped = true
+LocationBT10T.TextSize = 16
+
+LocationBT1Qa.Name = "LocationBT1Qa"
+LocationBT1Qa.Parent = WayPointsFrame
+LocationBT1Qa.BackgroundColor3 = Color3.new(66/255, 0, 165/255)
+LocationBT1Qa.TextColor3 = Color3.new(1, 1, 1)
+LocationBT1Qa.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+LocationBT1Qa.Position = UDim2.new(0, 5, 0, 530)
+LocationBT1Qa.Size = UDim2.new(0, 365, 0, 20)
+LocationBT1Qa.Font = Enum.Font.Fantasy
+LocationBT1Qa.Text = "Tp to 5Qa+ BT required"
+LocationBT1Qa.TextWrapped = true
+LocationBT1Qa.TextSize = 16
+
+LocationBT1Qi.Name = "LocationBT1Qi"
+LocationBT1Qi.Parent = WayPointsFrame
+LocationBT1Qi.BackgroundColor3 = Color3.new(66/255, 0, 165/255)
+LocationBT1Qi.TextColor3 = Color3.new(1, 1, 1)
+LocationBT1Qi.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+LocationBT1Qi.Position = UDim2.new(0, 5, 0, 555)
+LocationBT1Qi.Size = UDim2.new(0, 365, 0, 20)
+LocationBT1Qi.Font = Enum.Font.Fantasy
+LocationBT1Qi.Text = "Tp to 5Qi+ BT required"
+LocationBT1Qi.TextWrapped = true
+LocationBT1Qi.TextSize = 16
+
+LocationPP1M.Name = "LocationPP1M"
+LocationPP1M.Parent = WayPointsFrame
+LocationPP1M.BackgroundColor3 = Color3.new(195/255, 0, 39/255)
+LocationPP1M.TextColor3 = Color3.new(1, 1, 1)
+LocationPP1M.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+LocationPP1M.Position = UDim2.new(0, 5, 0, 680)
+LocationPP1M.Size = UDim2.new(0, 365, 0, 20)
+LocationPP1M.Font = Enum.Font.Fantasy
+LocationPP1M.Text = "Tp to 1M+ PP required"
+LocationPP1M.TextWrapped = true
+LocationPP1M.TextSize = 16
+
+LocationPP1B.Name = "LocationPP1B"
+LocationPP1B.Parent = WayPointsFrame
+LocationPP1B.BackgroundColor3 = Color3.new(195/255, 0, 39/255)
+LocationPP1B.TextColor3 = Color3.new(1, 1, 1)
+LocationPP1B.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+LocationPP1B.Position = UDim2.new(0, 5, 0, 705)
+LocationPP1B.Size = UDim2.new(0, 365, 0, 20)
+LocationPP1B.Font = Enum.Font.Fantasy
+LocationPP1B.Text = "Tp to 1B+ PP required"
+LocationPP1B.TextWrapped = true
+LocationPP1B.TextSize = 16
+
+LocationPP1T.Name = "LocationPP1T"
+LocationPP1T.Parent = WayPointsFrame
+LocationPP1T.BackgroundColor3 = Color3.new(195/255, 0, 39/255)
+LocationPP1T.TextColor3 = Color3.new(1, 1, 1)
+LocationPP1T.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+LocationPP1T.Position = UDim2.new(0, 5, 0, 730)
+LocationPP1T.Size = UDim2.new(0, 365, 0, 20)
+LocationPP1T.Font = Enum.Font.Fantasy
+LocationPP1T.Text = "Tp to 1T+ PP required"
+LocationPP1T.TextWrapped = true
+LocationPP1T.TextSize = 16
+
+LocationPP1Qa.Name = "LocationPP1Qa"
+LocationPP1Qa.Parent = WayPointsFrame
+LocationPP1Qa.BackgroundColor3 = Color3.new(195/255, 0, 39/255)
+LocationPP1Qa.TextColor3 = Color3.new(1, 1, 1)
+LocationPP1Qa.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+LocationPP1Qa.Position = UDim2.new(0, 5, 0, 755)
+LocationPP1Qa.Size = UDim2.new(0, 365, 0, 20)
+LocationPP1Qa.Font = Enum.Font.Fantasy
+LocationPP1Qa.Text = "Tp to 1Qa+ PP required"
+LocationPP1Qa.TextWrapped = true
+LocationPP1Qa.TextSize = 16
+
+LocationPP1Qi.Name = "LocationPP1Qi"
+LocationPP1Qi.Parent = WayPointsFrame
+LocationPP1Qi.BackgroundColor3 = Color3.new(195/255, 0, 39/255)
+LocationPP1Qi.TextColor3 = Color3.new(1, 1, 1)
+LocationPP1Qi.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+LocationPP1Qi.Position = UDim2.new(0, 5, 0, 780)
+LocationPP1Qi.Size = UDim2.new(0, 365, 0, 20)
+LocationPP1Qi.Font = Enum.Font.Fantasy
+LocationPP1Qi.Text = "Tp to 1Qi+ PP required"
+LocationPP1Qi.TextWrapped = true
+LocationPP1Qi.TextSize = 16
+
+LocationPP1Sx.Name = "LocationPP1Sx"
+LocationPP1Sx.Parent = WayPointsFrame
+LocationPP1Sx.BackgroundColor3 = Color3.new(195/255, 0, 39/255)
+LocationPP1Sx.TextColor3 = Color3.new(1, 1, 1)
+LocationPP1Sx.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+LocationPP1Sx.Position = UDim2.new(0, 5, 0, 805)
+LocationPP1Sx.Size = UDim2.new(0, 365, 0, 20)
+LocationPP1Sx.Font = Enum.Font.Fantasy
+LocationPP1Sx.Text = "Tp to 1Sx+ PP required"
+LocationPP1Sx.TextWrapped = true
+LocationPP1Sx.TextSize = 16
+
+FarmAll.Name = "FarmAll"
+FarmAll.Parent = FarmExpFrame
+FarmAll.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+FarmAll.TextColor3 = Color3.new(1, 1, 1)
+FarmAll.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+FarmAll.Position = UDim2.new(0, 5, 0, 5)
+FarmAll.Size = UDim2.new(0, 200, 0, 20)
+FarmAll.Font = Enum.Font.Fantasy
+FarmAll.Text = "------"
+FarmAll.TextWrapped = true
+FarmAll.TextSize = 16
+
+FarmFist.Name = "FarmFist"
+FarmFist.Parent = FarmExpFrame
+FarmFist.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+FarmFist.TextColor3 = Color3.new(1, 1, 1)
+FarmFist.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+FarmFist.Position = UDim2.new(0, 5, 0, 40)
+FarmFist.Size = UDim2.new(0, 200, 0, 20)
+FarmFist.Font = Enum.Font.Fantasy
+FarmFist.Text = "Farm Fist Strength: OFF"
+FarmFist.TextWrapped = true
+FarmFist.TextSize = 16
+
+FarmBody.Name = "FarmBody"
+FarmBody.Parent = FarmExpFrame
+FarmBody.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+FarmBody.TextColor3 = Color3.new(1, 1, 1)
+FarmBody.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+FarmBody.Position = UDim2.new(0, 5, 0, 65)
+FarmBody.Size = UDim2.new(0, 200, 0, 20)
+FarmBody.Font = Enum.Font.Fantasy
+FarmBody.Text = "Farm Body Toughness: OFF"
+FarmBody.TextWrapped = true
+FarmBody.TextSize = 16
+
+FarmSpeed.Name = "FarmSpeed"
+FarmSpeed.Parent = FarmExpFrame
+FarmSpeed.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+FarmSpeed.TextColor3 = Color3.new(1, 1, 1)
+FarmSpeed.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+FarmSpeed.Position = UDim2.new(0, 5, 0, 90)
+FarmSpeed.Size = UDim2.new(0, 200, 0, 20)
+FarmSpeed.Font = Enum.Font.Fantasy
+FarmSpeed.Text = "-------"
+FarmSpeed.TextWrapped = true
+FarmSpeed.TextSize = 16
+
+FarmJump.Name = "FarmJump"
+FarmJump.Parent = FarmExpFrame
+FarmJump.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+FarmJump.TextColor3 = Color3.new(1, 1, 1)
+FarmJump.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+FarmJump.Position = UDim2.new(0, 5, 0, 115)
+FarmJump.Size = UDim2.new(0, 200, 0, 20)
+FarmJump.Font = Enum.Font.Fantasy
+FarmJump.Text = "Farm Jump Force: OFF"
+FarmJump.TextWrapped = true
+FarmJump.TextSize = 16
+
+FarmPsychic.Name = "FarmPsychic"
+FarmPsychic.Parent = FarmExpFrame
+FarmPsychic.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+FarmPsychic.TextColor3 = Color3.new(1, 1, 1)
+FarmPsychic.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+FarmPsychic.Position = UDim2.new(0, 5, 0, 140)
+FarmPsychic.Size = UDim2.new(0, 200, 0, 20)
+FarmPsychic.Font = Enum.Font.Fantasy
+FarmPsychic.Text = "Farm Psychic Power: OFF"
+FarmPsychic.TextWrapped = true
+FarmPsychic.TextSize = 16
+
+FarmBodyLabel.Name = "FarmBodyLabel"
+FarmBodyLabel.Parent = FarmExpFrame
+FarmBodyLabel.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+FarmBodyLabel.TextColor3 = Color3.new(1, 1, 1)
+FarmBodyLabel.BorderColor3 = Color3.new(0.1, 0.1, 0.1)
+FarmBodyLabel.Position = UDim2.new(0, 213, 0, 65)
+FarmBodyLabel.Size = UDim2.new(0, 200, 0, 100)
+FarmBodyLabel.Font = Enum.Font.Fantasy
+FarmBodyLabel.Text = "actually it’s a really cool feature, you just need to enable DeathReturn as well — then your character will teleport to the best locations for you and you’ll get maximum BT."
+FarmBodyLabel.TextSize = 16
+FarmBodyLabel.TextWrapped = true
+FarmBodyLabel.Visible = false
+
+FarmSpeedLabel.Name = "FarmSpeedLabel"
+FarmSpeedLabel.Parent = FarmExpFrame
+FarmSpeedLabel.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+FarmSpeedLabel.TextColor3 = Color3.new(1, 1, 1)
+FarmSpeedLabel.BorderColor3 = Color3.new(0.1, 0.1, 0.1)
+FarmSpeedLabel.Position = UDim2.new(0, 213, 0, 65)
+FarmSpeedLabel.Size = UDim2.new(0, 200, 0, 100)
+FarmSpeedLabel.Font = Enum.Font.Fantasy
+FarmSpeedLabel.Text = "Only Jump"
+FarmSpeedLabel.TextSize = 16
+FarmSpeedLabel.TextWrapped = true
+FarmSpeedLabel.Visible = false
+
+DeathReturn.Name = "DeathReturn"
+DeathReturn.Parent = MainFrame
+DeathReturn.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+DeathReturn.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+DeathReturn.Position = UDim2.new(0, 210, 0, 5)
+DeathReturn.Size = UDim2.new(0, 160, 0, 20)
+DeathReturn.Font = Enum.Font.Fantasy
+DeathReturn.TextColor3 = Color3.new(1, 1, 1)
+DeathReturn.Text = "OnDeath Return: OFF"
+DeathReturn.TextSize = 17
+DeathReturn.TextWrapped = true
+
+esptrack.Name = "esptrack"
+esptrack.Parent = MainFrame
+esptrack.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+esptrack.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+esptrack.Position = UDim2.new(0, 375, 0, 5)
+esptrack.Size = UDim2.new(0, 35, 0, 20)
+esptrack.TextColor3 = Color3.new(1, 1, 1)
+esptrack.Font = Enum.Font.Fantasy
+esptrack.Text = "ESP"
+esptrack.TextSize = 16
+esptrack.TextWrapped = true
+
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local Workspace = game:GetService("Workspace")
+
+-- ==========================================
+-- 🛠️ NETWORK FIX (ВИРІШЕННЯ ПРОБЛЕМИ)
+-- ==========================================
+-- Цей блок намагається розширити радіус, у якому ти можеш керувати NPC
+task.spawn(function()
+    while true do
+        pcall(function()
+            settings().Physics.AllowSleep = false
+            local player = game.Players.LocalPlayer
+            player.ReplicationFocus = Workspace
+            
+            -- Спроба встановити величезний радіус симуляції
+            -- (Працює на більшості експлойтів)
+            sethiddenproperty(player, "SimulationRadius", 10000)
+            sethiddenproperty(player, "MaxSimulationRadius", 10000)
+        end)
+        RunService.Heartbeat:Wait()
+    end
+end)
+-- ==========================================
+
+-- 1. СТВОРЕННЯ ПОЛЯ ДЛЯ ВВОДУ ІМЕНІ (TargetInput)
+local TargetInput = Instance.new("TextBox")
+TargetInput.Name = "TargetInput"
+TargetInput.Parent = MainFrame -- Переконайся, що MainFrame існує
+TargetInput.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+TargetInput.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+TargetInput.Position = UDim2.new(0, 415, 0, 30)
+TargetInput.Size = UDim2.new(0, 85, 0, 20)
+TargetInput.Font = Enum.Font.SourceSans
+TargetInput.Text = ""
+TargetInput.PlaceholderText = "Target (Me)"
+TargetInput.TextColor3 = Color3.new(1, 1, 1)
+TargetInput.PlaceholderColor3 = Color3.new(0.7, 0.7, 0.7)
+TargetInput.TextSize = 14
+TargetInput.ZIndex = 10
+
+-- 2. СТВОРЕННЯ КНОПКИ LOOP (TPLoopBtn)
+local TPLoopBtn = Instance.new("TextButton")
+TPLoopBtn.Name = "TPLoop"
+TPLoopBtn.Parent = MainFrame
+TPLoopBtn.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+TPLoopBtn.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+TPLoopBtn.Position = UDim2.new(0, 415, 0, 5)
+TPLoopBtn.Size = UDim2.new(0, 85, 0, 20)
+TPLoopBtn.TextColor3 = Color3.new(1, 1, 1)
+TPLoopBtn.Font = Enum.Font.Fantasy
+TPLoopBtn.Text = "TP NPC: OFF"
+TPLoopBtn.TextSize = 14
+TPLoopBtn.TextWrapped = true
+TPLoopBtn.ZIndex = 10
+
+-- Логіка телепортації
+local npcNames = {"CJ", "Sath", "Thug", "Angel","Moltens"}
+local tpActive = false
+local rowWidth = 8
+local spacing = 1
+local isLoopRunning = false 
+
+-- Функція для пошуку гравця за частковим іменем
+local function getTargetPlayer()
+    local text = TargetInput.Text
+    
+    if text == "" or text == " " then
+        return LocalPlayer
+    end
+
+    for _, p in ipairs(Players:GetPlayers()) do
+        if p.Name:lower():sub(1, #text) == text:lower() or p.DisplayName:lower():sub(1, #text) == text:lower() then
+            return p
+        end
+    end
+    
+    return nil
+end
+
+local function teleportNPCs()
+    local target = getTargetPlayer()
+    
+    if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+        local targetRoot = target.Character.HumanoidRootPart
+        local count = 0
+        
+        for _, object in ipairs(Workspace:GetChildren()) do
+            if table.find(npcNames, object.Name) and object:IsA("Model") then
+                local npcRoot = object:FindFirstChild("HumanoidRootPart")
+                local humanoid = object:FindFirstChild("Humanoid")
+                
+                if npcRoot then
+                    -- 1. Вимикаємо колізію
+                    for _, part in ipairs(object:GetDescendants()) do
+                        if part:IsA("BasePart") then
+                            part.CanCollide = false
+                            -- Скидання швидкості допомагає серверу прийняти нову позицію
+                            part.AssemblyLinearVelocity = Vector3.new(0, 0, 0) 
+                            part.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+                        end
+                    end
+                    
+                    -- 2. Якщо є гуманоїд, змушуємо його змінити стан (іноді допомагає з синхронізацією)
+                    if humanoid then
+                        humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+                    end
+
+                    -- 3. Розрахунок позиції
+                    local column = count % rowWidth
+                    local row = math.floor(count / rowWidth)
+                    
+                    local xOffset = (column - (rowWidth / 2)) * spacing
+                    local zOffset = -3 - (row * spacing)
+                    
+                    -- 4. Телепортація
+                    npcRoot.CFrame = targetRoot.CFrame * CFrame.new(xOffset, 0, zOffset)
+                    count = count + 1
+                end
+            end
+        end
+    end
+end
+
+TPLoopBtn.MouseButton1Click:Connect(function()
+    tpActive = not tpActive
+    
+    if tpActive then
+        TPLoopBtn.Text = "TP NPC: ON"
+        TPLoopBtn.TextColor3 = Color3.new(0, 1, 0)
+        
+        if not isLoopRunning then
+            isLoopRunning = true
+            task.spawn(function()
+                while tpActive do
+                    teleportNPCs()
+                    -- Використовуємо Heartbeat для максимальної швидкості оновлення фізики
+                    RunService.Heartbeat:Wait() 
+                end
+                isLoopRunning = false 
+            end)
+        end
+    else
+        TPLoopBtn.Text = "TP NPC: OFF"
+        TPLoopBtn.TextColor3 = Color3.new(1, 0, 0)
+    end
+end)
+
+-- 1. Поле для введення імені (TextBox)
+local PlayerNameInput = Instance.new("TextBox")
+PlayerNameInput.Name = "PlayerNameInput"
+PlayerNameInput.Parent = ExtrasFrame
+PlayerNameInput.BackgroundColor3 = Color3.new(0.05, 0.05, 0.05)
+PlayerNameInput.BorderColor3 = Color3.new(0.4, 0.4, 0.4)
+PlayerNameInput.Position = UDim2.new(0, 5, 0, 100)
+PlayerNameInput.Size = UDim2.new (0, 150, 0, 20)
+PlayerNameInput.Font = Enum.Font.SourceSans
+PlayerNameInput.PlaceholderText = "Enter Name..."
+PlayerNameInput.Text = ""
+PlayerNameInput.TextColor3 = Color3.new(1, 1, 1)
+PlayerNameInput.TextSize = 12
+PlayerNameInput.ClearTextOnFocus = false -- Щоб текст не зникав, коли натискаєш на поле
+
+-- 2. Кнопка циклічного ТП цілі
+local TargetTPBtn = Instance.new("TextButton")
+TargetTPBtn.Name = "TargetTPBtn"
+TargetTPBtn.Parent = ExtrasFrame
+TargetTPBtn.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+TargetTPBtn.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+TargetTPBtn.Position = UDim2.new(0, 5, 0, 125)
+TargetTPBtn.Size = UDim2.new(0, 150, 0, 20)
+TargetTPBtn.TextColor3 = Color3.new(1, 1, 1)
+TargetTPBtn.Font = Enum.Font.Fantasy
+TargetTPBtn.Text = "Player TP: OFF"
+TargetTPBtn.TextSize = 12
+TargetTPBtn.ZIndex = 10
+
+local targetTpActive = false
+local isTargetTpRunning = false
+
+-- Функція пошуку та ТП
+local function teleportTarget()
+    local text = PlayerNameInput.Text:lower()
+    local me = game.Players.LocalPlayer
+    
+    if text == "" then return end
+    if not me.Character or not me.Character:FindFirstChild("HumanoidRootPart") then return end
+    
+    local myRoot = me.Character.HumanoidRootPart
+    
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        -- ПЕРЕВІРКА: Не тепаємо себе (player ~= me)
+        if player ~= me then 
+            local pName = player.Name:lower()
+            local pDisplayName = player.DisplayName:lower()
+            
+            -- Якщо нік починається з того, що введено в поле
+            if pName:sub(1, #text) == text or pDisplayName:sub(1, #text) == text then
+                if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                    player.Character.HumanoidRootPart.CFrame = myRoot.CFrame * CFrame.new(0, 0, -2)
+                end
+            end
+        end
+    end
+end
+
+-- Логіка кнопки
+TargetTPBtn.MouseButton1Click:Connect(function()
+    targetTpActive = not targetTpActive
+    
+    if targetTpActive then
+        TargetTPBtn.Text = "Player TP: ON"
+        TargetTPBtn.TextColor3 = Color3.new(0, 1, 0)
+        
+        if not isTargetTpRunning then
+            isTargetTpRunning = true
+            task.spawn(function()
+                while targetTpActive do
+                    teleportTarget()
+                    task.wait(0.1) -- 10 разів на секунду
+                end
+                isTargetTpRunning = false
+            end)
+        end
+    else
+        TargetTPBtn.Text = "Player TP: OFF"
+        TargetTPBtn.TextColor3 = Color3.new(1, 0, 0)
+    end
+end)
+
+local AdminCheckBtn = Instance.new("TextButton")
+AdminCheckBtn.Name = "AdminCheckBtn"
+AdminCheckBtn.Parent = ExtrasFrame -- Переконайся, що ExtrasFrame існує в цьому скрипті
+AdminCheckBtn.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+AdminCheckBtn.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+AdminCheckBtn.Position = UDim2.new(0, 5, 0, 150) -- Позиція нижче (125 + 25)
+AdminCheckBtn.Size = UDim2.new(0, 150, 0, 20)
+AdminCheckBtn.TextColor3 = Color3.new(1, 1, 1)
+AdminCheckBtn.Font = Enum.Font.Fantasy
+AdminCheckBtn.Text = "Admin Check: OFF"
+AdminCheckBtn.TextSize = 12
+AdminCheckBtn.ZIndex = 10
+
+Extras.Name = "Extras"
+Extras.Parent = MainFrame
+Extras.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+Extras.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+Extras.Position = UDim2.new(0, 505, 0, 5)
+Extras.Size = UDim2.new(0, 50, 0, 20)
+Extras.TextColor3 = Color3.new(1, 1, 1)
+Extras.Font = Enum.Font.Fantasy
+Extras.Text = "Extras"
+Extras.TextSize = 16
+Extras.TextWrapped = true
+
+ExtrasFrame.Name = "ExtrasFrame"
+ExtrasFrame.Parent = MainFrame
+ExtrasFrame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+ExtrasFrame.BorderColor3 = Color3.new(0, 0, 0)
+ExtrasFrame.BackgroundTransparency = 0.2
+ExtrasFrame.Position = UDim2.new(0, 435, 0, 33)
+ExtrasFrame.Size = UDim2.new(0, 160, 0, 155)
+ExtrasFrame.Visible = false
+
+AnnoyName.Name = "AnnoyName"
+AnnoyName.Parent = ExtrasFrame
+AnnoyName.BackgroundColor3 = Color3.new(0.4, 0.4, 0.4)
+AnnoyName.BorderColor3 = Color3.new(0.8, 0.8, 0.8)
+AnnoyName.Position = UDim2.new(0, 5, 0, 5)
+AnnoyName.Size = UDim2.new(0, 150, 0, 20)
+AnnoyName.TextColor3 = Color3.new(1, 1, 1)
+AnnoyName.Font = Enum.Font.Fantasy
+AnnoyName.Text = tostring(MyPlr.Name)
+AnnoyName.TextSize = 14
+AnnoyName.TextScaled = false
+AnnoyName.TextWrapped = true
+
+TptoPlayer.Name = "TptoPlayer"
+TptoPlayer.Parent = ExtrasFrame
+TptoPlayer.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+TptoPlayer.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+TptoPlayer.Position = UDim2.new(0, 5, 0, 26)
+TptoPlayer.Size = UDim2.new(0, 150, 0, 20)
+TptoPlayer.TextColor3 = Color3.new(1, 1, 1)
+TptoPlayer.Font = Enum.Font.Fantasy
+TptoPlayer.Text = "TP to Player"
+TptoPlayer.TextSize = 16
+TptoPlayer.TextWrapped = true
+
+AnnoyStart.Name = "AnnoyStart"
+AnnoyStart.Parent = ExtrasFrame
+AnnoyStart.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+AnnoyStart.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+AnnoyStart.Position = UDim2.new(0, 5, 0, 47)
+AnnoyStart.Size = UDim2.new(0, 150, 0, 20)
+AnnoyStart.TextColor3 = Color3.new(1, 1, 1)
+AnnoyStart.Font = Enum.Font.Fantasy
+AnnoyStart.Text = "TP Spam Player: OFF"
+AnnoyStart.TextSize = 16
+AnnoyStart.TextWrapped = true
+
+PanicToggleLabel.Name = "PanicToggleLabel"
+PanicToggleLabel.Parent = ExtrasFrame
+PanicToggleLabel.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+PanicToggleLabel.BorderSizePixel = 0
+PanicToggleLabel.Position = UDim2.new(0, 5, 0, 75)
+PanicToggleLabel.Size = UDim2.new(0, 125, 0, 20)
+PanicToggleLabel.TextColor3 = Color3.new(1, 1, 1)
+PanicToggleLabel.Font = Enum.Font.Fantasy
+PanicToggleLabel.Text = "Panic KeyBind"
+PanicToggleLabel.TextSize = 16
+PanicToggleLabel.TextWrapped = true
+
+PanicToggle.Name = "PanicToggle"
+PanicToggle.Parent = ExtrasFrame
+PanicToggle.BackgroundColor3 = Color3.new(0.4, 0.4, 0.4)
+PanicToggle.BorderColor3 = Color3.new(0.8, 0.8, 0.8)
+PanicToggle.Position = UDim2.new(0, 130, 0, 75)
+PanicToggle.Size = UDim2.new(0, 25, 0, 18)
+PanicToggle.TextColor3 = Color3.new(1, 1, 1)
+PanicToggle.Font = Enum.Font.Fantasy
+PanicToggle.Text = "y"
+PanicToggle.TextSize = 16
+PanicToggle.TextWrapped = true
+
+InfoScreen.Name = "InfoScreen"
+InfoScreen.Parent = MainFrame
+InfoScreen.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+InfoScreen.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+InfoScreen.Position = UDim2.new(0, 560, 0, 5)
+InfoScreen.Size = UDim2.new(0, 40, 0, 20)
+InfoScreen.BackgroundTransparency = 0
+InfoScreen.Font = Enum.Font.Fantasy
+InfoScreen.TextColor3 = Color3.new(1, 1, 1)
+InfoScreen.Text = "Info"
+InfoScreen.TextSize = 17
+InfoScreen.TextWrapped = true
+
+InfoText1.Name = "InfoText1"
+InfoText1.Parent = MainFrame
+InfoText1.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+InfoText1.BorderColor3 = Color3.new(0, 0, 0)
+InfoText1.BackgroundTransparency = 0
+InfoText1.Position = UDim2.new(0, 405, 0, 32)
+InfoText1.Size = UDim2.new(0, 190, 0, 90)
+InfoText1.TextColor3 = Color3.new(1, 1, 1)
+InfoText1.Font = Enum.Font.Fantasy
+InfoText1.Text = "This GUI was created by Sora\nDiscord: _sora_5968\n\nSpecial thanks to LuckyMMB and Bispø for the motivation."
+InfoText1.TextSize = 15
+InfoText1.TextWrapped = true
+InfoText1.Visible = false
+InfoText1.ZIndex = 7
+InfoText1.TextYAlignment = Enum.TextYAlignment.Top
+
+PlayerName.Name = "PlayerName"
+PlayerName.Parent = MainFrame
+PlayerName.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+PlayerName.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+PlayerName.Position = UDim2.new(0, 605, 0, 5)
+PlayerName.Size = UDim2.new(0, 150, 0, 20)
+PlayerName.Font = Enum.Font.Fantasy
+PlayerName.TextColor3 = Color3.new(1, 1, 1)
+PlayerName.Text = tostring(MyPlr.Name)
+PlayerName.TextSize = 15
+PlayerName.TextScaled = true
+PlayerName.TextWrapped = false
+
+StatsFrame.Name = "StatsFrame"
+StatsFrame.Parent = MainFrame
+StatsFrame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+StatsFrame.BorderColor3 = Color3.new(0.1, 0.1, 0.1)
+StatsFrame.BackgroundTransparency = 0
+StatsFrame.Position = UDim2.new(0, 600, 0, 33)
+StatsFrame.Size = UDim2.new(0, 161, 0, 90)
+StatsFrame.Visible = false
+
+ShowStats1.Name = "ShowStats1"
+ShowStats1.Parent = StatsFrame
+ShowStats1.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+ShowStats1.BackgroundTransparency = 1
+ShowStats1.Position = UDim2.new(0, 0, 0, 0)
+ShowStats1.Size = UDim2.new(0, 50, 0, 90)
+ShowStats1.Font = Enum.Font.Fantasy
+ShowStats1.TextColor3 = Color3.new(1, 1, 1)
+ShowStats1.Text = " "
+ShowStats1.TextSize = 15
+ShowStats1.TextXAlignment = Enum.TextXAlignment.Right
+
+ShowStats2.Name = "ShowStats2"
+ShowStats2.Parent = StatsFrame
+ShowStats2.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+ShowStats2.BackgroundTransparency = 1
+ShowStats2.Position = UDim2.new(0, 55, 0, 0)
+ShowStats2.Size = UDim2.new(0, 103, 0, 90)
+ShowStats2.Font = Enum.Font.Fantasy
+ShowStats2.TextColor3 = Color3.new(1, 1, 1)
+ShowStats2.Text = "Stats"
+ShowStats2.TextSize = 15
+ShowStats2.TextXAlignment = Enum.TextXAlignment.Right
+
+-- Close --
+
+Open.MouseButton1Down:connect(function()
+	TopFrame.Visible = false
+	MainFrame.Visible = true
+end)
+
+Minimize.MouseButton1Down:connect(function()
+	TopFrame.Visible = true
+	MainFrame.Visible = false
+end)
+
+Close.MouseButton1Down:connect(function()
+MainGUI:Destroy()
+end)
+
+-- Menus --
+
+local Menus = {
+	[WayPoints] = WayPointsFrame;
+	[FarmExp] = FarmExpFrame;
+	[Extras] = ExtrasFrame;
+}
+for button,frame in pairs(Menus) do
+	button.MouseButton1Click:connect(function()
+		if frame.Visible then
+			frame.Visible = false
+			return
+		end
+		for k,v in pairs(Menus) do
+			v.Visible = v == frame
+		end
+	end)
+end
+
+FarmBody.MouseEnter:connect(function()
+	FarmBodyLabel.Visible = true
+end)
+
+FarmBody.MouseLeave:connect(function()
+	FarmBodyLabel.Visible = false
+end)
+
+FarmSpeed.MouseEnter:connect(function()
+	FarmSpeedLabel.Visible = true
+end)
+
+FarmSpeed.MouseLeave:connect(function()
+	FarmSpeedLabel.Visible = false
+end)
+
+FarmJump.MouseEnter:connect(function()
+	FarmSpeedLabel.Visible = true
+end)
+
+FarmJump.MouseLeave:connect(function()
+	FarmSpeedLabel.Visible = false
+end)
+
+farmbtsafety.MouseEnter:connect(function()
+	farmbtsafetyText1.Visible = true
+end)
+
+farmbtsafety.MouseLeave:connect(function()
+	farmbtsafetyText1.Visible = false
+end)
+
+InfoScreen.MouseEnter:connect(function()
+	InfoText1.Visible = true
+end)
+
+InfoScreen.MouseLeave:connect(function()
+	InfoText1.Visible = false
+end)
+
+c.MouseButton1Down:connect(function()
+	cf.Visible = false
+end)
+
+-- Round Number to decimal places and convert to letter value --
+
+function round(num, numDecimalPlaces)
+	local mult = 10^(numDecimalPlaces or 0)
+	return math.floor(num * mult + 0.5) / mult
+end
+		
+function converttoletter(num)
+	if num / 1e33 >=1 then
+		newnum = num / 1e33
+		return round(newnum, 6).. "Dc"
+	elseif num / 1e30 >=1 then
+		newnum = num / 1e30
+		return round(newnum, 6).. "No"
+    elseif num / 1e27 >=1 then
+		newnum = num / 1e27
+		return round(newnum, 6).. "Oc"
+    elseif num / 1e24 >=1 then
+		newnum = num / 1e24
+		return round(newnum, 6).. "Sp"
+    elseif num / 1e21 >=1 then
+		newnum = num / 1e21
+		return round(newnum, 6).. "Sx"
+    elseif num / 1e18 >=1 then
+		newnum = num / 1e18
+		return round(newnum, 6).. "Qi"
+	elseif num / 1e15 >=1 then
+		newnum = num / 1e15
+		return round(newnum, 6).. "Qa"
+	elseif num / 1e12 >=1 then
+		newnum = num / 1e12
+		return round(newnum, 6).. "T"
+	elseif num / 1e09 >=1 then
+		newnum = num / 1e09
+		return round(newnum, 6).. "B"
+	elseif num / 1e06 >=1 then
+		newnum = num / 1e06
+		return round(newnum, 6).. "M"
+	elseif num / 1e03 >=1 then
+		newnum = num / 1e03
+		return round(newnum, 6).. "K"
+	else return num
+	end
+end
+
+--- NoClip ---
+
+NoClip.MouseButton1Down:connect(function()
+	noclip = not noclip
+	if noclip then
+		NoClip.Text = "NoClip Mode: ON"
+		NoClip.BackgroundColor3 = Color3.new(0, 0.5, 0)
+	else
+		NoClip.Text = "NoClip Mode: OFF"
+		NoClip.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+	end
+end)
+game:GetService('RunService').Stepped:connect(function()
+	if noclip then
+		game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+	end
+end)
+
+--- Farm BT Safety ---
+
+farmbtsafety.MouseButton1Down:connect(function()
+	farmbtsafetyactive = not farmbtsafetyactive
+	if farmbtsafetyactive then
+		farmbtsafety.Text = "Safety Net: ON"
+		farmbtsafety.BackgroundColor3 = Color3.new(0, 0.5, 0)
+	else
+		farmbtsafety.Text = "Safety Net: OFF"
+		farmbtsafety.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+	end
+end)
+
+spawn(function()
+	while true do
+		if farmbtsafetyactive then
+			while farmbtsafetyactive do
+				local FindHum = game.Players.LocalPlayer.Character:WaitForChild("Humanoid")
+				local currenthealth = tonumber(string.format("%.0f", FindHum.Health))
+				local minhealth = tonumber(string.format("%.0f", FindHum.MaxHealth))*tonumber(farmbtsafetylevel.Text)/100
+				-- print("Current Health: " ..tostring(currenthealth).. ". Min Health: " ..tostring(minhealth))
+				if currenthealth <= minhealth then
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(459, 248, 887)
+				end
+			wait(0.2)
+			end
+		end
+		wait(0.5)
+	end
+end)
+
+-- Show Location --
+
+local curlocation = coroutine.wrap(function()
+	while true do
+		LocationX = round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.x, 0)
+		LocationY = round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.y, 0)
+		LocationZ = round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.z, 0)
+		ShowLocation.Text = "Coords: "..LocationX..", "..LocationY..", "..LocationZ
+		wait(0.5)
+	end
+end)
+
+curlocation()
+
+-- Set Locations --
+
+SetLocation.MouseButton1Down:connect(function()
+	function round(num, numDecimalPlaces)
+		local mult = 10^(numDecimalPlaces or 0)
+		return math.floor(num * mult + 0.5) / mult
+	end
+	setlocationx = round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.x, 0)
+	setlocationy = round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.y, 0)
+	setlocationz = round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.z, 0)
+	print("Set Custom Location: "..setlocationx..", "..setlocationy..", "..setlocationz)
+    SetLocation.Text = setlocationx..","..setlocationy..","..setlocationz
+	CustomLocationSet = true
+end)
+
+--- TP to custom location ---
+
+TPLocation.MouseButton1Down:connect(function()
+	if CustomLocationSet == true then
+		workspace:WaitForChild(game.Players.LocalPlayer.Name).HumanoidRootPart.CFrame = CFrame.new(setlocationx, setlocationy, setlocationz)
+		WayPointsFrame.Visible = false
+	end
+end)
+
+Location1.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(703, 938, 863)
+	WayPointsFrame.Visible = false
+end)
+	
+Location2.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(409, 271, 978)
+	WayPointsFrame.Visible = false
+end)
+
+LocationFS1B.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1176, 4789, -2293)
+	WayPointsFrame.Visible = false
+end)
+
+LocationFS10T.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-369, 15735, -9)
+	WayPointsFrame.Visible = false
+end)
+
+LocationFS1Qa.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(133, 17095, -432)
+	WayPointsFrame.Visible = false
+end)
+
+LocationFS1Qi.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3869, 375, -2278)
+	WayPointsFrame.Visible = false
+end)
+
+LocationFS1Sx.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2482, 28455, -1525)
+	WayPointsFrame.Visible = false
+end)
+
+LocationFS1Sp.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-855, 30080, -1051)
+	WayPointsFrame.Visible = false
+end)
+
+LocationFS1So.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2482, 29072, -1541)
+	WayPointsFrame.Visible = false
+end)
+
+LocationFS1No.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2366, 29521, 2200)
+	WayPointsFrame.Visible = false
+end)
+
+LocationFS1Dc.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-651, 32326, -9)
+	WayPointsFrame.Visible = false
+end)
+
+LocationFS100B.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1381, 9274, 1647)
+	WayPointsFrame.Visible = false
+end)
+
+Location7.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2279, 1944, 1053)
+	WayPointsFrame.Visible = false
+end)
+
+Location3.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(365, 249, -445)
+	settplocation = "BT100Area"
+	WayPointsFrame.Visible = false
+end)
+
+Location4.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(349, 263, -490)
+	settplocation = "BT10KArea"
+	WayPointsFrame.Visible = false
+end)
+
+Location5.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1640, 258, 2244)
+	settplocation = "BT100KArea"
+	WayPointsFrame.Visible = false
+end)
+
+Location6.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2307, 976, 1068)
+	settplocation = "BT1MArea"
+	WayPointsFrame.Visible = false
+end)
+
+Location8.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2024, 714, -1860)
+	settplocation = "BT10MArea"
+	WayPointsFrame.Visible = false
+end)
+
+LocationBT1B.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-254, 286, 980)
+	settplocation = "BT1BArea"
+	WayPointsFrame.Visible = false
+end)
+
+LocationBT100B.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-271, 279, 991)
+	settplocation = "BT100BArea"
+	WayPointsFrame.Visible = false
+end)
+
+LocationBT10T.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-279, 279, 1007)
+	settplocation = "BT10TArea"
+	WayPointsFrame.Visible = false
+end)
+
+LocationBT1Qa.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-373, 241, 1389)
+	settplocation = "BT1QaArea"
+	WayPointsFrame.Visible = false
+end)
+
+LocationBT1Qi.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-5439, 2290, 1488)
+	settplocation = "BT1QiArea"
+	WayPointsFrame.Visible = false
+end)
+
+LocationBT1Sx.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-6854, 15109, -2063)
+	settplocation = "BT1SxArea"
+	WayPointsFrame.Visible = false
+end)
+
+LocationBT1Sp.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2463, 27951, -1641)
+	settplocation = "BT1SpArea"
+	WayPointsFrame.Visible = false
+end)
+
+LocationBT1Oc.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2468, 27955, -1483)
+	settplocation = "BT1OcArea"
+	WayPointsFrame.Visible = false
+end)
+
+LocationBT1No.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2361, 29318, 1799)
+	settplocation = "BT1NoArea"
+	WayPointsFrame.Visible = false
+end)
+
+LocationBT1Dc.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2293, 29319, 2102)
+	settplocation = "BT1NoArea"
+	WayPointsFrame.Visible = false
+end)
+
+LocationPP1M.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2527, 5486, -532)
+	settplocation = "PP1MArea"
+	WayPointsFrame.Visible = false
+end)
+
+LocationPP1B.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2560, 5500, -439)
+	settplocation = "PP1BArea"
+	WayPointsFrame.Visible = false
+end)
+
+LocationPP1T.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2583, 5516, -501)
+	settplocation = "PP1TArea"
+	WayPointsFrame.Visible = false
+end)
+
+LocationPP1Qa.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2544, 5412, -495)
+	settplocation = "PP1QaArea"
+	WayPointsFrame.Visible = false
+end)
+
+LocationPP1Qi.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2639, 5576, -426)
+	settplocation = "PP1QiArea"
+	WayPointsFrame.Visible = false
+end)
+
+LocationPP1Sx.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2348, 239, -376)
+	settplocation = "PP1SxArea"
+	WayPointsFrame.Visible = false
+end)
+
+LocationPP1Sp.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2345, 24923, -1610)
+	settplocation = "PP1SpArea"
+	WayPointsFrame.Visible = false
+end)
+
+LocationPP1Oc.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2728, 27996, -1562)
+	settplocation = "PP1OcArea"
+	WayPointsFrame.Visible = false
+end)
+
+LocationPP1No.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-5182, 28489, -5317)
+	settplocation = "PP1NoArea"
+	WayPointsFrame.Visible = false
+end)
+
+LocationPP1Dc.MouseButton1Click:connect(function()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(284, 28697, 3588)
+	settplocation = "PP1NoArea"
+	WayPointsFrame.Visible = false
+end)
+
+-- ESP Кнопка (тепер керує новим ESP) --
+
+esptrack.MouseButton1Click:connect(function()
+    ESP_SETTINGS.Enabled = not ESP_SETTINGS.Enabled
+    
+    if ESP_SETTINGS.Enabled then
+        esptrack.BackgroundColor3 = Color3.fromRGB(0, 170, 0)
+        esptrack.Text = "ESP: ON"
+    else
+        esptrack.BackgroundColor3 = Color3.fromRGB(170, 0, 0)
+        esptrack.Text = "ESP: OFF"
+        
+        -- Повне очищення всіх об'єктів ESP з пам'яті
+        for _, v in pairs(game:GetService("Players"):GetPlayers()) do
+            local find = game:GetService("CoreGui"):FindFirstChild("ESP_" .. v.Name)
+            if find then 
+                find:Destroy() 
+            end
+        end
+    end
+end)
+
+-- Автоматичне оновлення ESP
+spawn(function()
+    while true do
+        if ESP_SETTINGS.Enabled then
+            UpdateESP()
+        end
+        wait(0.1)
+    end
+end)
+
+-- Farm Exp --
+
+FarmAll.MouseButton1Click:Connect(function()
+	if farmallactive ~= true then
+		farmallactive = true
+		farmfistactive = true
+		farmbodyactive = true
+		farmspeedactive = true
+		farmpsychicactive = true
+		farmjumpactive = true
+		FarmAll.BackgroundColor3 = Color3.new(0, 0.5, 0)
+		FarmAll.Text = "Farm All: ON"
+		FarmExp.BackgroundColor3 = Color3.new(0, 0.5, 0)
+	else
+		farmallactive = false
+		farmfistactive = false
+		farmbodyactive = false
+		farmspeedactive = false
+		farmpsychicactive = false
+		farmjumpactive = false
+		FarmFist.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+		FarmBody.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+		FarmSpeed.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+		FarmJump.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+		FarmPsychic.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+		FarmAll.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+		FarmAll.Text = "Farm All: OFF"
+		FarmExp.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+	end
+end)
+
+FarmFist.MouseButton1Click:Connect(function()
+	if farmfistactive ~= true then
+		farmfistactive = true
+		FarmFist.BackgroundColor3 = Color3.new(0, 0.5, 0)
+		FarmFist.Text = "Farm Fist Strength: ON"
+		FarmExp.BackgroundColor3 = Color3.new(0, 0.5, 0)
+	else
+		farmfistactive = false
+		FarmFist.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+		FarmFist.Text = "Farm Fist Strength: OFF"
+		FarmExp.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+	end
+end)
+
+FarmBody.MouseButton1Click:Connect(function()
+	if farmbodyactive ~= true then
+		farmbodyactive = true
+		FarmBody.BackgroundColor3 = Color3.new(0, 0.5, 0)
+		FarmBody.Text = "Farm Body Strength: ON"
+		FarmExp.BackgroundColor3 = Color3.new(0, 0.5, 0)
+	else
+		farmbodyactive = false
+		FarmBody.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+		FarmBody.Text = "Farm Body Strength: OFF"
+		FarmExp.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+	end
+end)
+
+FarmSpeed.MouseButton1Click:Connect(function()
+	if farmspeedactive ~= true then
+		farmspeedactive = true
+		FarmSpeed.BackgroundColor3 = Color3.new(0, 0.5, 0)
+		FarmSpeed.Text = "Farm Speed Strength: ON"
+		FarmExp.BackgroundColor3 = Color3.new(0, 0.5, 0)
+	else
+		farmspeedactive = false
+		FarmSpeed.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+		FarmSpeed.Text = "Farm Speed Strength: OFF"
+		FarmExp.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+	end
+end)
+
+FarmJump.MouseButton1Click:Connect(function()
+	if farmjumpactive ~= true then
+		farmjumpactive = true
+		FarmJump.BackgroundColor3 = Color3.new(0, 0.5, 0)
+		FarmJump.Text = "Farm Jump Strength: ON"
+		FarmExp.BackgroundColor3 = Color3.new(0, 0.5, 0)
+	else
+		farmjumpactive = false
+		FarmJump.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+		FarmJump.Text = "Farm Jump Strength: OFF"
+		FarmExp.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+	end
+end)
+
+FarmPsychic.MouseButton1Click:Connect(function()
+	if farmpsychicactive ~= true then
+		farmpsychicactive = true
+		FarmPsychic.BackgroundColor3 = Color3.new(0, 0.5, 0)
+		FarmPsychic.Text = "Farm Psychic Strength: ON"
+		FarmExp.BackgroundColor3 = Color3.new(0, 0.5, 0)
+	else
+		farmpsychicactive = false
+		FarmPsychic.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+		FarmPsychic.Text = "Farm Psychic Strength: OFF"
+		FarmExp.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+	end
+end)
+
+-- Авто-фарм кулаків (Fist Strength) --
+spawn(function()
+    local lastFSZone = "" -- Відстеження зони кулаків
+
+    while true do
+        if farmfistactive then
+            local lp = game.Players.LocalPlayer
+            local char = lp.Character
+            local stats = lp:GetAttribute("FistStrength") or 0
+            local remoteEvents = game:GetService("ReplicatedStorage"):FindFirstChild("RemoteEvents")
+
+            if char and char:FindFirstChild("HumanoidRootPart") then
+                local hrp = char.HumanoidRootPart
+                local currentFSZone = ""
+
+                -- Логіка ТП за твоїми координатами
+                if stats >= 1e18 then
+                    currentFSZone = "FS1Qi"
+                    if lastFSZone ~= currentFSZone then hrp.CFrame = CFrame.new(-3869, 375, -2278) end
+                elseif stats >= 1e15 then -- 10 T
+                    currentFSZone = "FS1Qa"
+                    if lastFSZone ~= currentFSZone then hrp.CFrame = CFrame.new(113, 17095, -419) end
+                elseif stats >= 1e13 then -- 10 T
+                    currentFSZone = "FS10T"
+                    if lastFSZone ~= currentFSZone then hrp.CFrame = CFrame.new(-369, 15735, -9) end
+                elseif stats >= 1e11 then -- 100 B
+                    currentFSZone = "FS100B"
+                    if lastFSZone ~= currentFSZone then hrp.CFrame = CFrame.new(1381, 9274, 1647) end
+                elseif stats >= 1e09 then -- 1 B
+                    currentFSZone = "FS1B"
+                    if lastFSZone ~= currentFSZone then hrp.CFrame = CFrame.new(1176, 4789, -2293) end
+                elseif stats >= 1000 then -- 1 K
+                    currentFSZone = "FS1K"
+                    if lastFSZone ~= currentFSZone then hrp.CFrame = CFrame.new(-2279, 1944, 1053) end
+                else -- Локація 0
+                    currentFSZone = "FS0"
+                    if lastFSZone ~= currentFSZone then hrp.CFrame = CFrame.new(409, 271, 978) end
+                end
+
+                if currentFSZone ~= "" then lastFSZone = currentFSZone end
+
+                -- НАДСИЛАЄМО СИГНАЛ ТРЕНУВАННЯ
+                if remoteEvents and remoteEvents:FindFirstChild("FS_Train") then
+                    remoteEvents.FS_Train:FireServer()
+                end
+            end
+        else
+            lastFSZone = "" -- Скидаємо зону
+        end
+        task.wait(0.1)
+    end
+end)
+
+-- Авто-фарм тіла (Body Toughness) --
+spawn(function()
+    local lastBTZone = ""
+    local lastTeleportTime = 0
+    local TELEPORT_INTERVAL = 10 -- 2 хвилини
+
+    while true do
+        if farmbodyactive then
+    local lp = game.Players.LocalPlayer
+    local char = lp.Character
+    local humanoid = char and char:FindFirstChildOfClass("Humanoid")
+    local stats = humanoid and humanoid.Health or 0
+    local remoteEvents = game:GetService("ReplicatedStorage"):FindFirstChild("RemoteEvents")
+
+    if char and char:FindFirstChild("HumanoidRootPart") then
+        local hrp = char.HumanoidRootPart
+        local currentBTZone = ""
+        local now = os.clock()
+
+
+                -- 🔁 ТЕЛЕПОРТ ТІЛЬКИ РАЗ НА 2 ХВ
+                if now - lastTeleportTime >= TELEPORT_INTERVAL then
+
+                    if stats >= 5e17 then
+                        currentBTZone = "BT1Qi"
+                        hrp.CFrame = CFrame.new(-5439, 2290, 1488)
+                    elseif stats >= 5e14 then
+                        currentBTZone = "BT1Qa"
+                        hrp.CFrame = CFrame.new(-373, 241, 1389)
+                    elseif stats >= 5e12 then
+                        currentBTZone = "BT10T"
+                        hrp.CFrame = CFrame.new(-279, 279, 1007)
+                    elseif stats >= 5e10 then
+                        currentBTZone = "BT100B"
+                        hrp.CFrame = CFrame.new(-271, 279, 991)
+                    elseif stats >= 5e08 then
+                        currentBTZone = "BT1B"
+                        hrp.CFrame = CFrame.new(-254, 286, 980)
+                    elseif stats >= 5e06 then
+                        currentBTZone = "BT10M"
+                        hrp.CFrame = CFrame.new(-2024, 714, -1860)
+                    elseif stats >= 5e05 then
+                        currentBTZone = "BT1M"
+                        hrp.CFrame = CFrame.new(-2307, 976, 1068)
+                    elseif stats >= 5e04 then
+                        currentBTZone = "BT100K"
+                        hrp.CFrame = CFrame.new(1640, 258, 2244)
+                    elseif stats >= 5e03 then
+                        currentBTZone = "BT10K"
+                        hrp.CFrame = CFrame.new(349, 263, -490)
+                    elseif stats >= 50 then
+                        currentBTZone = "BT100"
+                        hrp.CFrame = CFrame.new(365, 249, -445)
+                    end
+
+                    lastBTZone = currentBTZone
+                    lastTeleportTime = now
+                end
+
+                -- 🏋️ ПОСТІЙНИЙ ФАРМ
+                if remoteEvents and remoteEvents:FindFirstChild("BT_Train") then
+                    remoteEvents.BT_Train:FireServer()
+                end
+            end
+        else
+            -- ❌ Кнопку вимкнули → повний скидон
+            lastBTZone = ""
+            lastTeleportTime = 0
+        end
+
+        task.wait(0.1)
+    end
+end)
+
+
+spawn(function()
+    while true do
+        if farmspeedactive then
+            local remoteEvents = game:GetService("ReplicatedStorage"):FindFirstChild("RemoteEvents")
+            if remoteEvents and remoteEvents:FindFirstChild("MS_Train") then
+                remoteEvents.MS_Train:FireServer()
+            end
+        end
+        task.wait(0.1)
+    end
+end)
+
+spawn(function()
+    while true do
+        if farmjumpactive then
+            local lp = game.Players.LocalPlayer
+            local char = lp.Character
+            local hum = char and char:FindFirstChild("Humanoid")
+            local remoteEvents = game:GetService("ReplicatedStorage"):FindFirstChild("RemoteEvents")
+            
+            if hum and remoteEvents and remoteEvents:FindFirstChild("JF_Train") then
+                -- 1. ТИМЧАСОВО ВИМИКАЄМО ФІЗИКУ ПІДКИДАННЯ
+                hum.PlatformStand = true 
+                
+                -- 2. ЗМІНЮЄМО СТАН (Гра думає, що ми в повітрі, але ми не летимо вгору)
+                hum:ChangeState(Enum.HumanoidStateType.Freefall)
+                
+                -- 3. НАДСИЛАЄМО СИГНАЛ
+                remoteEvents.JF_Train:FireServer()
+                
+                -- 4. ПОВЕРТАЄМО СТАН НА СЕКУНДУ (щоб сервер побачив "цикл" стрибка)
+                task.wait(0.05)
+                hum:ChangeState(Enum.HumanoidStateType.Landed)
+                
+                -- Повертаємо можливість ходити
+                hum.PlatformStand = false
+            end
+        end
+        
+        -- Затримка між "уявними" стрибками
+        task.wait(0.1)
+    end
+end)
+-- Авто-фарм психіки (Тільки активація) --
+-- Функція для безпечного використання предметів --
+local function equipTool(toolName)
+    local player = game.Players.LocalPlayer
+    local tool = player.Backpack:FindFirstChild(toolName) or player.Character:FindFirstChild(toolName)
+    if tool and not player.Character:FindFirstChild(toolName) then
+        player.Character.Humanoid:EquipTool(tool)
+    end
+    return tool
+end
+
+-- ОБ'ЄДНАНИЙ ЦИКЛ ФАРМУ --
+spawn(function()
+    local isActive = false -- Локальна змінна для контролю одноразової дії
+
+    while true do
+        if farmpsychicactive then
+            if not isActive then
+                local lp = game.Players.LocalPlayer
+                local char = lp.Character
+                
+                if char and char:FindFirstChild("HumanoidRootPart") then
+                    local hrp = char.HumanoidRootPart
+                    local stats = lp:GetAttribute("PsychicPower") or 0
+                    
+                    -- 1. ТЕЛЕПОРТ (ОДНОРАЗОВО)
+                    if stats >= 1e330 then hrp.CFrame = CFrame.new(284, 28697, 3588)
+                    elseif stats >= 1e330 then hrp.CFrame = CFrame.new(-5182, 28489, -5317)
+                    elseif stats >= 1e330 then hrp.CFrame = CFrame.new(-2728, 27996, -1562)
+                    elseif stats >= 1e330 then hrp.CFrame = CFrame.new(2345, 24923, -1610)
+                    elseif stats >= 1e21 then hrp.CFrame = CFrame.new(-2348, 241, -376)  
+                    elseif stats >= 1e18 then hrp.CFrame = CFrame.new(-2639, 5576, -426)
+                    elseif stats >= 1e15 then hrp.CFrame = CFrame.new(-2544, 5412, -495)
+                    elseif stats >= 1e12 then hrp.CFrame = CFrame.new(-2583, 5516, -501)
+                    elseif stats >= 1e09 then hrp.CFrame = CFrame.new(-2560, 5500, -439)
+                    elseif stats >= 1e06 then hrp.CFrame = CFrame.new(-2527, 5486, -532)
+                    end
+                    
+                    -- 2. ВЗЯТИ ПРЕДМЕТ В РУКИ
+                    -- (Використовуємо твою функцію equipTool)
+                    equipTool("PsychicPower")
+                    
+                    isActive = true -- Позначаємо, що ТП і екіпірування виконано
+                end
+            end
+        else
+            -- Якщо вимкнули кнопку — скидаємо стан
+            if isActive then
+                isActive = false
+            end
+        end
+        task.wait(0.5)
+    end
+end)
+
+-- Return to position on Death --
+
+DeathReturn.MouseButton1Click:Connect(function()
+	if deathreturnactive ~= true then
+		deathreturnactive = true
+		DeathReturn.BackgroundColor3 = Color3.new(0, 0.5, 0)
+		DeathReturn.Text = "OnDeath Return: ON"
+	else
+		deathreturnactive = false
+		DeathReturn.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+		DeathReturn.Text = "OnDeath Return: OFF"
+	end
+end)
+
+local lp = game.Players.LocalPlayer
+local RS = game:GetService("ReplicatedStorage")
+local RemoteEvents = RS:WaitForChild("RemoteEvents")
+
+local lastPosBeforeDeath = nil
+
+-- Функція для примусового телепорту (Force Teleport)
+local function forceTeleport(character)
+    if deathreturnactive and lastPosBeforeDeath then
+        local hrp = character:WaitForChild("HumanoidRootPart", 10)
+        if hrp then
+            -- Циклічний телепорт для обходу захисту спавну
+            -- Намагаємось телепортувати 10 разів протягом 2 секунд
+            for i = 1, 10 do
+                hrp.CFrame = lastPosBeforeDeath
+                task.wait(0.2)
+                -- Якщо ми вже далеко від спавну, можна зупинити цикл
+                if (hrp.Position - lastPosBeforeDeath.Position).Magnitude < 5 then
+                    break
+                end
+            end
+            print("Телепортація завершена успішно!")
+        end
+    end
+end
+
+-- Слідкуємо за появою персонажа
+lp.CharacterAdded:Connect(forceTeleport)
+
+-- ... (ваш код з кнопкою залишається таким самим)
+
+spawn(function()
+    while true do
+        -- Якщо скрипт вимкнено, просто чекаємо і нічого не робимо
+        if not deathreturnactive then 
+            task.wait(1) 
+            continue 
+        end
+
+        local char = lp.Character
+        local hum = char and char:FindFirstChild("Humanoid")
+        local hrp = char and char:FindFirstChild("HumanoidRootPart")
+
+        -- 1. ЛОГІКА ПІД ЧАС ЖИТТЯ
+        if char and hum and hrp and hum.Health > 0 then
+            -- Зберігаємо позицію
+            lastPosBeforeDeath = hrp.CFrame
+            
+            if SavePosition then
+                local p = hrp.Position
+                SavePosition.Text = string.format("Last Place: %.1f, %.1f, %.1f", p.X, p.Y, p.Z)
+            end
+            
+            -- Авто-респавн на 50% HP (тільки якщо включено)
+            if hum.Health < (hum.MaxHealth * 0.5) then
+                RemoteEvents.RefreshCharacter:FireServer()
+                task.wait(1) -- Збільшив затримку, щоб не спамити
+            end
+        end
+        
+        -- 2. АВТО-КЛІК КНОПКИ SPAWN (тепер тільки якщо deathreturnactive == true)
+        local playerGui = lp:WaitForChild("PlayerGui")
+        local intro = playerGui:FindFirstChild("IntroGui") or playerGui:FindFirstChild("ChristmasIntroGui")
+        
+        if intro and intro.Enabled then
+            -- Викликаємо івент спавну
+            RemoteEvents.RefreshCharacter:FireServer()
+            
+            -- Очищаємо екран
+            intro.Enabled = false
+            if game.Lighting:FindFirstChild("Blur") then
+                game.Lighting.Blur.Size = 0
+            end
+            workspace.CurrentCamera.CameraType = Enum.CameraType.Custom
+            
+            -- Вмикаємо ігрові інтерфейси
+            for _, v in pairs({"MainGui", "QuestsGui", "SkillCooldowns", "ScreenGui",}) do
+                local g = playerGui:FindFirstChild(v)
+                if g then g.Enabled = true end
+            end
+        end
+
+        task.wait(0.3)
+    end
+end)
+
+-- Annoy Player --
+
+AnnoyStart.MouseButton1Click:Connect(function()
+	if annoyplayeractive ~= true then
+		annoyplayeractive = true
+		AnnoyStart.BackgroundColor3 = Color3.new(0, 0.5, 0)
+		AnnoyStart.Text = "TP Spam Player: ON"
+	else
+		annoyplayeractive = false
+		AnnoyStart.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+		AnnoyStart.Text = "TP Spam Player: OFF"
+	end
+end)
+
+spawn(function()
+	while true do
+		wait(0.5)
+		if annoyplayeractive then
+			for i,v in pairs(game:GetService("Players"):GetChildren()) do
+				if v.Name:lower():find(AnnoyName.Text:lower()) then
+					player = game.Players.LocalPlayer.Character
+					local startpos = player.HumanoidRootPart.CFrame
+					v.Character.Humanoid.Died:connect(function()
+						annoyplayeractive = false
+						AnnoyStart.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+						AnnoyStart.Text = "TP Spam Player: OFF"
+					end)
+					player.Humanoid.Died:connect(function()
+						annoyplayeractive = false
+						AnnoyStart.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+						AnnoyStart.Text = "TP Spam Player: OFF"
+					end)
+					while annoyplayeractive == true do
+						player.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
+						wait(.005)
+					end
+					player.HumanoidRootPart.CFrame = startpos
+				end
+			end
+		end
+	end
+end)
+
+TptoPlayer.MouseButton1Click:Connect(function()
+	for i,v in pairs(game:GetService("Players"):GetChildren()) do
+		if v.Name:lower():find(AnnoyName.Text:lower()) then
+			if v.Name ~= tostring(MyPlr.Name) then
+				player = game.Players.LocalPlayer.Character
+				player.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame * CFrame.new(3, 0, 3)
+			end
+		end
+	end
+end)
+
+mouse.KeyDown:connect(function(key)
+	if key == tostring(PanicToggle.Text) then
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(459, 248, 887)
+	end
+end)
+
+-- Server Player Stats --
+
+PlayerInfo.MouseButton1Click:connect(function()
+	if not showtopplayersactive then
+		showtopplayersactive = true
+		showtopplayersfistactive = true
+		showtopplayersbodyactive = true
+		showtopplayersspeedactive = true
+		showtopplayersjumpactive = true
+		showtopplayerspsychicactive = true
+		PlayerInfoStatsFrame.Visible = true
+	else
+		showtopplayersactive = false
+		PlayerInfoStatsFrame.Visible = false
+		showtopplayersfistactive = false
+		showtopplayersbodyactive = false
+		showtopplayersspeedactive = false
+		showtopplayersjumpactive = false
+		showtopplayerspsychicactive = false
+	end
+end)
+
+PlayerInfoStatsClose.MouseButton1Click:connect(function()
+	showtopplayersactive = false
+	PlayerInfoStatsFrame.Visible = false
+	showtopplayersfistactive = false
+	showtopplayersbodyactive = false
+	showtopplayersspeedactive = false
+	showtopplayersjumpactive = false
+	showtopplayerspsychicactive = false
+end)
+
+spawn(function()
+	while true do
+		if showtopplayersfistactive then
+			BestPlayerFist = 1
+			PlayerFistName = false
+			for i,v in pairs(game:GetService("Players"):GetChildren()) do
+				local PlayerFist = tonumber(game.Players[v.Name].PrivateStats.FistStrength.Value)
+				if PlayerFist > tonumber(BestPlayerFist) then 
+					BestPlayerFist = PlayerFist
+					PlayerFistName = tostring(v.Name)
+				end
+			end
+			StatBestFistText1.Text = "Fist: " ..tostring(PlayerFistName)
+			local fistplrStatus = game.Players[PlayerFistName].leaderstats.Status
+			if fistplrStatus.Value == "Criminal" then
+				StatBestFistText1.TextColor3 = Color3.new(1, 0.1, 1)
+			elseif fistplrStatus.Value == "Lawbreaker" then
+				StatBestFistText1.TextColor3 = Color3.new(1, 0.1, 0.1)
+			elseif fistplrStatus.Value == "Guardian" then
+				StatBestFistText1.TextColor3 = Color3.new(0.1, 0.8, 1)
+			elseif fistplrStatus.Value == "Protector" then
+				StatBestFistText1.TextColor3 = Color3.new(0.1, 0.1, 1)
+			elseif fistplrStatus.Value == "Supervillain" then
+				StatBestFistText1.TextColor3 = Color3.new(0.3, 0.1, 0.1)
+			elseif fistplrStatus.Value == "Superhero" then
+				StatBestFistText1.TextColor3 = Color3.new(0.8, 0.8, 0)
+			else
+				StatBestFistText1.TextColor3 = Color3.new(1, 1, 1)
+			end
+			local FindHum = game.Players[PlayerFistName].Character.Humanoid
+			local FistPlayerHealth = converttoletter(string.format("%.0f", FindHum.Health))
+			local FistPlayerFist = converttoletter(string.format("%.0f", game.Players[PlayerFistName].PrivateStats.FistStrength.Value))
+			local FistPlayerBody = converttoletter(string.format("%.0f", game.Players[PlayerFistName].PrivateStats.BodyToughness.Value))
+			local FistPlayerSpeed = converttoletter(string.format("%.0f", game.Players[PlayerFistName].PrivateStats.MovementSpeed.Value))
+			local FistPlayerJump = converttoletter(string.format("%.0f", game.Players[PlayerFistName].PrivateStats.JumpForce.Value))
+			local FistPlayerPsychic = converttoletter(string.format("%.0f", game.Players[PlayerFistName].PrivateStats.PsychicPower.Value))
+			ShowStatsFist2.Text = tostring(FistPlayerHealth.. "\n" ..FistPlayerFist.. "\n" ..FistPlayerBody.. "\n" ..FistPlayerSpeed.. "\n" ..FistPlayerJump.. "\n" ..FistPlayerPsychic)
+		end
+		wait(0.3)
+	end
+end)
+
+spawn(function()
+	while true do
+		if showtopplayersbodyactive then
+			BestPlayerBody = 1
+			PlayerBodyName = false
+			for i,v in pairs(game:GetService("Players"):GetChildren()) do
+				local PlayerBody = tonumber(game.Players[v.Name].PrivateStats.BodyToughness.Value)
+				if PlayerBody > tonumber(BestPlayerBody) then 
+					BestPlayerBody = PlayerBody
+					PlayerBodyName = tostring(v.Name)
+				end
+			end
+			StatBestBodyText1.Text = "Body: " ..tostring(PlayerBodyName)
+			local bodyplrStatus = game.Players[PlayerBodyName].leaderstats.Status
+			if bodyplrStatus.Value == "Criminal" then
+				StatBestBodyText1.TextColor3 = Color3.new(1, 0.1, 1)
+			elseif bodyplrStatus.Value == "Lawbreaker" then
+				StatBestBodyText1.TextColor3 = Color3.new(1, 0.1, 0.1)
+			elseif bodyplrStatus.Value == "Guardian" then
+				StatBestBodyText1.TextColor3 = Color3.new(0.1, 0.8, 1)
+			elseif bodyplrStatus.Value == "Protector" then
+				StatBestBodyText1.TextColor3 = Color3.new(0.1, 0.1, 1)
+			elseif bodyplrStatus.Value == "Supervillain" then
+				StatBestBodyText1.TextColor3 = Color3.new(0.3, 0.1, 0.1)
+			elseif bodyplrStatus.Value == "Superhero" then
+				StatBestBodyText1.TextColor3 = Color3.new(0.8, 0.8, 0)
+			else
+				StatBestBodyText1.TextColor3 = Color3.new(1, 1, 1)
+			end
+			local FindHum = game.Players[PlayerBodyName].Character.Humanoid
+			local BodyPlayerHealth = converttoletter(string.format("%.0f", FindHum.Health))
+			local BodyPlayerFist = converttoletter(string.format("%.0f", game.Players[PlayerBodyName].PrivateStats.FistStrength.Value))
+			local BodyPlayerBody = converttoletter(string.format("%.0f", game.Players[PlayerBodyName].PrivateStats.BodyToughness.Value))
+			local BodyPlayerSpeed = converttoletter(string.format("%.0f", game.Players[PlayerBodyName].PrivateStats.MovementSpeed.Value))
+			local BodyPlayerJump = converttoletter(string.format("%.0f", game.Players[PlayerBodyName].PrivateStats.JumpForce.Value))
+			local BodyPlayerPsychic = converttoletter(string.format("%.0f", game.Players[PlayerBodyName].PrivateStats.PsychicPower.Value))
+			ShowStatsBody2.Text = tostring(BodyPlayerHealth.. "\n" ..BodyPlayerFist.. "\n" ..BodyPlayerBody.. "\n" ..BodyPlayerSpeed.. "\n" ..BodyPlayerJump.. "\n" ..BodyPlayerPsychic)
+		end
+		wait(0.3)
+	end
+end)
+
+spawn(function()
+	while true do
+		if showtopplayersspeedactive then
+			BestPlayerSpeed = 1
+			PlayerSpeedName = false
+			for i,v in pairs(game:GetService("Players"):GetChildren()) do
+				local PlayerSpeed = tonumber(game.Players[v.Name].PrivateStats.MovementSpeed.Value)
+				if PlayerSpeed > tonumber(BestPlayerSpeed) then 
+					BestPlayerSpeed = PlayerSpeed
+					PlayerSpeedName = tostring(v.Name)
+				end
+			end
+			StatBestSpeedText1.Text = "Speed: " ..tostring(PlayerSpeedName)
+			local speedplrStatus = game.Players[PlayerSpeedName].leaderstats.Status
+			if speedplrStatus.Value == "Criminal" then
+				StatBestSpeedText1.TextColor3 = Color3.new(1, 0.1, 1)
+			elseif speedplrStatus.Value == "Lawbreaker" then
+				StatBestSpeedText1.TextColor3 = Color3.new(1, 0.1, 0.1)
+			elseif speedplrStatus.Value == "Guardian" then
+				StatBestSpeedText1.TextColor3 = Color3.new(0.1, 0.8, 1)
+			elseif speedplrStatus.Value == "Protector" then
+				StatBestSpeedText1.TextColor3 = Color3.new(0.1, 0.1, 1)
+			elseif speedplrStatus.Value == "Supervillain" then
+				StatBestSpeedText1.TextColor3 = Color3.new(0.3, 0.1, 0.1)
+			elseif speedplrStatus.Value == "Superhero" then
+				StatBestSpeedText1.TextColor3 = Color3.new(0.8, 0.8, 0)
+			else
+				StatBestSpeedText1.TextColor3 = Color3.new(1, 1, 1)
+			end
+			local FindHum = game.Players[PlayerSpeedName].Character.Humanoid
+			local SpeedPlayerHealth = converttoletter(string.format("%.0f", FindHum.Health))
+			local SpeedPlayerFist = converttoletter(string.format("%.0f", game.Players[PlayerSpeedName].PrivateStats.FistStrength.Value))
+			local SpeedPlayerBody = converttoletter(string.format("%.0f", game.Players[PlayerSpeedName].PrivateStats.BodyToughness.Value))
+			local SpeedPlayerSpeed = converttoletter(string.format("%.0f", game.Players[PlayerSpeedName].PrivateStats.MovementSpeed.Value))
+			local SpeedPlayerJump = converttoletter(string.format("%.0f", game.Players[PlayerSpeedName].PrivateStats.JumpForce.Value))
+			local SpeedPlayerPsychic = converttoletter(string.format("%.0f", game.Players[PlayerSpeedName].PrivateStats.PsychicPower.Value))
+			ShowStatsSpeed2.Text = tostring(SpeedPlayerHealth.. "\n" ..SpeedPlayerFist.. "\n" ..SpeedPlayerBody.. "\n" ..SpeedPlayerSpeed.. "\n" ..SpeedPlayerJump.. "\n" ..SpeedPlayerPsychic)
+		end
+		wait(0.3)
+	end
+end)
+
+spawn(function()
+	while true do
+		if showtopplayersjumpactive then
+			BestPlayerJump = 1
+			PlayerJumpName = false
+			for i,v in pairs(game:GetService("Players"):GetChildren()) do
+				local PlayerJump = tonumber(game.Players[v.Name].PrivateStats.JumpForce.Value)
+				if PlayerJump > tonumber(BestPlayerJump) then 
+					BestPlayerJump = PlayerJump
+					PlayerJumpName = tostring(v.Name)
+				end
+			end
+			StatBestJumpText1.Text = "Jump: " ..tostring(PlayerJumpName)
+			local JumpplrStatus = game.Players[PlayerJumpName].leaderstats.Status
+			if JumpplrStatus.Value == "Criminal" then
+				StatBestJumpText1.TextColor3 = Color3.new(1, 0.1, 1)
+			elseif JumpplrStatus.Value == "Lawbreaker" then
+				StatBestJumpText1.TextColor3 = Color3.new(1, 0.1, 0.1)
+			elseif JumpplrStatus.Value == "Guardian" then
+				StatBestJumpText1.TextColor3 = Color3.new(0.1, 0.8, 1)
+			elseif JumpplrStatus.Value == "Protector" then
+				StatBestJumpText1.TextColor3 = Color3.new(0.1, 0.1, 1)
+			elseif JumpplrStatus.Value == "Supervillain" then
+				StatBestJumpText1.TextColor3 = Color3.new(0.3, 0.1, 0.1)
+			elseif JumpplrStatus.Value == "Superhero" then
+				StatBestJumpText1.TextColor3 = Color3.new(0.8, 0.8, 0)
+			else
+				StatBestJumpText1.TextColor3 = Color3.new(1, 1, 1)
+			end
+			local FindHum = game.Players[PlayerJumpName].Character.Humanoid
+			local JumpPlayerHealth = converttoletter(string.format("%.0f", FindHum.Health))
+			local JumpPlayerFist = converttoletter(string.format("%.0f", game.Players[PlayerJumpName].PrivateStats.FistStrength.Value))
+			local JumpPlayerBody = converttoletter(string.format("%.0f", game.Players[PlayerJumpName].PrivateStats.BodyToughness.Value))
+			local JumpPlayerSpeed = converttoletter(string.format("%.0f", game.Players[PlayerJumpName].PrivateStats.MovementSpeed.Value))
+			local JumpPlayerJump = converttoletter(string.format("%.0f", game.Players[PlayerJumpName].PrivateStats.JumpForce.Value))
+			local JumpPlayerPsychic = converttoletter(string.format("%.0f", game.Players[PlayerJumpName].PrivateStats.PsychicPower.Value))
+			ShowStatsJump2.Text = tostring(JumpPlayerHealth.. "\n" ..JumpPlayerFist.. "\n" ..JumpPlayerBody.. "\n" ..JumpPlayerSpeed.. "\n" ..JumpPlayerJump.. "\n" ..JumpPlayerPsychic)
+		end
+		wait(0.3)
+	end
+end)
+
+spawn(function()
+	while true do
+		if showtopplayerspsychicactive then
+			BestPlayerPsychic = 1
+			PlayerPsychicName = false
+			for i,v in pairs(game:GetService("Players"):GetChildren()) do
+				local PlayerPsychic = tonumber(game.Players[v.Name].PrivateStats.PsychicPower.Value)
+				if PlayerPsychic > tonumber(BestPlayerPsychic) then 
+					BestPlayerPsychic = PlayerPsychic
+					PlayerPsychicName = tostring(v.Name)
+				end
+			end
+			StatBestPsychicText1.Text = "Psy: " ..tostring(PlayerPsychicName)
+			local PsychicplrStatus = game.Players[PlayerPsychicName].leaderstats.Status
+			if PsychicplrStatus.Value == "Criminal" then
+				StatBestPsychicText1.TextColor3 = Color3.new(1, 0.1, 1)
+			elseif PsychicplrStatus.Value == "Lawbreaker" then
+				StatBestPsychicText1.TextColor3 = Color3.new(1, 0.1, 0.1)
+			elseif PsychicplrStatus.Value == "Guardian" then
+				StatBestPsychicText1.TextColor3 = Color3.new(0.1, 0.8, 1)
+			elseif PsychicplrStatus.Value == "Protector" then
+				StatBestPsychicText1.TextColor3 = Color3.new(0.1, 0.1, 1)
+			elseif PsychicplrStatus.Value == "Supervillain" then
+				StatBestPsychicText1.TextColor3 = Color3.new(0.3, 0.1, 0.1)
+			elseif PsychicplrStatus.Value == "Superhero" then
+				StatBestPsychicText1.TextColor3 = Color3.new(0.8, 0.8, 0)
+			else
+				StatBestPsychicText1.TextColor3 = Color3.new(1, 1, 1)
+			end
+			local FindHum = game.Players[PlayerPsychicName].Character.Humanoid
+			local PsychicPlayerHealth = converttoletter(string.format("%.0f", FindHum.Health))
+			local PsychicPlayerFist = converttoletter(string.format("%.0f", game.Players[PlayerPsychicName].PrivateStats.FistStrength.Value))
+			local PsychicPlayerBody = converttoletter(string.format("%.0f", game.Players[PlayerPsychicName].PrivateStats.BodyToughness.Value))
+			local PsychicPlayerSpeed = converttoletter(string.format("%.0f", game.Players[PlayerPsychicName].PrivateStats.MovementSpeed.Value))
+			local PsychicPlayerJump = converttoletter(string.format("%.0f", game.Players[PlayerPsychicName].PrivateStats.JumpForce.Value))
+			local PsychicPlayerPsychic = converttoletter(string.format("%.0f", game.Players[PlayerPsychicName].PrivateStats.PsychicPower.Value))
+			ShowStatsPsychic2.Text = tostring(PsychicPlayerHealth.. "\n" ..PsychicPlayerFist.. "\n" ..PsychicPlayerBody.. "\n" ..PsychicPlayerSpeed.. "\n" ..PsychicPlayerJump.. "\n" ..PsychicPlayerPsychic)
+		end
+		wait(0.3)
+	end
+end)
+
+-- Функція для конвертації секунд у часові проміжки
+local function formatTime(seconds)
+    if seconds <= 0 then return "0s" end
+    
+    local years = math.floor(seconds / (365 * 24 * 3600))
+    seconds = seconds % (365 * 24 * 3600)
+    
+    local days = math.floor(seconds / (24 * 3600))
+    seconds = seconds % (24 * 3600)
+    
+    local hours = math.floor(seconds / 3600)
+    seconds = seconds % 3600
+    
+    local minutes = math.floor(seconds / 60)
+    local secs = seconds % 60
+    
+    local result = ""
+    if years > 0 then result = result .. years .. "y" end
+    if days > 0 then result = result .. days .. "d" end
+    if hours > 0 then result = result .. hours .. "h" end
+    if minutes > 0 then result = result .. minutes .. "m" end
+    if result == "" or (years == 0 and days == 0 and hours == 0) then
+        result = result .. secs .. "s"
+    end
+    
+    return result
+end
+-- Display Player Info --
+spawn(function()
+    -- Розширюємо вікно для нових статів
+    if StatsFrame then
+        StatsFrame.Size = UDim2.new(0, 161, 0, 140)
+        ShowStats1.Size = UDim2.new(0, 50, 0, 140)
+        ShowStats2.Size = UDim2.new(0, 103, 0, 140)
+    end
+
+    while true do
+        statplayer = tostring(PlayerName.Text)
+        StatsFrame.Visible = false
+        
+        if playerdied == true then repeat wait(0.5) until playerdied == false end
+        
+        -- Перевіряємо, чи введено хоча б щось у поле (щоб не шукало всіх підряд, коли пусто)
+        if statplayer ~= "" then
+            for i, v in pairs(game:GetService("Players"):GetChildren()) do
+                -- [ЗМІНА] string.find шукає частину тексту в імені (ігноруючи регістр)
+                if string.find(string.lower(v.Name), string.lower(statplayer), 1, true) then
+                    
+                    StatsFrame.Visible = true
+                    
+                    if v.Character and v.Character:FindFirstChild("Humanoid") then
+                        local FindHum = v.Character.Humanoid
+                        
+                        -- Отримання статів
+                        local rawFist = v:GetAttribute("FistStrength") or 0
+                        local rawBody = v:GetAttribute("BodyToughness") or 0
+                        local rawSpeed = v:GetAttribute("MovementSpeed") or 0
+                        local rawJump = v:GetAttribute("JumpForce") or 0
+                        local rawPsychic = v:GetAttribute("PsychicPower") or 0
+                        local rawTPM = v:GetAttribute("TPM") or 0
+                        local rawVIPTIME = v:GetAttribute("VIPTIME") or 0
+                        
+                        -- Рахуємо Total (без TPM)
+                        local rawTotal = rawFist + rawBody + rawSpeed + rawJump + rawPsychic
+
+                        -- Конвертація
+                        local PlayerHealth = converttoletter(FindHum.Health)
+                        local PlayerFist = converttoletter(rawFist)
+                        local PlayerBody = converttoletter(rawBody)
+                        local PlayerSpeed = converttoletter(rawSpeed)
+                        local PlayerJump = converttoletter(rawJump)
+                        local PlayerPsychic = converttoletter(rawPsychic)
+                        local PlayerTPM = converttoletter(rawTPM)
+                        local PlayerVIPTIME = formatTime(rawVIPTIME)
+                        local PlayerTotal = converttoletter(rawTotal)
+
+                        -- Вивід
+                        ShowStats1.Text = "Health:\nFist:\nBody:\nSpeed:\nJump:\nPsy:\nTPM:\nVIP:\nTotal:"
+                        ShowStats2.Text = PlayerHealth.. "\n" ..PlayerFist.. "\n" ..PlayerBody.. "\n" ..PlayerSpeed.. "\n" ..PlayerJump.. "\n" ..PlayerPsychic.. "\n" ..PlayerTPM.. "\n" ..PlayerVIPTIME.. "\n" ..PlayerTotal
+                    end
+                    break 
+                end
+            end
+        end
+        wait(0.25)
+    end
+end)
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+-- Налаштування
+local OWNER_IDS = {10435914167, 585191969}
+local Sora_ID = 0
+local ADMIN_GROUP_ID = 0
+local MIN_ADMIN_RANK = 240
+
+local AdminCheckEnabled = false -- Стан перемикача
+local PlayerAddedConnection = nil -- Змінна для підключення
+
+-- Функція перевірки
+local function checkPlayer(player)
+    if not AdminCheckEnabled then return end
+    if player == LocalPlayer then return end
+
+    -- Перевірка власників через цикл
+    for _, id in ipairs(OWNER_IDS) do
+        if player.UserId == id then
+            LocalPlayer:Kick("The owner just joined. Abort mission! 🚨")
+            return
+        end
+    end
+
+    if player.UserId == Sora_ID and Sora_ID ~= 0 then
+        LocalPlayer:Kick("Script owner joined. Abort mission! 🚨")
+        return
+    end
+
+    if ADMIN_GROUP_ID > 0 then
+        if player:GetRankInGroup(ADMIN_GROUP_ID) >= MIN_ADMIN_RANK then
+            LocalPlayer:Kick("Admin (" .. player.Name .. ") has joined the game.")
+        end
+    end
+end
+
+-- Логіка перемикання
+AdminCheckBtn.MouseButton1Click:Connect(function()
+    AdminCheckEnabled = not AdminCheckEnabled
+    
+    if AdminCheckEnabled then
+        AdminCheckBtn.Text = "Admin Check: ON"
+        AdminCheckBtn.TextColor3 = Color3.new(0, 1, 0) -- Зелений при включенні
+        
+        -- Перевіряємо тих, хто вже на сервері
+        for _, player in ipairs(Players:GetPlayers()) do
+            checkPlayer(player)
+        end
+        
+        -- Включаємо відстеження нових гравців
+        if not PlayerAddedConnection then
+            PlayerAddedConnection = Players.PlayerAdded:Connect(checkPlayer)
+        end
+    else
+        AdminCheckBtn.Text = "Admin Check: OFF"
+        AdminCheckBtn.TextColor3 = Color3.new(1, 1, 1) -- Повертаємо білий
+        
+        -- Вимикаємо відстеження
+        if PlayerAddedConnection then
+            PlayerAddedConnection:Disconnect()
+            PlayerAddedConnection = nil
+        end
+    end
+end)
