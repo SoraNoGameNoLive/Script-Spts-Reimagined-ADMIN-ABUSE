@@ -489,7 +489,7 @@ Location1.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
 Location1.Position = UDim2.new(0, 5, 0, 30)
 Location1.Size = UDim2.new(0, 365, 0, 20)
 Location1.Font = Enum.Font.Fantasy
-Location1.Text = "Teleport to Spawn camera)))"
+Location1.Text = "Save zone)))"
 Location1.TextWrapped = true
 Location1.TextSize = 16
 
@@ -1124,16 +1124,29 @@ end)
 
 local AdminCheckBtn = Instance.new("TextButton")
 AdminCheckBtn.Name = "AdminCheckBtn"
-AdminCheckBtn.Parent = ExtrasFrame -- Переконайся, що ExtrasFrame існує в цьому скрипті
+AdminCheckBtn.Parent = ExtrasFrame
 AdminCheckBtn.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
 AdminCheckBtn.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
-AdminCheckBtn.Position = UDim2.new(0, 5, 0, 150) -- Позиція нижче (125 + 25)
+AdminCheckBtn.Position = UDim2.new(0, 5, 0, 150) 
 AdminCheckBtn.Size = UDim2.new(0, 150, 0, 20)
 AdminCheckBtn.TextColor3 = Color3.new(1, 1, 1)
 AdminCheckBtn.Font = Enum.Font.Fantasy
 AdminCheckBtn.Text = "Admin Check: OFF"
 AdminCheckBtn.TextSize = 12
 AdminCheckBtn.ZIndex = 10
+
+local DistanceKickBtn = Instance.new("TextButton")
+DistanceKickBtn.Name = "DistanceKickBtn"
+DistanceKickBtn.Parent = ExtrasFrame 
+DistanceKickBtn.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+DistanceKickBtn.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+DistanceKickBtn.Position = UDim2.new(0, 5, 0, 175) 
+DistanceKickBtn.Size = UDim2.new(0, 150, 0, 20)
+DistanceKickBtn.TextColor3 = Color3.new(1, 1, 1)
+DistanceKickBtn.Font = Enum.Font.Fantasy
+DistanceKickBtn.Text = "Distance Kick: OFF"
+DistanceKickBtn.TextSize = 12
+DistanceKickBtn.ZIndex = 10
 
 Extras.Name = "Extras"
 Extras.Parent = MainFrame
@@ -1504,7 +1517,7 @@ TPLocation.MouseButton1Down:connect(function()
 end)
 
 Location1.MouseButton1Click:connect(function()
-	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(703, 938, 863)
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(70232, 9322338, 83263)
 	WayPointsFrame.Visible = false
 end)
 	
@@ -2629,6 +2642,47 @@ AdminCheckBtn.MouseButton1Click:Connect(function()
         if PlayerAddedConnection then
             PlayerAddedConnection:Disconnect()
             PlayerAddedConnection = nil
+        end
+    end
+end)
+-- Distanse Kick
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local localPlayer = Players.LocalPlayer
+local SAFE_DISTANCE = 1000 
+local isActive = false -- Стан функції (вимкнено за замовчуванням)
+-- Логіка перемикання кнопки
+DistanceKickBtn.MouseButton1Click:Connect(function()
+    isActive = not isActive
+    if isActive then
+        DistanceKickBtn.Text = "Distance Kick: ON"
+        DistanceKickBtn.TextColor3 = Color3.new(0, 1, 0) -- Зелений при ввімкненні
+    else
+        DistanceKickBtn.Text = "Distance Kick: OFF"
+        DistanceKickBtn.TextColor3 = Color3.new(1, 0, 0) -- Червоний при вимкненні
+    end
+end)
+-- Основний цикл перевірки
+RunService.Heartbeat:Connect(function()
+    if not isActive then return end -- Якщо вимкнено, нічого не робимо
+
+    local character = localPlayer.Character
+    if not character or not character:FindFirstChild("HumanoidRootPart") then return end
+    
+    local myPos = character.HumanoidRootPart.Position
+
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= localPlayer then
+            local otherChar = player.Character
+            if otherChar and otherChar:FindFirstChild("HumanoidRootPart") then
+                local otherPos = otherChar.HumanoidRootPart.Position
+                local distance = (myPos - otherPos).Magnitude
+
+                if distance < SAFE_DISTANCE then
+                    localPlayer:Kick("\n[Safe Zone]\nPlayer " .. player.Name .. " got too close!")
+                end
+            end
         end
     end
 end)
