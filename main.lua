@@ -891,130 +891,60 @@ esptrack.Text = "ESP"
 esptrack.TextSize = 16
 esptrack.TextWrapped = true
 
-local RunService = game:GetService("RunService")
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-local Workspace = game:GetService("Workspace")
-
--- ==========================================
--- 🛠️ NETWORK FIX (ВИРІШЕННЯ ПРОБЛЕМИ)
--- ==========================================
--- Цей блок намагається розширити радіус, у якому ти можеш керувати NPC
-task.spawn(function()
-    while true do
-        pcall(function()
-            settings().Physics.AllowSleep = false
-            local player = game.Players.LocalPlayer
-            player.ReplicationFocus = Workspace
-            
-            -- Спроба встановити величезний радіус симуляції
-            -- (Працює на більшості експлойтів)
-            sethiddenproperty(player, "SimulationRadius", 10000)
-            sethiddenproperty(player, "MaxSimulationRadius", 10000)
-        end)
-        RunService.Heartbeat:Wait()
-    end
-end)
--- ==========================================
-
--- 1. СТВОРЕННЯ ПОЛЯ ДЛЯ ВВОДУ ІМЕНІ (TargetInput)
-local TargetInput = Instance.new("TextBox")
-TargetInput.Name = "TargetInput"
-TargetInput.Parent = MainFrame -- Переконайся, що MainFrame існує
-TargetInput.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
-TargetInput.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
-TargetInput.Position = UDim2.new(0, 415, 0, -20)
-TargetInput.Size = UDim2.new(0, 85, 0, 20)
-TargetInput.Font = Enum.Font.SourceSans
-TargetInput.Text = ""
-TargetInput.PlaceholderText = "Target (Me)"
-TargetInput.TextColor3 = Color3.new(1, 1, 1)
-TargetInput.PlaceholderColor3 = Color3.new(0.7, 0.7, 0.7)
-TargetInput.TextSize = 14
-TargetInput.ZIndex = 10
-
--- 2. СТВОРЕННЯ КНОПКИ LOOP (TPLoopBtn)
 local TPLoopBtn = Instance.new("TextButton")
 TPLoopBtn.Name = "TPLoop"
-TPLoopBtn.Parent = MainFrame
+TPLoopBtn.Parent = MainFrame -- Важливо: MainFrame має вже існувати!
 TPLoopBtn.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
 TPLoopBtn.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
-TPLoopBtn.Position = UDim2.new(0, 415, 0, 5)
+TPLoopBtn.Position = UDim2.new(0, 415, 0, 5) -- Між 375 і 505
 TPLoopBtn.Size = UDim2.new(0, 85, 0, 20)
 TPLoopBtn.TextColor3 = Color3.new(1, 1, 1)
 TPLoopBtn.Font = Enum.Font.Fantasy
 TPLoopBtn.Text = "TP NPC: OFF"
 TPLoopBtn.TextSize = 14
 TPLoopBtn.TextWrapped = true
-TPLoopBtn.ZIndex = 10
+TPLoopBtn.ZIndex = 10 -- Додав це, щоб кнопка була поверх всього
 
 -- Логіка телепортації
 local npcNames = {"CJ", "Sath", "Thug", "Angel","Moltens"}
 local tpActive = false
 local rowWidth = 8
 local spacing = 1
-local isLoopRunning = false 
-
--- Функція для пошуку гравця за частковим іменем
-local function getTargetPlayer()
-    local text = TargetInput.Text
-    
-    if text == "" or text == " " then
-        return LocalPlayer
-    end
-
-    for _, p in ipairs(Players:GetPlayers()) do
-        if p.Name:lower():sub(1, #text) == text:lower() or p.DisplayName:lower():sub(1, #text) == text:lower() then
-            return p
-        end
-    end
-    
-    return nil
-end
 
 local function teleportNPCs()
-    local target = getTargetPlayer()
-    
-    if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
-        local targetRoot = target.Character.HumanoidRootPart
+    local player = game.Players.LocalPlayer
+    if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+        local playerRoot = player.Character.HumanoidRootPart
         local count = 0
         
-        for _, object in ipairs(Workspace:GetChildren()) do
+        for _, object in ipairs(game.Workspace:GetChildren()) do
             if table.find(npcNames, object.Name) and object:IsA("Model") then
                 local npcRoot = object:FindFirstChild("HumanoidRootPart")
-                local humanoid = object:FindFirstChild("Humanoid")
-                
                 if npcRoot then
-                    -- 1. Вимикаємо колізію
+                    -- ВИМИКАЄМО КОЛІЗІЮ для всіх частин NPC
                     for _, part in ipairs(object:GetDescendants()) do
                         if part:IsA("BasePart") then
                             part.CanCollide = false
-                            -- Скидання швидкості допомагає серверу прийняти нову позицію
-                            part.AssemblyLinearVelocity = Vector3.new(0, 0, 0) 
-                            part.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
                         end
                     end
-                    
-                    -- 2. Якщо є гуманоїд, змушуємо його змінити стан (іноді допомагає з синхронізацією)
-                    if humanoid then
-                        humanoid:ChangeState(Enum.HumanoidStateType.Physics)
-                    end
 
-                    -- 3. Розрахунок позиції
+                    -- Розрахунок позиції (сітка)
                     local column = count % rowWidth
                     local row = math.floor(count / rowWidth)
                     
+                    -- Центрування: віднімаємо (rowWidth/2), щоб вони були навколо центру, а не збоку
                     local xOffset = (column - (rowWidth / 2)) * spacing
                     local zOffset = -3 - (row * spacing)
                     
-                    -- 4. Телепортація
-                    npcRoot.CFrame = targetRoot.CFrame * CFrame.new(xOffset, 0, zOffset)
+                    npcRoot.CFrame = playerRoot.CFrame * CFrame.new(xOffset, 0, zOffset)
                     count = count + 1
                 end
             end
         end
     end
 end
+
+local isLoopRunning = false 
 
 TPLoopBtn.MouseButton1Click:Connect(function()
     tpActive = not tpActive
@@ -1028,8 +958,7 @@ TPLoopBtn.MouseButton1Click:Connect(function()
             task.spawn(function()
                 while tpActive do
                     teleportNPCs()
-                    -- Використовуємо Heartbeat для максимальної швидкості оновлення фізики
-                    task.wait(1) 
+                    task.wait(1)
                 end
                 isLoopRunning = false 
             end)
