@@ -442,7 +442,7 @@ FarmExpFrame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
 FarmExpFrame.BorderColor3 = Color3.new(0, 0, 0)
 FarmExpFrame.BackgroundTransparency = 0.2
 FarmExpFrame.Position = UDim2.new(0, 62.5, 0, 33)
-FarmExpFrame.Size = UDim2.new(0, 210, 0, 165)
+FarmExpFrame.Size = UDim2.new(0, 210, 0, 105)
 FarmExpFrame.Visible = false
 
 ShowLocation.Name = "ShowLocation"
@@ -769,24 +769,12 @@ LocationPP1Sx.Text = "Tp to 1Sx+ PP required"
 LocationPP1Sx.TextWrapped = true
 LocationPP1Sx.TextSize = 16
 
-FarmAll.Name = "FarmAll"
-FarmAll.Parent = FarmExpFrame
-FarmAll.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
-FarmAll.TextColor3 = Color3.new(1, 1, 1)
-FarmAll.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
-FarmAll.Position = UDim2.new(0, 5, 0, 5)
-FarmAll.Size = UDim2.new(0, 200, 0, 20)
-FarmAll.Font = Enum.Font.Fantasy
-FarmAll.Text = "------"
-FarmAll.TextWrapped = true
-FarmAll.TextSize = 16
-
 FarmFist.Name = "FarmFist"
 FarmFist.Parent = FarmExpFrame
 FarmFist.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
 FarmFist.TextColor3 = Color3.new(1, 1, 1)
 FarmFist.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
-FarmFist.Position = UDim2.new(0, 5, 0, 40)
+FarmFist.Position = UDim2.new(0, 5, 0, 5)
 FarmFist.Size = UDim2.new(0, 200, 0, 20)
 FarmFist.Font = Enum.Font.Fantasy
 FarmFist.Text = "Farm Fist Strength: OFF"
@@ -798,31 +786,19 @@ FarmBody.Parent = FarmExpFrame
 FarmBody.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
 FarmBody.TextColor3 = Color3.new(1, 1, 1)
 FarmBody.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
-FarmBody.Position = UDim2.new(0, 5, 0, 65)
+FarmBody.Position = UDim2.new(0, 5, 0, 30)
 FarmBody.Size = UDim2.new(0, 200, 0, 20)
 FarmBody.Font = Enum.Font.Fantasy
 FarmBody.Text = "Farm Body Toughness: OFF"
 FarmBody.TextWrapped = true
 FarmBody.TextSize = 16
 
-FarmSpeed.Name = "FarmSpeed"
-FarmSpeed.Parent = FarmExpFrame
-FarmSpeed.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
-FarmSpeed.TextColor3 = Color3.new(1, 1, 1)
-FarmSpeed.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
-FarmSpeed.Position = UDim2.new(0, 5, 0, 90)
-FarmSpeed.Size = UDim2.new(0, 200, 0, 20)
-FarmSpeed.Font = Enum.Font.Fantasy
-FarmSpeed.Text = "-------"
-FarmSpeed.TextWrapped = true
-FarmSpeed.TextSize = 16
-
 FarmJump.Name = "FarmJump"
 FarmJump.Parent = FarmExpFrame
 FarmJump.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
 FarmJump.TextColor3 = Color3.new(1, 1, 1)
 FarmJump.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
-FarmJump.Position = UDim2.new(0, 5, 0, 115)
+FarmJump.Position = UDim2.new(0, 5, 0, 55)
 FarmJump.Size = UDim2.new(0, 200, 0, 20)
 FarmJump.Font = Enum.Font.Fantasy
 FarmJump.Text = "Farm Jump Force: OFF"
@@ -834,7 +810,7 @@ FarmPsychic.Parent = FarmExpFrame
 FarmPsychic.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
 FarmPsychic.TextColor3 = Color3.new(1, 1, 1)
 FarmPsychic.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
-FarmPsychic.Position = UDim2.new(0, 5, 0, 140)
+FarmPsychic.Position = UDim2.new(0, 5, 0, 80)
 FarmPsychic.Size = UDim2.new(0, 200, 0, 20)
 FarmPsychic.Font = Enum.Font.Fantasy
 FarmPsychic.Text = "Farm Psychic Power: OFF"
@@ -853,19 +829,6 @@ FarmBodyLabel.Text = "actually it’s a really cool feature, you just need to en
 FarmBodyLabel.TextSize = 16
 FarmBodyLabel.TextWrapped = true
 FarmBodyLabel.Visible = false
-
-FarmSpeedLabel.Name = "FarmSpeedLabel"
-FarmSpeedLabel.Parent = FarmExpFrame
-FarmSpeedLabel.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
-FarmSpeedLabel.TextColor3 = Color3.new(1, 1, 1)
-FarmSpeedLabel.BorderColor3 = Color3.new(0.1, 0.1, 0.1)
-FarmSpeedLabel.Position = UDim2.new(0, 213, 0, 65)
-FarmSpeedLabel.Size = UDim2.new(0, 200, 0, 100)
-FarmSpeedLabel.Font = Enum.Font.Fantasy
-FarmSpeedLabel.Text = "Only Jump"
-FarmSpeedLabel.TextSize = 16
-FarmSpeedLabel.TextWrapped = true
-FarmSpeedLabel.Visible = false
 
 DeathReturn.Name = "DeathReturn"
 DeathReturn.Parent = MainFrame
@@ -1690,7 +1653,7 @@ end)
 
 -- Farm Exp --
 
-Farm1All.MouseButton1Click:Connect(function()
+FarmAll.MouseButton1Click:Connect(function()
 	if farmallactive ~= true then
 		farmallactive = true
 		farmfistactive = true
@@ -1747,7 +1710,7 @@ FarmBody.MouseButton1Click:Connect(function()
 	end
 end)
 
-Farm1Speed.MouseButton1Click:Connect(function()
+FarmSpeed.MouseButton1Click:Connect(function()
 	if farmspeedactive ~= true then
 		farmspeedactive = true
 		FarmSpeed.BackgroundColor3 = Color3.new(0, 0.5, 0)
