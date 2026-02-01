@@ -893,7 +893,7 @@ esptrack.TextWrapped = true
 
 local TPLoopBtn = Instance.new("TextButton")
 TPLoopBtn.Name = "TPLoop"
-TPLoopBtn.Parent = MainFrame -- Важливо: MainFrame має вже існувати!
+TPLoopBtn.Parent = MainFrame 
 TPLoopBtn.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
 TPLoopBtn.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
 TPLoopBtn.Position = UDim2.new(0, 415, 0, 5) -- Між 375 і 505
@@ -903,9 +903,8 @@ TPLoopBtn.Font = Enum.Font.Fantasy
 TPLoopBtn.Text = "TP NPC: OFF"
 TPLoopBtn.TextSize = 14
 TPLoopBtn.TextWrapped = true
-TPLoopBtn.ZIndex = 10 -- Додав це, щоб кнопка була поверх всього
+TPLoopBtn.ZIndex = 10 
 
--- Логіка телепортації
 local npcNames = {"CJ", "Sath", "Thug", "Angel","Moltens"}
 local tpActive = false
 local rowWidth = 8
@@ -921,18 +920,15 @@ local function teleportNPCs()
             if table.find(npcNames, object.Name) and object:IsA("Model") then
                 local npcRoot = object:FindFirstChild("HumanoidRootPart")
                 if npcRoot then
-                    -- ВИМИКАЄМО КОЛІЗІЮ для всіх частин NPC
                     for _, part in ipairs(object:GetDescendants()) do
                         if part:IsA("BasePart") then
                             part.CanCollide = false
                         end
                     end
 
-                    -- Розрахунок позиції (сітка)
                     local column = count % rowWidth
                     local row = math.floor(count / rowWidth)
                     
-                    -- Центрування: віднімаємо (rowWidth/2), щоб вони були навколо центру, а не збоку
                     local xOffset = (column - (rowWidth / 2)) * spacing
                     local zOffset = -3 - (row * spacing)
                     
