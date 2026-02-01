@@ -1690,7 +1690,7 @@ end)
 
 -- Farm Exp --
 
-FarmAll.MouseButton1Click:Connect(function()
+Farm1All.MouseButton1Click:Connect(function()
 	if farmallactive ~= true then
 		farmallactive = true
 		farmfistactive = true
@@ -1747,7 +1747,7 @@ FarmBody.MouseButton1Click:Connect(function()
 	end
 end)
 
-FarmSpeed.MouseButton1Click:Connect(function()
+Farm1Speed.MouseButton1Click:Connect(function()
 	if farmspeedactive ~= true then
 		farmspeedactive = true
 		FarmSpeed.BackgroundColor3 = Color3.new(0, 0.5, 0)
