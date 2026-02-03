@@ -859,7 +859,7 @@ TPLoopBtn.Name = "TPLoop"
 TPLoopBtn.Parent = MainFrame 
 TPLoopBtn.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
 TPLoopBtn.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
-TPLoopBtn.Position = UDim2.new(0, 415, 0, 5) -- Між 375 і 505
+TPLoopBtn.Position = UDim2.new(0, 415, 0, 5) 
 TPLoopBtn.Size = UDim2.new(0, 85, 0, 20)
 TPLoopBtn.TextColor3 = Color3.new(1, 1, 1)
 TPLoopBtn.Font = Enum.Font.Fantasy
@@ -868,36 +868,74 @@ TPLoopBtn.TextSize = 14
 TPLoopBtn.TextWrapped = true
 TPLoopBtn.ZIndex = 10 
 
-local npcNames = {"CJ", "Sath", "Thug", "Angel","Moltens"}
+local npcNames = {"CJ", "Sath", "Thug", "Angel", "Moltens"}
 local tpActive = false
 local rowWidth = 8
 local spacing = 1
+local safeRadius = 400
+
+-- Координати зон для кожного NPC
+local restrictedZones = {
+    ["Thug"]    = Vector3.new(420, 249, 759),
+    ["Sath"]    = Vector3.new(59, 249, 1396),
+    ["CJ"]      = Vector3.new(-345, 249, -115),
+    ["Angel"]   = Vector3.new(-2555, 5470, -496),
+    ["Moltens"] = Vector3.new(-1827, 242, -1483)
+}
 
 local function teleportNPCs()
-    local player = game.Players.LocalPlayer
-    if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-        local playerRoot = player.Character.HumanoidRootPart
-        local count = 0
-        
-        for _, object in ipairs(game.Workspace:GetChildren()) do
-            if table.find(npcNames, object.Name) and object:IsA("Model") then
-                local npcRoot = object:FindFirstChild("HumanoidRootPart")
-                if npcRoot then
-                    for _, part in ipairs(object:GetDescendants()) do
-                        if part:IsA("BasePart") then
-                            part.CanCollide = false
-                        end
-                    end
+    local localPlayer = game.Players.LocalPlayer
+    if not localPlayer or not localPlayer.Character or not localPlayer.Character:FindFirstChild("HumanoidRootPart") then return end
+    
+    local playerRoot = localPlayer.Character.HumanoidRootPart
+    local count = 0
+    
+    -- 1. Визначаємо, які типи NPC зараз "заблоковані" через присутність інших гравців
+    local blockedTypes = {}
+    local allPlayers = game.Players:GetPlayers()
 
-                    local column = count % rowWidth
-                    local row = math.floor(count / rowWidth)
-                    
-                    local xOffset = (column - (rowWidth / 2)) * spacing
-                    local zOffset = -3 - (row * spacing)
-                    
-                    npcRoot.CFrame = playerRoot.CFrame * CFrame.new(xOffset, 0, zOffset)
-                    count = count + 1
+    for npcName, zonePos in pairs(restrictedZones) do
+        blockedTypes[npcName] = false -- За замовчуванням не блокуємо
+        
+        for _, otherPlayer in ipairs(allPlayers) do
+            -- Перевіряємо всіх гравців, крім себе
+            if otherPlayer ~= localPlayer and otherPlayer.Character and otherPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                local dist = (otherPlayer.Character.HumanoidRootPart.Position - zonePos).Magnitude
+                
+                -- Якщо хоча б один гравець у зоні < 400, блокуємо цей тип NPC
+                if dist < safeRadius then
+                    blockedTypes[npcName] = true
+                    break -- Достатньо одного гравця, щоб заблокувати, далі не перевіряємо
                 end
+            end
+        end
+    end
+
+    -- 2. Телепортуємо тільки дозволених NPC
+    for _, object in ipairs(game.Workspace:GetChildren()) do
+        if table.find(npcNames, object.Name) and object:IsA("Model") then
+            
+            -- Якщо тип NPC заблокований (там є інші гравці), пропускаємо його
+            if blockedTypes[object.Name] == true then
+                continue 
+            end
+
+            local npcRoot = object:FindFirstChild("HumanoidRootPart")
+            if npcRoot then
+                for _, part in ipairs(object:GetDescendants()) do
+                    if part:IsA("BasePart") then
+                        part.CanCollide = false
+                    end
+                end
+
+                local column = count % rowWidth
+                local row = math.floor(count / rowWidth)
+                
+                local xOffset = (column - (rowWidth / 2)) * spacing
+                local zOffset = -3 - (row * spacing)
+                
+                npcRoot.CFrame = playerRoot.CFrame * CFrame.new(xOffset, 0, zOffset)
+                count = count + 1
             end
         end
     end
@@ -917,7 +955,7 @@ TPLoopBtn.MouseButton1Click:Connect(function()
             task.spawn(function()
                 while tpActive do
                     teleportNPCs()
-                    task.wait(1)
+                    task.wait(1) 
                 end
                 isLoopRunning = false 
             end)
@@ -1771,26 +1809,21 @@ spawn(function()
                 if stats >= 1e18 then
                     currentFSZone = "FS1Qi"
                     if lastFSZone ~= currentFSZone then hrp.CFrame = CFrame.new(-3869, 375, -2278) end
-                elseif stats >= 1e15 then -- 10 T
+                elseif stats >= 1e15 then 
                     currentFSZone = "FS1Qa"
                     if lastFSZone ~= currentFSZone then hrp.CFrame = CFrame.new(113, 17095, -419) end
-                elseif stats >= 1e13 then -- 10 T
+                elseif stats >= 1e13 then 
                     currentFSZone = "FS10T"
                     if lastFSZone ~= currentFSZone then hrp.CFrame = CFrame.new(-369, 15735, -9) end
-                elseif stats >= 1e11 then -- 100 B
+                elseif stats >= 1e11 then 
                     currentFSZone = "FS100B"
                     if lastFSZone ~= currentFSZone then hrp.CFrame = CFrame.new(1381, 9274, 1647) end
-                elseif stats >= 1e09 then -- 1 B
+                elseif stats >= 1e09 then 
                     currentFSZone = "FS1B"
                     if lastFSZone ~= currentFSZone then hrp.CFrame = CFrame.new(1176, 4789, -2293) end
-                elseif stats >= 1000 then -- 1 K
+                elseif stats >= 0 then 
                     currentFSZone = "FS1K"
                     if lastFSZone ~= currentFSZone then hrp.CFrame = CFrame.new(-2279, 1944, 1053) end
-                else -- Локація 0
-                    currentFSZone = "FS0"
-                    if lastFSZone ~= currentFSZone then hrp.CFrame = CFrame.new(409, 271, 978) end
-                end
-
                 if currentFSZone ~= "" then lastFSZone = currentFSZone end
 
                 -- НАДСИЛАЄМО СИГНАЛ ТРЕНУВАННЯ
@@ -1799,7 +1832,7 @@ spawn(function()
                 end
             end
         else
-            lastFSZone = "" -- Скидаємо зону
+            lastFSZone = ""
         end
         task.wait(0.1)
     end
