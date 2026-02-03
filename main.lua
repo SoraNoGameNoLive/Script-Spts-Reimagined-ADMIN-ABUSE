@@ -1824,6 +1824,8 @@ spawn(function()
                 elseif stats >= 0 then 
                     currentFSZone = "FS1K"
                     if lastFSZone ~= currentFSZone then hrp.CFrame = CFrame.new(-2279, 1944, 1053) end
+                    end
+                    
                 if currentFSZone ~= "" then lastFSZone = currentFSZone end
 
                 -- НАДСИЛАЄМО СИГНАЛ ТРЕНУВАННЯ
