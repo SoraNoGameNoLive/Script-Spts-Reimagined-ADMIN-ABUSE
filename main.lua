@@ -2109,7 +2109,7 @@ spawn(function()
             end
         end
 
-        task.wait(0.3)
+        task.wait(0.5)
     end
 end)
 
@@ -2147,7 +2147,7 @@ spawn(function()
 					end)
 					while annoyplayeractive == true do
 						player.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
-						wait(.005)
+						wait(0.5)
 					end
 					player.HumanoidRootPart.CFrame = startpos
 				end
