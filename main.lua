@@ -879,7 +879,7 @@ local restrictedZones = {
     ["Thug"]    = Vector3.new(420, 249, 759),
     ["Sath"]    = Vector3.new(59, 249, 1396),
     ["CJ"]      = Vector3.new(-345, 249, -115),
-    ["Angel"]   = Vector3.new(-2555, 5470, -496),
+    ["Angel"]   = Vector3.new(421, 249, -640),
     ["Moltens"] = Vector3.new(-1827, 242, -1483)
 }
 
