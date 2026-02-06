@@ -854,28 +854,34 @@ esptrack.Text = "ESP"
 esptrack.TextSize = 16
 esptrack.TextWrapped = true
 
+-- Налаштування UI (Залишене з твого прикладу)
 local TPLoopBtn = Instance.new("TextButton")
+local parent = MainFrame or game.CoreGui:FindFirstChild("RobloxGui") or game.Players.LocalPlayer:WaitForChild("PlayerGui")
 TPLoopBtn.Name = "TPLoop"
-TPLoopBtn.Parent = MainFrame 
+TPLoopBtn.Parent = parent 
 TPLoopBtn.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
 TPLoopBtn.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
 TPLoopBtn.Position = UDim2.new(0, 415, 0, 5) 
 TPLoopBtn.Size = UDim2.new(0, 85, 0, 20)
 TPLoopBtn.TextColor3 = Color3.new(1, 1, 1)
 TPLoopBtn.Font = Enum.Font.Fantasy
-TPLoopBtn.Text = "TP NPC: OFF"
+TPLoopBtn.Text = "Farm Logic: OFF"
 TPLoopBtn.TextSize = 14
 TPLoopBtn.TextWrapped = true
 TPLoopBtn.ZIndex = 10 
 
-local npcNames = {"CJ", "Sath", "Thug", "Angel", "Moltens"}
-local tpActive = false
-local rowWidth = 8
-local spacing = 1
-local safeRadius = 400
+-------------------------------------------------
+-- КОНФІГУРАЦІЯ
+-------------------------------------------------
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+local LocalPlayer = Players.LocalPlayer
 
--- Координати зон для кожного NPC
-local restrictedZones = {
+local tpActive = false
+local safeRadiusPlayer = 1000   -- Радіус безпеки для гравця
+local safeRadiusNPC = 1000    -- Радіус безпеки для NPC (від точки спавну)
+
+local targetPositions = {
     ["Thug"]    = Vector3.new(420, 249, 759),
     ["Sath"]    = Vector3.new(59, 249, 1396),
     ["CJ"]      = Vector3.new(-345, 249, -115),
@@ -883,86 +889,103 @@ local restrictedZones = {
     ["Moltens"] = Vector3.new(-1827, 242, -1483)
 }
 
-local function teleportNPCs()
-    local localPlayer = game.Players.LocalPlayer
-    if not localPlayer or not localPlayer.Character or not localPlayer.Character:FindFirstChild("HumanoidRootPart") then return end
-    
-    local playerRoot = localPlayer.Character.HumanoidRootPart
-    local count = 0
-    
-    -- 1. Визначаємо, які типи NPC зараз "заблоковані" через присутність інших гравців
-    local blockedTypes = {}
-    local allPlayers = game.Players:GetPlayers()
+local visitOrder = {"Thug", "Sath", "CJ", "Angel", "Moltens"}
 
-    for npcName, zonePos in pairs(restrictedZones) do
-        blockedTypes[npcName] = false -- За замовчуванням не блокуємо
-        
-        for _, otherPlayer in ipairs(allPlayers) do
-            -- Перевіряємо всіх гравців, крім себе
-            if otherPlayer ~= localPlayer and otherPlayer.Character and otherPlayer.Character:FindFirstChild("HumanoidRootPart") then
-                local dist = (otherPlayer.Character.HumanoidRootPart.Position - zonePos).Magnitude
-                
-                -- Якщо хоча б один гравець у зоні < 400, блокуємо цей тип NPC
-                if dist < safeRadius then
-                    blockedTypes[npcName] = true
-                    break -- Достатньо одного гравця, щоб заблокувати, далі не перевіряємо
-                end
+-------------------------------------------------
+-- ПЕРЕВІРКА ГРАВЦІВ (DISTANCE CHECK)
+-------------------------------------------------
+local function isZoneSafe(position, radius)
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+            local dist = (player.Character.HumanoidRootPart.Position - position).Magnitude
+            if dist <= radius then
+                return false -- Знайдено стороннього гравця
             end
         end
     end
+    return true
+end
 
-    -- 2. Телепортуємо тільки дозволених NPC
-    for _, object in ipairs(game.Workspace:GetChildren()) do
-        if table.find(npcNames, object.Name) and object:IsA("Model") then
-            
-            -- Якщо тип NPC заблокований (там є інші гравці), пропускаємо його
-            if blockedTypes[object.Name] == true then
-                continue 
-            end
-
-            local npcRoot = object:FindFirstChild("HumanoidRootPart")
-            if npcRoot then
-                for _, part in ipairs(object:GetDescendants()) do
-                    if part:IsA("BasePart") then
-                        part.CanCollide = false
+-------------------------------------------------
+-- ТЕЛЕПОРТ NPC
+-------------------------------------------------
+local function fixNPCs()
+    for _, model in ipairs(Workspace:GetChildren()) do
+        local targetPos = targetPositions[model.Name]
+        if model:IsA("Model") and targetPos then
+            -- NPC телепортується тільки якщо в радіусі 1000 studs від ТОЧКИ немає гравців
+            if isZoneSafe(targetPos, safeRadiusNPC) then
+                local root = model:FindFirstChild("HumanoidRootPart")
+                if root then
+                    -- Вимикаємо колізію
+                    for _, part in ipairs(model:GetDescendants()) do
+                        if part:IsA("BasePart") then part.CanCollide = false end
+                    end
+                    -- Сама телепортація бота
+                    if (root.Position - targetPos).Magnitude > 2 then -- Оптимізація: ТП тільки якщо він не на місці
+                        root.CFrame = CFrame.new(targetPos)
+                        root.AssemblyLinearVelocity = Vector3.new(0,0,0)
                     end
                 end
-
-                local column = count % rowWidth
-                local row = math.floor(count / rowWidth)
-                
-                local xOffset = (column - (rowWidth / 2)) * spacing
-                local zOffset = -3 - (row * spacing)
-                
-                npcRoot.CFrame = playerRoot.CFrame * CFrame.new(xOffset, 0, zOffset)
-                count = count + 1
             end
         end
     end
 end
 
-local isLoopRunning = false 
+-------------------------------------------------
+-- ГОЛОВНИЙ ЦИКЛ ТЕЛЕПОРТАЦІЇ ГРАВЦЯ
+-------------------------------------------------
+local function runFarmLoop()
+    while tpActive do
+        local char = LocalPlayer.Character
+        local root = char and char:FindFirstChild("HumanoidRootPart")
+        
+        if not root then 
+            task.wait(1) 
+            continue 
+        end
 
+        for _, npcName in ipairs(visitOrder) do
+            if not tpActive then break end
+            
+            -- Оновлюємо позиції NPC перед кожним кроком гравця
+            fixNPCs()
+            
+            local targetPos = targetPositions[npcName]
+            
+            -- Перевірка безпеки: чи порожньо біля NPC (1000) та біля гравця (200)
+            -- Примітка: для телепорту гравця ми також використовуємо targetPos
+            if isZoneSafe(targetPos, safeRadiusNPC) and isZoneSafe(root.Position, safeRadiusPlayer) then
+                
+                -- 1. Телепорт на 20 studs (зачекати 0.5 сек)
+                root.CFrame = CFrame.new(targetPos + Vector3.new(0, 0, 20), targetPos)
+                task.wait(0.5)
+                
+                if not tpActive then break end
+                
+                -- 2. Телепорт на 3 studs
+                root.CFrame = CFrame.new(targetPos + Vector3.new(0, 0, 3), targetPos)
+                task.wait(0.8)
+            else
+                -- Якщо скіпнули бота через гравців
+                warn("Skip " .. npcName .. " - гравці поруч. Очікування 1 сек.")
+                task.wait(1.4)
+            end
+        end
+        task.wait(0.1)
+    end
+end
+
+-------------------------------------------------
+-- КНОПКА
+-------------------------------------------------
 TPLoopBtn.MouseButton1Click:Connect(function()
     tpActive = not tpActive
+    TPLoopBtn.Text = tpActive and "Farm: ON" or "Farm: OFF"
+    TPLoopBtn.TextColor3 = tpActive and Color3.new(0, 1, 0) or Color3.new(1, 0, 0)
     
     if tpActive then
-        TPLoopBtn.Text = "TP NPC: ON"
-        TPLoopBtn.TextColor3 = Color3.new(0, 1, 0)
-        
-        if not isLoopRunning then
-            isLoopRunning = true
-            task.spawn(function()
-                while tpActive do
-                    teleportNPCs()
-                    task.wait(1) 
-                end
-                isLoopRunning = false 
-            end)
-        end
-    else
-        TPLoopBtn.Text = "TP NPC: OFF"
-        TPLoopBtn.TextColor3 = Color3.new(1, 0, 0)
+        task.spawn(runFarmLoop)
     end
 end)
 
