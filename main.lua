@@ -865,7 +865,7 @@ TPLoopBtn.Position = UDim2.new(0, 415, 0, 5)
 TPLoopBtn.Size = UDim2.new(0, 85, 0, 20)
 TPLoopBtn.TextColor3 = Color3.new(1, 1, 1)
 TPLoopBtn.Font = Enum.Font.Fantasy
-TPLoopBtn.Text = "Farm Logic: OFF"
+TPLoopBtn.Text = "Farm NPC: OFF"
 TPLoopBtn.TextSize = 14
 TPLoopBtn.TextWrapped = true
 TPLoopBtn.ZIndex = 10 
@@ -981,7 +981,7 @@ end
 -------------------------------------------------
 TPLoopBtn.MouseButton1Click:Connect(function()
     tpActive = not tpActive
-    TPLoopBtn.Text = tpActive and "Farm: ON" or "Farm: OFF"
+    TPLoopBtn.Text = tpActive and "Farm NPC: ON" or "Farm NPC: OFF"
     TPLoopBtn.TextColor3 = tpActive and Color3.new(0, 1, 0) or Color3.new(1, 0, 0)
     
     if tpActive then
