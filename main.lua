@@ -884,7 +884,7 @@ local safeRadiusNPC = 1000    -- Радіус безпеки для NPC (від 
 local targetPositions = {
     ["Thug"]    = Vector3.new(427, 249, 761),
     ["Sath"]    = Vector3.new(53, 249, 1417),
-    ["CJ"]      = Vector3.new(-317, 249, -117),
+    ["CJ"]      = Vector3.new(-317, 249, -123),
     ["Angel"]   = Vector3.new(435, 249, -627),
     ["Moltens"] = Vector3.new(-1814, 242, -1495)
 }
