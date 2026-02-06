@@ -882,11 +882,11 @@ local safeRadiusPlayer = 1000   -- Радіус безпеки для гравц
 local safeRadiusNPC = 1000    -- Радіус безпеки для NPC (від точки спавну)
 
 local targetPositions = {
-    ["Thug"]    = Vector3.new(420, 249, 759),
-    ["Sath"]    = Vector3.new(59, 249, 1396),
-    ["CJ"]      = Vector3.new(-345, 249, -115),
-    ["Angel"]   = Vector3.new(421, 249, -640),
-    ["Moltens"] = Vector3.new(-1827, 242, -1483)
+    ["Thug"]    = Vector3.new(427, 249, 761),
+    ["Sath"]    = Vector3.new(53, 249, 1417),
+    ["CJ"]      = Vector3.new(-317, 249, -117),
+    ["Angel"]   = Vector3.new(435, 249, -627),
+    ["Moltens"] = Vector3.new(-1814, 242, -1495)
 }
 
 local visitOrder = {"Thug", "Sath", "CJ", "Angel", "Moltens"}
