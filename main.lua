@@ -854,7 +854,7 @@ esptrack.Text = "ESP"
 esptrack.TextSize = 16
 esptrack.TextWrapped = true
 
--- Налаштування UI (Залишене з твого прикладу)
+-- Налаштування UI (Залишене без змін)
 local TPLoopBtn = Instance.new("TextButton")
 local parent = MainFrame or game.CoreGui:FindFirstChild("RobloxGui") or game.Players.LocalPlayer:WaitForChild("PlayerGui")
 TPLoopBtn.Name = "TPLoop"
@@ -865,7 +865,7 @@ TPLoopBtn.Position = UDim2.new(0, 415, 0, 5)
 TPLoopBtn.Size = UDim2.new(0, 85, 0, 20)
 TPLoopBtn.TextColor3 = Color3.new(1, 1, 1)
 TPLoopBtn.Font = Enum.Font.Fantasy
-TPLoopBtn.Text = "Farm NPC: OFF"
+TPLoopBtn.Text = "Farm Logic: OFF"
 TPLoopBtn.TextSize = 14
 TPLoopBtn.TextWrapped = true
 TPLoopBtn.ZIndex = 10 
@@ -878,28 +878,29 @@ local Workspace = game:GetService("Workspace")
 local LocalPlayer = Players.LocalPlayer
 
 local tpActive = false
-local safeRadiusPlayer = 1000   -- Радіус безпеки для гравця
-local safeRadiusNPC = 1000    -- Радіус безпеки для NPC (від точки спавну)
+local safeRadiusPlayer = 2000   -- Радіус перевірки біля нас
+local safeRadiusNPC = 2000     -- Радіус перевірки біля точки спавну бота
 
 local targetPositions = {
     ["Thug"]    = Vector3.new(427, 249, 761),
     ["Sath"]    = Vector3.new(53, 249, 1417),
-    ["CJ"]      = Vector3.new(-317, 249, -123),
+    ["CJ"]      = Vector3.new(-317, 249, -124),
     ["Angel"]   = Vector3.new(435, 249, -627),
     ["Moltens"] = Vector3.new(-1814, 242, -1495)
 }
 
+-- Порядок проходження
 local visitOrder = {"Thug", "Sath", "CJ", "Angel", "Moltens"}
 
 -------------------------------------------------
--- ПЕРЕВІРКА ГРАВЦІВ (DISTANCE CHECK)
+-- ПЕРЕВІРКА БЕЗПЕКИ (Чи є гравці поруч)
 -------------------------------------------------
 local function isZoneSafe(position, radius)
     for _, player in ipairs(Players:GetPlayers()) do
         if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
             local dist = (player.Character.HumanoidRootPart.Position - position).Magnitude
             if dist <= radius then
-                return false -- Знайдено стороннього гравця
+                return false -- Знайдено чужого гравця
             end
         end
     end
@@ -907,25 +908,27 @@ local function isZoneSafe(position, radius)
 end
 
 -------------------------------------------------
--- ТЕЛЕПОРТ NPC
+-- ТЕЛЕПОРТ КОНКРЕТНОГО БОТА (Метод з твого скрипта)
 -------------------------------------------------
-local function fixNPCs()
-    for _, model in ipairs(Workspace:GetChildren()) do
-        local targetPos = targetPositions[model.Name]
-        if model:IsA("Model") and targetPos then
-            -- NPC телепортується тільки якщо в радіусі 1000 studs від ТОЧКИ немає гравців
-            if isZoneSafe(targetPos, safeRadiusNPC) then
-                local root = model:FindFirstChild("HumanoidRootPart")
-                if root then
-                    -- Вимикаємо колізію
-                    for _, part in ipairs(model:GetDescendants()) do
-                        if part:IsA("BasePart") then part.CanCollide = false end
+local function teleportBotToZone(targetName, targetPos)
+    -- Використовуємо той самий цикл, що був у тебе, бо він робочий
+    for _, object in ipairs(game.Workspace:GetChildren()) do
+        if object.Name == targetName and object:IsA("Model") then
+            
+            local npcRoot = object:FindFirstChild("HumanoidRootPart")
+            if npcRoot then
+                -- Вимикаємо колізію (з твого коду)
+                for _, part in ipairs(object:GetDescendants()) do
+                    if part:IsA("BasePart") then
+                        part.CanCollide = false
                     end
-                    -- Сама телепортація бота
-                    if (root.Position - targetPos).Magnitude > 2 then -- Оптимізація: ТП тільки якщо він не на місці
-                        root.CFrame = CFrame.new(targetPos)
-                        root.AssemblyLinearVelocity = Vector3.new(0,0,0)
-                    end
+                end
+
+                -- Ставимо бота на фіксовану точку
+                npcRoot.CFrame = CFrame.new(targetPos)
+                -- Обнуляємо швидкість
+                if npcRoot:FindFirstChild("AssemblyLinearVelocity") then
+                    npcRoot.AssemblyLinearVelocity = Vector3.new(0,0,0)
                 end
             end
         end
@@ -933,7 +936,7 @@ local function fixNPCs()
 end
 
 -------------------------------------------------
--- ГОЛОВНИЙ ЦИКЛ ТЕЛЕПОРТАЦІЇ ГРАВЦЯ
+-- ГОЛОВНИЙ ЦИКЛ
 -------------------------------------------------
 local function runFarmLoop()
     while tpActive do
@@ -948,40 +951,57 @@ local function runFarmLoop()
         for _, npcName in ipairs(visitOrder) do
             if not tpActive then break end
             
-            -- Оновлюємо позиції NPC перед кожним кроком гравця
-            fixNPCs()
-            
             local targetPos = targetPositions[npcName]
             
-            -- Перевірка безпеки: чи порожньо біля NPC (1000) та біля гравця (200)
-            -- Примітка: для телепорту гравця ми також використовуємо targetPos
-            if isZoneSafe(targetPos, safeRadiusNPC) and isZoneSafe(root.Position, safeRadiusPlayer) then
+            -- Перевірка безпеки
+            local isTargetSafe = isZoneSafe(targetPos, safeRadiusNPC)
+            local isOriginSafe = isZoneSafe(root.Position, safeRadiusPlayer)
+
+            if isTargetSafe and isOriginSafe then
+
+                -- Чекаємо мить перед тим як тягнути бота (як ти просив)
+                task.wait(0.1)
                 
-                -- 1. Телепорт на 20 studs (зачекати 0.5 сек)
+                if not tpActive then break end
+
+                -- ЕТАП 2: Тільки тепер телепортуємо ЦЬОГО бота до його точки
+                teleportBotToZone(npcName, targetPos)
+                
+                -- Чекаємо 0.5 сек (ти дивишся на бота, він вже стоїть)
+                -- ЕТАП 1: Ти телепортуєшся на позицію (20 studs)
+
                 root.CFrame = CFrame.new(targetPos + Vector3.new(0, 0, 20), targetPos)
-                task.wait(0.5)
+                
+                
+                task.wait(0.4)
                 
                 if not tpActive then break end
                 
-                -- 2. Телепорт на 3 studs
+                -- ЕТАП 3: Ти підлітаєш впритул (3 studs)
                 root.CFrame = CFrame.new(targetPos + Vector3.new(0, 0, 3), targetPos)
-                task.wait(0.8)
+                
+                -- Ще раз фіксуємо бота, щоб не втік під час бою
+                teleportBotToZone(npcName, targetPos)
+                
+                -- Час на вбивство/фарм
+                task.wait(0.9)
             else
-                -- Якщо скіпнули бота через гравців
-                warn("Skip " .. npcName .. " - гравці поруч. Очікування 1 сек.")
+                -- Якщо небезпечно - чекаємо 1 сек і пропускаємо
+                warn("Skip " .. npcName .. ". Waiting 1s...")
                 task.wait(1.4)
             end
         end
+        
         task.wait(0.1)
     end
 end
 
 -------------------------------------------------
--- КНОПКА
+-- ЗАПУСК
 -------------------------------------------------
 TPLoopBtn.MouseButton1Click:Connect(function()
     tpActive = not tpActive
-    TPLoopBtn.Text = tpActive and "Farm NPC: ON" or "Farm NPC: OFF"
+    TPLoopBtn.Text = tpActive and "Farm: ON" or "Farm: OFF"
     TPLoopBtn.TextColor3 = tpActive and Color3.new(0, 1, 0) or Color3.new(1, 0, 0)
     
     if tpActive then
@@ -2596,7 +2616,7 @@ local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
 local localPlayer = Players.LocalPlayer
-local SAFE_DISTANCE = 1000 
+local SAFE_DISTANCE = 2000 
 local isActive = false -- Стан функції (вимкнено за замовчуванням)
 -- Логіка перемикання кнопки
 DistanceKickBtn.MouseButton1Click:Connect(function()
