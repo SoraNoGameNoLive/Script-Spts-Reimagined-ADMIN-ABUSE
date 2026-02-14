@@ -854,160 +854,298 @@ esptrack.Text = "ESP"
 esptrack.TextSize = 16
 esptrack.TextWrapped = true
 
--- Налаштування UI (Залишене без змін)
+-------------------------------------------------
+-- UI
+-------------------------------------------------
 local TPLoopBtn = Instance.new("TextButton")
 local parent = MainFrame or game.CoreGui:FindFirstChild("RobloxGui") or game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
 TPLoopBtn.Name = "TPLoop"
-TPLoopBtn.Parent = parent 
+TPLoopBtn.Parent = parent
 TPLoopBtn.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
 TPLoopBtn.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
-TPLoopBtn.Position = UDim2.new(0, 415, 0, 5) 
+TPLoopBtn.Position = UDim2.new(0, 415, 0, 5)
 TPLoopBtn.Size = UDim2.new(0, 85, 0, 20)
 TPLoopBtn.TextColor3 = Color3.new(1, 1, 1)
 TPLoopBtn.Font = Enum.Font.Fantasy
-TPLoopBtn.Text = "Farm Logic: OFF"
+TPLoopBtn.Text = "Farm NPC: OFF"
 TPLoopBtn.TextSize = 14
-TPLoopBtn.TextWrapped = true
 TPLoopBtn.ZIndex = 10 
 
 -------------------------------------------------
--- КОНФІГУРАЦІЯ
+-- SERVICES
 -------------------------------------------------
 local Players = game:GetService("Players")
-local Workspace = game:GetService("Workspace")
 local LocalPlayer = Players.LocalPlayer
 
 local tpActive = false
-local safeRadiusPlayer = 2000   -- Радіус перевірки біля нас
-local safeRadiusNPC = 2000     -- Радіус перевірки біля точки спавну бота
 
+-------------------------------------------------
+-- SETTINGS
+-------------------------------------------------
+local SAFE_RADIUS_NPC = 1000
+local SAFE_RADIUS_ME = 1000
+local MEMORY_TRIGGER_DIST = 150
+local MEMORY_RETURN_DIST = 1000
+
+local AURA_SIZE_BIG = Vector3.new(100, 15, 100)
+local AURA_SIZE_DEFAULT = Vector3.new(17.8, 15, 17.4)
+
+-------------------------------------------------
+-- NPC POSITIONS
+-------------------------------------------------
 local targetPositions = {
-    ["Thug"]    = Vector3.new(427, 249, 761),
-    ["Sath"]    = Vector3.new(53, 249, 1417),
+    ["Thug"]    = Vector3.new(420, 249, 777),
+    ["Sath"]    = Vector3.new(33, 249, 1414),
     ["CJ"]      = Vector3.new(-317, 249, -124),
-    ["Angel"]   = Vector3.new(435, 249, -627),
-    ["Moltens"] = Vector3.new(-1814, 242, -1495)
+    ["Angel"]   = Vector3.new(435, 249, -628),
+    ["Moltens"] = Vector3.new(-1822, 242, -1472),
+	["Yeti"] 	= Vector3.new(1635, 242, 2051)
 }
 
--- Порядок проходження
-local visitOrder = {"Thug", "Sath", "CJ", "Angel", "Moltens"}
+local visitOrder = {"Thug", "Sath", "CJ"}
 
 -------------------------------------------------
--- ПЕРЕВІРКА БЕЗПЕКИ (Чи є гравці поруч)
+-- MEMORY
 -------------------------------------------------
-local function isZoneSafe(position, radius)
+local memory = {
+    active = false,
+    armed = false,
+    spot = Vector3.zero
+}
+
+-------------------------------------------------
+-- HELPERS
+-------------------------------------------------
+local function getMyRoot()
+    local char = LocalPlayer.Character
+    if not char then return nil end
+    return char:FindFirstChild("HumanoidRootPart")
+end
+
+local function setAuraSize(isBig)
+    local char = LocalPlayer.Character
+    if not char then return end
+
+    local aura = char:FindFirstChild("KillingIntentAura")
+    if aura and aura:IsA("BasePart") then
+        if isBig then
+            aura.Size = AURA_SIZE_BIG
+            aura.CanCollide = false
+        else
+            aura.Size = AURA_SIZE_DEFAULT
+        end
+    end
+end
+
+local function resetAuraSafe()
+    setAuraSize(false)
+end
+
+local function teleportMeNearSpot(spot)
+    local root = getMyRoot()
+    if not root then return end
+    setAuraSize(false)
+    task.wait(0.2)
+    root.CFrame = CFrame.new(spot) * CFrame.new(0,0,30)
+    task.wait(0.3)  -- <- змінили на 0.1 сек
+    root = getMyRoot()
+    if root then
+        root.CFrame = CFrame.new(spot) * CFrame.new(0,0,3)
+    end
+end
+
+local function instantTeleportToSpot(spot)
+    local root = getMyRoot()
+    if not root then return end
+    setAuraSize(false)
+      task.wait(0.1)
+    -- 1. ТП на 30 studs
+    root.CFrame = CFrame.new(spot) * CFrame.new(0, 0, 30)
+
+    -- коротка пауза
+    task.wait(0.3)
+
+    -- 2. ТП на 3 studs
+    root = getMyRoot()
+    if root then
+        root.CFrame = CFrame.new(spot) * CFrame.new(0, 0, 3)
+    end
+end
+
+
+-------------------------------------------------
+-- PLAYER DIST
+-------------------------------------------------
+local function anyPlayerNear(position, radius)
     for _, player in ipairs(Players:GetPlayers()) do
-        if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-            local dist = (player.Character.HumanoidRootPart.Position - position).Magnitude
-            if dist <= radius then
-                return false -- Знайдено чужого гравця
+        if player ~= LocalPlayer and player.Character then
+            local root = player.Character:FindFirstChild("HumanoidRootPart")
+            if root then
+                if (root.Position - position).Magnitude < radius then
+                    return true
+                end
             end
         end
     end
-    return true
+    return false
 end
 
 -------------------------------------------------
--- ТЕЛЕПОРТ КОНКРЕТНОГО БОТА (Метод з твого скрипта)
+-- MEMORY WATCHER (швидкий)
 -------------------------------------------------
-local function teleportBotToZone(targetName, targetPos)
-    -- Використовуємо той самий цикл, що був у тебе, бо він робочий
-    for _, object in ipairs(game.Workspace:GetChildren()) do
-        if object.Name == targetName and object:IsA("Model") then
-            
-            local npcRoot = object:FindFirstChild("HumanoidRootPart")
-            if npcRoot then
-                -- Вимикаємо колізію (з твого коду)
-                for _, part in ipairs(object:GetDescendants()) do
-                    if part:IsA("BasePart") then
-                        part.CanCollide = false
+task.spawn(function()
+    while true do
+        task.wait(0.03)
+
+        if not tpActive then continue end  -- фарм повинен бути увімкнений
+
+        local myRoot = getMyRoot()
+        if not myRoot then continue end
+
+        -- скидання memory через 5 хв
+        if memory.active and os.time() - memory.timestamp > 300 then
+            memory.active = false
+            memory.armed = false
+            memory.tpTriggered = false
+            warn("Memory скинута після 5 хвилин")
+        end
+
+        -- запам'ятати точку
+        if not memory.active and anyPlayerNear(myRoot.Position, MEMORY_TRIGGER_DIST) then
+            memory.active = true
+            memory.armed = false
+            memory.tpTriggered = false -- <- новий прапорець
+            memory.spot = myRoot.Position
+            memory.timestamp = os.time()
+            warn("Запам'ятована точка")
+        end
+
+        if memory.active then
+            local distFromSpot = (myRoot.Position - memory.spot).Magnitude
+
+            -- відійшли далеко → озброїти тригер і скинути tpTriggered
+            if distFromSpot > MEMORY_RETURN_DIST then
+                memory.armed = true
+                memory.tpTriggered = false
+            end
+
+            -- миттєвий телепорт (тільки 1 раз за активну memory)
+            if memory.armed and not memory.tpTriggered then
+                if anyPlayerNear(myRoot.Position, MEMORY_RETURN_DIST) 
+                or anyPlayerNear(memory.spot, MEMORY_RETURN_DIST) then
+
+                    memory.tpTriggered = true -- щоб більше не спрацьовував
+                    instantTeleportToSpot(memory.spot)
+
+                    -- зупиняємо фарм на 10 секунд
+                    if not farmPaused then
+                        farmPaused = true
+                        warn("Фарм пауза 10 секунд через гравця поруч")
+                        task.spawn(function()
+                            task.wait(5)
+                            farmPaused = false
+                            warn("Фарм відновлено")
+                        end)
                     end
                 end
-
-                -- Ставимо бота на фіксовану точку
-                npcRoot.CFrame = CFrame.new(targetPos)
-                -- Обнуляємо швидкість
-                if npcRoot:FindFirstChild("AssemblyLinearVelocity") then
-                    npcRoot.AssemblyLinearVelocity = Vector3.new(0,0,0)
-                end
             end
+        end
+    end
+end)
+
+-------------------------------------------------
+-- FARM
+-------------------------------------------------
+local function farmCycle()
+    local root = getMyRoot()
+    if not root then return end
+
+    if anyPlayerNear(root.Position, SAFE_RADIUS_ME) then
+        resetAuraSafe()
+        TPLoopBtn.Text = "Status: Player Nearby!"
+        task.wait(0.5)
+        return
+    end
+
+    TPLoopBtn.Text = "Farm: Active"
+
+    for _, npcName in ipairs(visitOrder) do
+        if not tpActive then break end
+
+        local npcPos = targetPositions[npcName]
+
+        if not anyPlayerNear(npcPos, SAFE_RADIUS_NPC) then
+            root.CFrame = CFrame.new(npcPos) * CFrame.new(0,0,30)
+            task.wait(0.3)  -- <- змінили на 0.1 сек
+            root.CFrame = CFrame.new(npcPos) * CFrame.new(0,0,3)
+
+            setAuraSize(true)
+            task.wait(0.5)
+            setAuraSize(false)
+            task.wait(1.2)
+        else
+            task.wait(2)
         end
     end
 end
 
--------------------------------------------------
--- ГОЛОВНИЙ ЦИКЛ
--------------------------------------------------
-local function runFarmLoop()
-    while tpActive do
-        local char = LocalPlayer.Character
-        local root = char and char:FindFirstChild("HumanoidRootPart")
-        
-        if not root then 
-            task.wait(1) 
-            continue 
-        end
+---------------------------------------------
+-- admins check
+---------------------------------------------
+local OWNER_IDS = {10435914167, 585191969, 3469662287, 909475010, 1921930265}
 
-        for _, npcName in ipairs(visitOrder) do
-            if not tpActive then break end
-            
-            local targetPos = targetPositions[npcName]
-            
-            -- Перевірка безпеки
-            local isTargetSafe = isZoneSafe(targetPos, safeRadiusNPC)
-            local isOriginSafe = isZoneSafe(root.Position, safeRadiusPlayer)
-
-            if isTargetSafe and isOriginSafe then
-
-                -- Чекаємо мить перед тим як тягнути бота (як ти просив)
-                task.wait(0.1)
-                
-                if not tpActive then break end
-
-                -- ЕТАП 2: Тільки тепер телепортуємо ЦЬОГО бота до його точки
-                teleportBotToZone(npcName, targetPos)
-                
-                -- Чекаємо 0.5 сек (ти дивишся на бота, він вже стоїть)
-                -- ЕТАП 1: Ти телепортуєшся на позицію (20 studs)
-
-                root.CFrame = CFrame.new(targetPos + Vector3.new(0, 0, 20), targetPos)
-                
-                
-                task.wait(0.4)
-                
-                if not tpActive then break end
-                
-                -- ЕТАП 3: Ти підлітаєш впритул (3 studs)
-                root.CFrame = CFrame.new(targetPos + Vector3.new(0, 0, 3), targetPos)
-                
-                -- Ще раз фіксуємо бота, щоб не втік під час бою
-                teleportBotToZone(npcName, targetPos)
-                
-                -- Час на вбивство/фарм
-                task.wait(0.9)
-            else
-                -- Якщо небезпечно - чекаємо 1 сек і пропускаємо
-                warn("Skip " .. npcName .. ". Waiting 1s...")
-                task.wait(1.4)
+local function isOwnerOnline()
+    for _, player in ipairs(Players:GetPlayers()) do
+        for _, id in ipairs(OWNER_IDS) do
+            if player.UserId == id then
+                return true
             end
         end
-        
+    end
+    return false
+end
+
+task.spawn(function()
+    while true do
+        task.wait(0.5) -- перевіряємо раз на 0.5 сек
+
+        if tpActive and isOwnerOnline() then
+            tpActive = false
+            farmPaused = false
+            TPLoopBtn.Text = "Farm stopped! Owner online"
+            TPLoopBtn.TextColor3 = Color3.new(1,0,0)
+            warn("Фарм зупинено: власник зайшов на сервер")
+        end
+    end
+end)
+
+-------------------------------------------------
+-- LOOP
+-------------------------------------------------
+local function runLoop()
+    while tpActive do
+        pcall(farmCycle)
         task.wait(0.1)
     end
+
+    resetAuraSafe()
+    TPLoopBtn.Text = "Farm: OFF"
 end
 
 -------------------------------------------------
--- ЗАПУСК
+-- BUTTON
 -------------------------------------------------
 TPLoopBtn.MouseButton1Click:Connect(function()
     tpActive = not tpActive
-    TPLoopBtn.Text = tpActive and "Farm: ON" or "Farm: OFF"
-    TPLoopBtn.TextColor3 = tpActive and Color3.new(0, 1, 0) or Color3.new(1, 0, 0)
-    
     if tpActive then
-        task.spawn(runFarmLoop)
+        TPLoopBtn.Text = "Farm: Starting..."
+        task.spawn(runLoop)
+    else
+        TPLoopBtn.Text = "Farm: OFF"
     end
 end)
+
 
 -- 1. Поле для введення імені (TextBox)
 local PlayerNameInput = Instance.new("TextBox")
@@ -1116,6 +1254,145 @@ DistanceKickBtn.Font = Enum.Font.Fantasy
 DistanceKickBtn.Text = "Distance Kick: OFF"
 DistanceKickBtn.TextSize = 12
 DistanceKickBtn.ZIndex = 10
+
+-- ==========================================
+-- ПОВНИЙ ОПТИМІЗОВАНИЙ CRATE FARM
+-- ==========================================
+
+local VirtualInputManager = game:GetService("VirtualInputManager")
+local Player = game.Players.LocalPlayer
+
+-- ==========================================
+-- UI КНОПКА
+-- ==========================================
+local CrateFarmBtn = Instance.new("TextButton")
+CrateFarmBtn.Name = "CrateFarmBtn"
+CrateFarmBtn.Parent = ExtrasFrame -- Переконайся, що ExtrasFrame існує
+CrateFarmBtn.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+CrateFarmBtn.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+CrateFarmBtn.Position = UDim2.new(0, 5, 0, 210)
+CrateFarmBtn.Size = UDim2.new(0, 150, 0, 20)
+CrateFarmBtn.TextColor3 = Color3.new(1, 1, 1)
+CrateFarmBtn.Font = Enum.Font.Fantasy
+CrateFarmBtn.Text = "Crate farm: OFF"
+CrateFarmBtn.TextSize = 12
+CrateFarmBtn.ZIndex = 10
+
+-- ==========================================
+-- НАЛАШТУВАННЯ
+-- ==========================================
+local farming = false
+local lastPosition = nil
+local isAtBase = false
+
+-- Назви Crate (для швидкого пошуку)
+-- Назви Crate для швидкого пошуку
+local CrateNames = {
+    GodlyCrate     = true,
+    MythicCrate    = true,
+    LegendaryCrate = true
+}
+
+
+
+-- ==========================================
+-- Функція повернення на базу
+-- ==========================================
+local function returnToStart()
+    local char = Player.Character
+    local root = char and char:FindFirstChild("HumanoidRootPart")
+    if root and lastPosition and not isAtBase then
+        root.CFrame = lastPosition
+        root.AssemblyLinearVelocity = Vector3.zero
+        isAtBase = true
+    end
+end
+
+-- ==========================================
+-- Головна функція фарму
+-- ==========================================
+local function farmLoop()
+    while farming do
+        local char = Player.Character
+        local root = char and char:FindFirstChild("HumanoidRootPart")
+        
+        if root then
+            local target = nil
+
+            -- Пошук ящика тільки серед дітей workspace
+            for _, obj in ipairs(workspace:GetChildren()) do
+                if CrateNames[obj.Name] then
+                    local clicker = obj:FindFirstChildWhichIsA("ClickDetector", true)
+                    local visual = obj:FindFirstChildWhichIsA("BasePart", true)
+                    if clicker and visual then
+                        target = visual
+                        break
+                    end
+                end
+            end
+
+            if target then
+                isAtBase = false
+                pcall(function()
+                    -- Телепортуємось до Crate з невеликим офсетом
+                    root.CFrame = CFrame.new(target.Position + Vector3.new(0, 2, 4), target.Position)
+                    root.AssemblyLinearVelocity = Vector3.zero
+                    task.wait(0.1)
+
+                    -- Наведення камери на Crate
+                    local cam = workspace.CurrentCamera
+                    cam.CFrame = CFrame.lookAt(cam.CFrame.Position, target.Position)
+                    task.wait(0.1)
+
+                    -- Емуляція кліку
+                    local vector, onScreen = cam:WorldToScreenPoint(target.Position)
+                    if onScreen then
+                        VirtualInputManager:SendMouseMoveEvent(vector.X, vector.Y, game)
+                        task.wait(0.05)
+                        VirtualInputManager:SendMouseButtonEvent(vector.X, vector.Y, 0, true, game, 0)
+                        task.wait(0.05)
+                        VirtualInputManager:SendMouseButtonEvent(vector.X, vector.Y, 0, false, game, 0)
+                    end
+                end)
+                task.wait(0.2) -- Затримка перед наступним пошуком
+            else
+                -- Якщо ящиків немає, повертаємось на базу один раз
+                if not isAtBase then
+                    returnToStart()
+                end
+                task.wait(0.4) -- Чекаємо перед новим пошуком
+            end
+        end
+        task.wait(0.3)
+    end
+end
+
+-- ==========================================
+-- Підключення кнопки
+-- ==========================================
+CrateFarmBtn.MouseButton1Click:Connect(function()
+    farming = not farming
+    
+    if farming then
+        CrateFarmBtn.Text = "Crate farm: ON"
+        CrateFarmBtn.TextColor3 = Color3.new(0, 1, 0)
+        
+        local char = Player.Character
+        local root = char and char:FindFirstChild("HumanoidRootPart")
+        if root then
+            lastPosition = root.CFrame
+            isAtBase = true
+        end
+        
+        task.spawn(farmLoop)
+    else
+        CrateFarmBtn.Text = "Crate farm: OFF"
+        CrateFarmBtn.TextColor3 = Color3.new(1, 1, 1)
+        isAtBase = false
+        returnToStart()
+    end
+end)
+
 
 Extras.Name = "Extras"
 Extras.Parent = MainFrame
