@@ -883,10 +883,10 @@ local tpActive = false
 -------------------------------------------------
 -- SETTINGS
 -------------------------------------------------
-local SAFE_RADIUS_NPC = 1000
-local SAFE_RADIUS_ME = 1000
+local SAFE_RADIUS_NPC = 400
+local SAFE_RADIUS_ME = 400
 local MEMORY_TRIGGER_DIST = 150
-local MEMORY_RETURN_DIST = 1000
+local MEMORY_RETURN_DIST = 400
 
 local AURA_SIZE_BIG = Vector3.new(100, 15, 100)
 local AURA_SIZE_DEFAULT = Vector3.new(17.8, 15, 17.4)
