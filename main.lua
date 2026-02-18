@@ -74,7 +74,7 @@ local ESP_SETTINGS = {
 local function Abbreviate(x)
     if not x then return "0" end
     x = tonumber(x) or 0
-    local suffixes = {"k", "M", "B", "T", "Qa", "Qi", "sx", "Sp", "So", "No", "dc", "Ud"}
+    local suffixes = {"k", "M", "B", "T", "Qa", "Qi", "sx", "Sp", "So", "No", "dc", "Ud", "Dd", "Td", "Qd", "Qn", "Sxd", "Spd", "Od", "Nd", "Vg"}
     if x < 1000 then return tostring(math.floor(x)) end
     local i = 1
     while x >= 1000 and i <= #suffixes do
@@ -855,250 +855,152 @@ esptrack.TextSize = 16
 esptrack.TextWrapped = true
 
 -------------------------------------------------
--- UI
+-- SERVICES & PARENT
 -------------------------------------------------
-local TPLoopBtn = Instance.new("TextButton")
-local parent = MainFrame or game.CoreGui:FindFirstChild("RobloxGui") or game.Players.LocalPlayer:WaitForChild("PlayerGui")
+Players = game:GetService("Players")
+LocalPlayer = Players.LocalPlayer
+RunService = game:GetService("RunService")
 
-TPLoopBtn.Name = "TPLoop"
-TPLoopBtn.Parent = parent
-TPLoopBtn.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
-TPLoopBtn.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
-TPLoopBtn.Position = UDim2.new(0, 415, 0, 5)
-TPLoopBtn.Size = UDim2.new(0, 85, 0, 20)
-TPLoopBtn.TextColor3 = Color3.new(1, 1, 1)
-TPLoopBtn.Font = Enum.Font.Fantasy
-TPLoopBtn.Text = "Farm NPC: OFF"
-TPLoopBtn.TextSize = 14
-TPLoopBtn.ZIndex = 10 
+-- Батьківський елемент
+parent = MainFrame or game.CoreGui:FindFirstChild("RobloxGui") or LocalPlayer:WaitForChild("PlayerGui")
 
 -------------------------------------------------
--- SERVICES
+-- SETTINGS & DATA
 -------------------------------------------------
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
+tpActive = false
+farmPaused = false
+selectedNPCs = {} 
 
-local tpActive = false
+SAFE_RADIUS_NPC = 2000
+SAFE_RADIUS_ME = 2000
+MEMORY_TRIGGER_DIST = 150
+MEMORY_RETURN_DIST = 2000
 
--------------------------------------------------
--- SETTINGS
--------------------------------------------------
-local SAFE_RADIUS_NPC = 400
-local SAFE_RADIUS_ME = 400
-local MEMORY_TRIGGER_DIST = 150
-local MEMORY_RETURN_DIST = 400
+AURA_SIZE_BIG = Vector3.new(100, 15, 100)
+AURA_SIZE_DEFAULT = Vector3.new(17.8, 15, 17.4)
 
-local AURA_SIZE_BIG = Vector3.new(100, 15, 100)
-local AURA_SIZE_DEFAULT = Vector3.new(17.8, 15, 17.4)
-
--------------------------------------------------
--- NPC POSITIONS
--------------------------------------------------
-local targetPositions = {
+targetPositions = {
     ["Thug"]    = Vector3.new(420, 249, 777),
     ["Sath"]    = Vector3.new(33, 249, 1414),
     ["CJ"]      = Vector3.new(-317, 249, -124),
     ["Angel"]   = Vector3.new(435, 249, -628),
     ["Moltens"] = Vector3.new(-1822, 242, -1472),
-	["Yeti"] 	= Vector3.new(1635, 242, 2051)
-}
-
-local visitOrder = {"Thug", "Sath", "CJ"}
-
--------------------------------------------------
--- MEMORY
--------------------------------------------------
-local memory = {
-    active = false,
-    armed = false,
-    spot = Vector3.zero
+    ["Yeti"]    = Vector3.new(1635, 242, 2051)
 }
 
 -------------------------------------------------
--- HELPERS
+-- UI: MENU BUTTON
 -------------------------------------------------
-local function getMyRoot()
+NPCMenuBtn = Instance.new("TextButton")
+NPCMenuBtn.Name = "NPCMenuBtn"
+NPCMenuBtn.Parent = parent
+NPCMenuBtn.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+NPCMenuBtn.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+NPCMenuBtn.Position = UDim2.new(0, 415, 0, 5)
+NPCMenuBtn.Size = UDim2.new(0, 85, 0, 20)
+NPCMenuBtn.TextColor3 = Color3.new(1, 1, 1)
+NPCMenuBtn.Font = Enum.Font.Fantasy
+NPCMenuBtn.Text = "NPC Menu"
+NPCMenuBtn.TextSize = 14
+NPCMenuBtn.ZIndex = 50
+
+-------------------------------------------------
+-- UI: MAIN FRAME
+-------------------------------------------------
+NPCFrame = Instance.new("Frame")
+NPCFrame.Name = "NPCFrame"
+NPCFrame.Parent = parent
+NPCFrame.BackgroundColor3 = Color3.new(0.05, 0.05, 0.05)
+NPCFrame.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+NPCFrame.Position = UDim2.new(0, 415, 0, 30)
+NPCFrame.Size = UDim2.new(0, 130, 0, 200)
+NPCFrame.Visible = false
+NPCFrame.ZIndex = 50
+
+NPCScroll = Instance.new("ScrollingFrame", NPCFrame)
+NPCScroll.Name = "NPCScroll"
+NPCScroll.Position = UDim2.new(0, 5, 0, 5)
+NPCScroll.Size = UDim2.new(1, -10, 1, -45)
+NPCScroll.BackgroundColor3 = Color3.new(0.08, 0.08, 0.08)
+NPCScroll.BorderSizePixel = 0
+NPCScroll.ZIndex = 51
+NPCScroll.ScrollBarThickness = 4
+NPCScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+
+UIList = Instance.new("UIListLayout", NPCScroll)
+UIList.Padding = UDim.new(0, 3)
+UIList.SortOrder = Enum.SortOrder.LayoutOrder
+
+StartFarmBtn = Instance.new("TextButton", NPCFrame)
+StartFarmBtn.Name = "StartFarmBtn"
+StartFarmBtn.Size = UDim2.new(1, -10, 0, 30)
+StartFarmBtn.Position = UDim2.new(0, 5, 1, -35)
+StartFarmBtn.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
+StartFarmBtn.Text = "START FARM"
+StartFarmBtn.TextColor3 = Color3.new(1, 1, 1)
+StartFarmBtn.Font = Enum.Font.SourceSansBold
+StartFarmBtn.ZIndex = 52
+
+-------------------------------------------------
+-- UI LOGIC: REFRESH BUTTONS
+-------------------------------------------------
+function RefreshNPCButtons()
+    local count = 0
+    for name, _ in pairs(targetPositions) do
+        count = count + 1
+        local btn = Instance.new("TextButton")
+        btn.Name = name .. "Btn"
+        btn.Parent = NPCScroll
+        btn.Size = UDim2.new(1, -5, 0, 25)
+        btn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        btn.BorderSizePixel = 0
+        btn.Text = name
+        btn.TextColor3 = Color3.fromRGB(200, 200, 200)
+        btn.Font = Enum.Font.SourceSans
+        btn.TextSize = 14
+        btn.ZIndex = 55
+        
+        btn.MouseButton1Click:Connect(function()
+            if selectedNPCs[name] then
+                selectedNPCs[name] = nil
+                btn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+                btn.TextColor3 = Color3.fromRGB(200, 200, 200)
+            else
+                selectedNPCs[name] = true
+                btn.BackgroundColor3 = Color3.fromRGB(0, 120, 0)
+                btn.TextColor3 = Color3.new(1, 1, 1)
+            end
+        end)
+    end
+    NPCScroll.CanvasSize = UDim2.new(0, 0, 0, count * 28)
+end
+RefreshNPCButtons()
+
+-------------------------------------------------
+-- HELPERS & SYSTEM
+-------------------------------------------------
+memory = { active = false, armed = false, spot = Vector3.zero, timestamp = 0, tpTriggered = false }
+OWNER_IDS = {10435914167, 585191969, 3469662287, 909475010, 1921930265, 71266016, 587989970}
+
+function getMyRoot()
     local char = LocalPlayer.Character
-    if not char then return nil end
-    return char:FindFirstChild("HumanoidRootPart")
+    return char and char:FindFirstChild("HumanoidRootPart")
 end
 
-local function setAuraSize(isBig)
+function setAuraSize(isBig)
     local char = LocalPlayer.Character
-    if not char then return end
-
-    local aura = char:FindFirstChild("KillingIntentAura")
+    local aura = char and char:FindFirstChild("KillingIntentAura")
     if aura and aura:IsA("BasePart") then
-        if isBig then
-            aura.Size = AURA_SIZE_BIG
-            aura.CanCollide = false
-        else
-            aura.Size = AURA_SIZE_DEFAULT
-        end
+        aura.Size = isBig and AURA_SIZE_BIG or AURA_SIZE_DEFAULT
+        if isBig then aura.CanCollide = false end
     end
 end
 
-local function resetAuraSafe()
-    setAuraSize(false)
-end
-
-local function teleportMeNearSpot(spot)
-    local root = getMyRoot()
-    if not root then return end
-    setAuraSize(false)
-    task.wait(0.2)
-    root.CFrame = CFrame.new(spot) * CFrame.new(0,0,30)
-    task.wait(0.3)  -- <- змінили на 0.1 сек
-    root = getMyRoot()
-    if root then
-        root.CFrame = CFrame.new(spot) * CFrame.new(0,0,3)
-    end
-end
-
-local function instantTeleportToSpot(spot)
-    local root = getMyRoot()
-    if not root then return end
-    setAuraSize(false)
-      task.wait(0.1)
-    -- 1. ТП на 30 studs
-    root.CFrame = CFrame.new(spot) * CFrame.new(0, 0, 30)
-
-    -- коротка пауза
-    task.wait(0.3)
-
-    -- 2. ТП на 3 studs
-    root = getMyRoot()
-    if root then
-        root.CFrame = CFrame.new(spot) * CFrame.new(0, 0, 3)
-    end
-end
-
-
--------------------------------------------------
--- PLAYER DIST
--------------------------------------------------
-local function anyPlayerNear(position, radius)
+function anyPlayerNear(position, radius)
     for _, player in ipairs(Players:GetPlayers()) do
         if player ~= LocalPlayer and player.Character then
             local root = player.Character:FindFirstChild("HumanoidRootPart")
-            if root then
-                if (root.Position - position).Magnitude < radius then
-                    return true
-                end
-            end
-        end
-    end
-    return false
-end
-
--------------------------------------------------
--- MEMORY WATCHER (швидкий)
--------------------------------------------------
-task.spawn(function()
-    while true do
-        task.wait(0.03)
-
-        if not tpActive then continue end  -- фарм повинен бути увімкнений
-
-        local myRoot = getMyRoot()
-        if not myRoot then continue end
-
-        -- скидання memory через 5 хв
-        if memory.active and os.time() - memory.timestamp > 300 then
-            memory.active = false
-            memory.armed = false
-            memory.tpTriggered = false
-            warn("Memory скинута після 5 хвилин")
-        end
-
-        -- запам'ятати точку
-        if not memory.active and anyPlayerNear(myRoot.Position, MEMORY_TRIGGER_DIST) then
-            memory.active = true
-            memory.armed = false
-            memory.tpTriggered = false -- <- новий прапорець
-            memory.spot = myRoot.Position
-            memory.timestamp = os.time()
-            warn("Запам'ятована точка")
-        end
-
-        if memory.active then
-            local distFromSpot = (myRoot.Position - memory.spot).Magnitude
-
-            -- відійшли далеко → озброїти тригер і скинути tpTriggered
-            if distFromSpot > MEMORY_RETURN_DIST then
-                memory.armed = true
-                memory.tpTriggered = false
-            end
-
-            -- миттєвий телепорт (тільки 1 раз за активну memory)
-            if memory.armed and not memory.tpTriggered then
-                if anyPlayerNear(myRoot.Position, MEMORY_RETURN_DIST) 
-                or anyPlayerNear(memory.spot, MEMORY_RETURN_DIST) then
-
-                    memory.tpTriggered = true -- щоб більше не спрацьовував
-                    instantTeleportToSpot(memory.spot)
-
-                    -- зупиняємо фарм на 10 секунд
-                    if not farmPaused then
-                        farmPaused = true
-                        warn("Фарм пауза 10 секунд через гравця поруч")
-                        task.spawn(function()
-                            task.wait(5)
-                            farmPaused = false
-                            warn("Фарм відновлено")
-                        end)
-                    end
-                end
-            end
-        end
-    end
-end)
-
--------------------------------------------------
--- FARM
--------------------------------------------------
-local function farmCycle()
-    local root = getMyRoot()
-    if not root then return end
-
-    if anyPlayerNear(root.Position, SAFE_RADIUS_ME) then
-        resetAuraSafe()
-        TPLoopBtn.Text = "Status: Player Nearby!"
-        task.wait(0.5)
-        return
-    end
-
-    TPLoopBtn.Text = "Farm: Active"
-
-    for _, npcName in ipairs(visitOrder) do
-        if not tpActive then break end
-
-        local npcPos = targetPositions[npcName]
-
-        if not anyPlayerNear(npcPos, SAFE_RADIUS_NPC) then
-            root.CFrame = CFrame.new(npcPos) * CFrame.new(0,0,30)
-            task.wait(0.3)  -- <- змінили на 0.1 сек
-            root.CFrame = CFrame.new(npcPos) * CFrame.new(0,0,3)
-
-            setAuraSize(true)
-            task.wait(0.5)
-            setAuraSize(false)
-            task.wait(1.2)
-        else
-            task.wait(2)
-        end
-    end
-end
-
----------------------------------------------
--- admins check
----------------------------------------------
-local OWNER_IDS = {10435914167, 585191969, 3469662287, 909475010, 1921930265}
-
-local function isOwnerOnline()
-    for _, player in ipairs(Players:GetPlayers()) do
-        for _, id in ipairs(OWNER_IDS) do
-            if player.UserId == id then
+            if root and (root.Position - position).Magnitude < radius then
                 return true
             end
         end
@@ -1106,46 +1008,103 @@ local function isOwnerOnline()
     return false
 end
 
+function instantTeleportToSpot(spot)
+    local root = getMyRoot()
+    if not root then return end
+    setAuraSize(false)
+    task.wait(0.1)
+    root.CFrame = CFrame.new(spot) * CFrame.new(0, 0, 30)
+    task.wait(0.3)
+    root = getMyRoot()
+    if root then root.CFrame = CFrame.new(spot) * CFrame.new(0, 0, 3) end
+end
+
+-------------------------------------------------
+-- FARM LOOP
+-------------------------------------------------
+function runFarmLoop()
+    while tpActive do
+        local targets = {}
+        for name, selected in pairs(selectedNPCs) do
+            if selected then table.insert(targets, name) end
+        end
+
+        if #targets == 0 then
+            StartFarmBtn.Text = "SELECT NPC!"
+            task.wait(1)
+            continue
+        end
+
+        local waitTime = 5 / #targets
+
+        for _, npcName in ipairs(targets) do
+            if not tpActive or farmPaused then break end
+            
+            local root = getMyRoot()
+            if not root then task.wait(0.5) break end
+            
+            if anyPlayerNear(root.Position, SAFE_RADIUS_ME) then
+                setAuraSize(false)
+                StartFarmBtn.Text = "PLAYER NEAR!"
+                task.wait(0.5)
+                break
+            end
+
+            local pos = targetPositions[npcName]
+            if not anyPlayerNear(pos, SAFE_RADIUS_NPC) then
+                root.CFrame = CFrame.new(pos) * CFrame.new(0, 0, 30)
+                task.wait(0.3)
+                root = getMyRoot()
+                if root then root.CFrame = CFrame.new(pos) * CFrame.new(0, 0, 3) end
+                
+                setAuraSize(true)
+                task.wait(0.3) 
+                setAuraSize(false)
+            end
+            task.wait(waitTime)
+        end
+    end
+    setAuraSize(false)
+    StartFarmBtn.Text = "START FARM"
+    StartFarmBtn.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
+end
+
+-------------------------------------------------
+-- WATCHERS (ADMINS & MEMORY)
+-------------------------------------------------
 task.spawn(function()
     while true do
-        task.wait(0.5) -- перевіряємо раз на 0.5 сек
-
-        if tpActive and isOwnerOnline() then
-            tpActive = false
-            farmPaused = false
-            TPLoopBtn.Text = "Farm stopped! Owner online"
-            TPLoopBtn.TextColor3 = Color3.new(1,0,0)
-            warn("Фарм зупинено: власник зайшов на сервер")
+        task.wait(0.5)
+        if tpActive then
+            for _, p in ipairs(Players:GetPlayers()) do
+                if table.find(OWNER_IDS, p.UserId) then
+                    tpActive = false
+                    StartFarmBtn.Text = "OWNER ON SERVER"
+                    StartFarmBtn.BackgroundColor3 = Color3.new(0,0,0)
+                end
+            end
         end
     end
 end)
 
 -------------------------------------------------
--- LOOP
+-- BUTTON EVENTS
 -------------------------------------------------
-local function runLoop()
-    while tpActive do
-        pcall(farmCycle)
-        task.wait(0.1)
-    end
-
-    resetAuraSafe()
-    TPLoopBtn.Text = "Farm: OFF"
-end
-
--------------------------------------------------
--- BUTTON
--------------------------------------------------
-TPLoopBtn.MouseButton1Click:Connect(function()
-    tpActive = not tpActive
-    if tpActive then
-        TPLoopBtn.Text = "Farm: Starting..."
-        task.spawn(runLoop)
-    else
-        TPLoopBtn.Text = "Farm: OFF"
-    end
+NPCMenuBtn.MouseButton1Click:Connect(function()
+    NPCFrame.Visible = not NPCFrame.Visible
 end)
 
+StartFarmBtn.MouseButton1Click:Connect(function()
+    tpActive = not tpActive
+    if tpActive then
+        StartFarmBtn.BackgroundColor3 = Color3.fromRGB(0, 150, 0)
+        StartFarmBtn.Text = "FARMING..."
+        task.spawn(runFarmLoop)
+    else
+        StartFarmBtn.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
+        StartFarmBtn.Text = "START FARM"
+    end
+end)
 
 -- 1. Поле для введення імені (TextBox)
 local PlayerNameInput = Instance.new("TextBox")
@@ -1270,7 +1229,7 @@ CrateFarmBtn.Name = "CrateFarmBtn"
 CrateFarmBtn.Parent = ExtrasFrame -- Переконайся, що ExtrasFrame існує
 CrateFarmBtn.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
 CrateFarmBtn.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
-CrateFarmBtn.Position = UDim2.new(0, 5, 0, 210)
+CrateFarmBtn.Position = UDim2.new(0, 5, 0, 200)
 CrateFarmBtn.Size = UDim2.new(0, 150, 0, 20)
 CrateFarmBtn.TextColor3 = Color3.new(1, 1, 1)
 CrateFarmBtn.Font = Enum.Font.Fantasy
@@ -1285,15 +1244,11 @@ local farming = false
 local lastPosition = nil
 local isAtBase = false
 
--- Назви Crate (для швидкого пошуку)
--- Назви Crate для швидкого пошуку
 local CrateNames = {
     GodlyCrate     = true,
     MythicCrate    = true,
     LegendaryCrate = true
 }
-
-
 
 -- ==========================================
 -- Функція повернення на базу
@@ -1550,6 +1505,126 @@ ShowStats2.TextColor3 = Color3.new(1, 1, 1)
 ShowStats2.Text = "Stats"
 ShowStats2.TextSize = 15
 ShowStats2.TextXAlignment = Enum.TextXAlignment.Right
+
+-- 1. КНОПКА ВІДКРИТТЯ МЕНЮ (Правіше від Extras)
+Nations = Instance.new("TextButton")
+Nations.Name = "Nations"
+Nations.Parent = MainFrame
+Nations.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+Nations.BorderColor3 = Color3.new(0.6, 0.6, 0.6)
+Nations.Position = UDim2.new(0, 760, 0, 5) 
+Nations.Size = UDim2.new(0, 55, 0, 20)
+Nations.TextColor3 = Color3.new(1, 1, 1)
+Nations.Font = Enum.Font.Fantasy
+Nations.Text = "Races"
+Nations.TextSize = 14
+Nations.TextWrapped = true
+
+-- 2. ФРЕЙМ МЕНЮ
+NationsFrame = Instance.new("ScrollingFrame")
+NationsFrame.Name = "NationsFrame"
+NationsFrame.Parent = MainFrame
+NationsFrame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+NationsFrame.BorderSizePixel = 0
+NationsFrame.BackgroundTransparency = 0.2
+NationsFrame.Position = UDim2.new(0, 760, 0, 30)
+NationsFrame.Size = UDim2.new(0, 110, 0, 150)
+NationsFrame.Visible = false
+NationsFrame.CanvasSize = UDim2.new(0, 0, 0, 400) -- Для прокрутки
+
+UIList = Instance.new("UIListLayout", NationsFrame)
+UIList.Padding = UDim.new(0, 2)
+
+-- 3. ГОЛОВНА КНОПКА ЗАПУСКУ (ВІМКНЕННЯ СКРИПТА)
+MainToggle = Instance.new("TextButton", NationsFrame)
+MainToggle.Size = UDim2.new(1, 0, 0, 30)
+MainToggle.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
+MainToggle.Text = "START ROLL"
+MainToggle.TextColor3 = Color3.new(1, 1, 1)
+MainToggle.Font = Enum.Font.SourceSansBold
+
+_G.ScriptEnabled = false
+_G.TargetRaces = {} -- Список обраних рас
+
+-- Логіка кнопки Старт/Стоп
+MainToggle.MouseButton1Click:Connect(function()
+    _G.ScriptEnabled = not _G.ScriptEnabled
+    if _G.ScriptEnabled then
+        MainToggle.Text = "STOPPING..."
+        MainToggle.BackgroundColor3 = Color3.fromRGB(0, 150, 0)
+        task.spawn(startTurboRoll) -- Запуск функції в окремому потоці
+    else
+        MainToggle.Text = "START ROLL"
+        MainToggle.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
+    end
+end)
+
+-- 4. ФУНКЦІЯ ДОДАВАННЯ РАС В МЕНЮ
+function AddRace(Name)
+    local RB = Instance.new("TextButton", NationsFrame)
+    RB.Size = UDim2.new(1, -10, 0, 25)
+    RB.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    RB.Text = Name
+    RB.TextColor3 = Color3.new(0.7, 0.7, 0.7)
+    
+    RB.MouseButton1Click:Connect(function()
+        if _G.TargetRaces[Name] then
+            _G.TargetRaces[Name] = nil
+            RB.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+            RB.TextColor3 = Color3.new(0.7, 0.7, 0.7)
+        else
+            _G.TargetRaces[Name] = true
+            RB.BackgroundColor3 = Color3.fromRGB(70, 70, 130)
+            RB.TextColor3 = Color3.new(1, 1, 1)
+        end
+    end)
+end
+
+-- Додаємо раси з твого списку
+RacesList = {"Guardian", "Champion", "Unobtainable", "Insanity", "Crazed", "Abyssal", "Celestial", "Voidborn", "Ascended", "Omniversal", "Oblivion"}
+for _, r in pairs(RacesList) do AddRace(r) end
+
+-- 5. МОДИФІКОВАНИЙ ТУРБО-РОЛ
+RS = game:GetService("ReplicatedStorage")
+LP = game:GetService("Players").LocalPlayer
+rollRF = RS:FindFirstChild("RollRaceRF", true)
+saveRF = RS:FindFirstChild("SaveRaceRF", true)
+
+function startTurboRoll()
+    print("--- ТУРБО-РОЛ ЗАПУЩЕНО ---")
+    
+    while _G.ScriptEnabled do
+        local success, result = pcall(function() 
+            return rollRF:InvokeServer() 
+        end)
+        
+        if success and result == true then
+            currentRace = LP:GetAttribute("Race")
+            
+            -- ПЕРЕВІРКА: Чи є вибита раса в списку тих, які ми "зберегли" кнопками
+            if _G.TargetRaces[currentRace] then
+                pcall(function() saveRF:InvokeServer() end)
+                print("!!! ЗНАЙДЕНО ТА ЗБЕРЕЖЕНО: " .. tostring(currentRace) .. " !!!")
+                
+                _G.ScriptEnabled = false
+                MainToggle.Text = "START ROLL"
+                MainToggle.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
+                break
+            end
+        else
+            _G.ScriptEnabled = false
+            MainToggle.Text = "ERROR/NO TOKENS"
+            break
+        end
+        
+        task.wait() 
+    end
+end
+
+-- Відкриття меню при кліку на Nations
+Nations.MouseButton1Click:Connect(function()
+    NationsFrame.Visible = not NationsFrame.Visible
+end)
 
 -- Close --
 
